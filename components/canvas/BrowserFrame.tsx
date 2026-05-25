@@ -6,31 +6,31 @@ export function BrowserFrame() {
   return (
     <div className="flex flex-col w-full h-full bg-[#1c1c1e] rounded-lg overflow-hidden">
       {/* Title bar */}
-      <div className="flex items-center gap-2 px-4 py-3 bg-[#2c2c2e] border-b border-[#3a3a3c] shrink-0">
+      <div className="flex items-center gap-2 px-3 md:px-4 py-2 md:py-3 bg-[#2c2c2e] border-b border-[#3a3a3c] shrink-0">
         {/* macOS dots */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1 md:gap-1.5">
           <span
-            className="w-3 h-3 rounded-full"
+            className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full"
             style={{ background: "#ff5f57" }}
             title="Close"
           />
           <span
-            className="w-3 h-3 rounded-full"
+            className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full"
             style={{ background: "#ffbd2e" }}
             title="Minimise"
           />
           <span
-            className="w-3 h-3 rounded-full"
+            className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full"
             style={{ background: "#28c840" }}
             title="Maximise"
           />
         </div>
 
         {/* Fake URL bar */}
-        <div className="flex-1 mx-4">
-          <div className="flex items-center gap-2 bg-[#1c1c1e] rounded-md px-3 py-1 max-w-xs mx-auto">
+        <div className="flex-1 mx-2 md:mx-4">
+          <div className="flex items-center gap-1.5 bg-[#1c1c1e] rounded-md px-2 md:px-3 py-0.5 md:py-1 max-w-xs mx-auto">
             <svg
-              className="w-3 h-3 text-[#6b6b6b] shrink-0"
+              className="w-2.5 h-2.5 md:w-3 md:h-3 text-[#6b6b6b] shrink-0"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -40,7 +40,7 @@ export function BrowserFrame() {
                 clipRule="evenodd"
               />
             </svg>
-            <span className="text-[11px] text-[#6b6b6b] truncate select-none">
+            <span className="text-[9px] md:text-[11px] text-[#6b6b6b] truncate select-none">
               kromastudio.in
             </span>
           </div>

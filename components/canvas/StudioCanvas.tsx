@@ -20,16 +20,14 @@ export function StudioCanvas() {
       id="studio-canvas"
       className="relative flex items-center justify-center overflow-hidden"
       style={{
-        width: dims ? `${dims.width}px` : "100%",
-        height: dims ? `${dims.height}px` : "100%",
-        maxWidth: "100%",
-        maxHeight: "100%",
+        width: dims ? `${dims.width}px` : "600px",
+        height: dims ? `${dims.height}px` : "600px",
         background: preset.css,
         padding: `${padding}px`,
         flexShrink: 0,
       }}
     >
-      {/* Inner browser frame container */}
+      {/* Inner browser frame */}
       <div
         className="w-full h-full"
         style={{
@@ -42,7 +40,7 @@ export function StudioCanvas() {
       </div>
 
       {/* Watermark */}
-      <span className="absolute bottom-2 right-3 text-[10px] text-white/30 select-none pointer-events-none font-mono tracking-wide">
+      <span className="absolute bottom-1.5 right-2 text-[9px] text-white/30 select-none pointer-events-none font-mono tracking-wide">
         via KromaStudio
       </span>
     </div>
