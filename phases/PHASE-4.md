@@ -131,7 +131,7 @@ setWatermarkVisible: (v: boolean) => void
     {/* Twitter / X */}
     <a
       href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-        'Just created a 🔥 browser mockup with @KromaStudio — 100% free & client-side!\n\nkromastudio.online'
+        'Just created a 🔥 browser mockup with @KromaStudio — 100% free & client-side!\n\nkromastudio.in'
       )}`}
       target="_blank"
       rel="noopener noreferrer"
@@ -147,7 +147,7 @@ setWatermarkVisible: (v: boolean) => void
     {/* LinkedIn */}
     <a
       href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-        'https://kromastudio.online'
+        'https://kromastudio.in'
       )}`}
       target="_blank"
       rel="noopener noreferrer"
@@ -176,7 +176,7 @@ setWatermarkVisible: (v: boolean) => void
 openGraph: {
   title: 'KromaStudio — Free Browser Mockup Generator',
   description: 'Turn screenshots & code into premium aesthetic images and looping videos. 100% free, zero sign-up, runs in your browser.',
-  url: 'https://kromastudio.online',
+  url: 'https://kromastudio.in',
   images: [{ url: '/og-image.png', width: 1200, height: 630 }],
 }
 twitter: {

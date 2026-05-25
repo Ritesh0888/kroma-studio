@@ -41,7 +41,7 @@ export function BrowserFrame() {
               />
             </svg>
             <span className="text-[11px] text-[#6b6b6b] truncate select-none">
-              kromastudio.online
+              kromastudio.in
             </span>
           </div>
         </div>

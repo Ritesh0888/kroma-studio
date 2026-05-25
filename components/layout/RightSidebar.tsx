@@ -142,7 +142,7 @@ export function RightSidebar() {
       {/* Bottom brand */}
       <div className="px-4 py-3 border-t border-[#1a1a1a] shrink-0">
         <p className="text-[10px] text-[#2a2a2a] text-center">
-          kromastudio.online
+          kromastudio.in
         </p>
       </div>
     </aside>
