@@ -5,6 +5,8 @@ import { BorderRadiusControl } from "@/components/controls/BorderRadiusControl";
 import { ShadowControl } from "@/components/controls/ShadowControl";
 import { AspectRatioControl } from "@/components/controls/AspectRatioControl";
 import { BackgroundControl } from "@/components/controls/BackgroundControl";
+import { ModeSelector } from "@/components/controls/ModeSelector";
+import { AnimationTeaser } from "@/components/controls/AnimationTeaser";
 
 function SectionDivider({ label }: { label: string }) {
   return (
@@ -49,6 +51,13 @@ export function LeftSidebar() {
       {/* Controls */}
       <div className="flex-1 px-4 py-4 flex flex-col gap-5 overflow-y-auto">
         <div>
+          <SectionDivider label="Mode" />
+          <div className="mt-4">
+            <ModeSelector />
+          </div>
+        </div>
+
+        <div>
           <SectionDivider label="Canvas" />
           <div className="mt-4 flex flex-col gap-5">
             <AspectRatioControl />
@@ -62,6 +71,13 @@ export function LeftSidebar() {
             <PaddingControl />
             <BorderRadiusControl />
             <ShadowControl />
+          </div>
+        </div>
+
+        <div>
+          <SectionDivider label="Animate" />
+          <div className="mt-4">
+            <AnimationTeaser />
           </div>
         </div>
       </div>
