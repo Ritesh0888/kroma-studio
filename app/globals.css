@@ -20,6 +20,17 @@
   box-sizing: border-box;
 }
 
+button,
+[role="button"],
+a[href],
+label[for] {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
 html,
 body {
   margin: 0;

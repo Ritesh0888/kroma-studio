@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useStudioStore, type AspectRatio } from "@/store/useStudioStore";
 import { BACKGROUND_PRESETS } from "@/lib/backgrounds";
 import { SliderControl } from "@/components/controls/SliderControl";
@@ -279,13 +279,42 @@ function AnimateTab() {
   );
 }
 
+/* ── Tab icons ── */
+
+const BgIcon = () => (
+  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c0 0-4 3.5-4 9s4 9 4 9M12 3c0 0 4 3.5 4 9s-4 9-4 9M3 12h18" />
+  </svg>
+);
+
+const FrameIcon = () => (
+  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+    <rect x="3" y="3" width="18" height="18" rx="3" />
+    <path strokeLinecap="round" d="M3 9h18M3 15h18M9 3v18M15 3v18" />
+  </svg>
+);
+
+const SizeIcon = () => (
+  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+    <rect x="2" y="6" width="20" height="12" rx="2" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 6v12M15 6v12" />
+  </svg>
+);
+
+const AnimateIcon = () => (
+  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+    <polygon points="5,3 19,12 5,21" strokeLinejoin="round" />
+  </svg>
+);
+
 /* ── Tab definitions ── */
 
-const TABS: { id: Tab; label: string; emoji: string }[] = [
-  { id: "bg", label: "Background", emoji: "🎨" },
-  { id: "frame", label: "Frame", emoji: "📐" },
-  { id: "size", label: "Size", emoji: "🖼️" },
-  { id: "animate", label: "Animate", emoji: "🎬" },
+const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
+  { id: "bg", label: "Background", icon: <BgIcon /> },
+  { id: "frame", label: "Frame", icon: <FrameIcon /> },
+  { id: "size", label: "Size", icon: <SizeIcon /> },
+  { id: "animate", label: "Animate", icon: <AnimateIcon /> },
 ];
 
 /* ── Main component ── */
@@ -309,7 +338,7 @@ export function MobileControlSheet() {
                   : "border-transparent text-[#4a4a4a]"
               }`}
             >
-              <span className="text-sm">{tab.emoji}</span>
+              {tab.icon}
               <span>{tab.label}</span>
             </button>
           );
