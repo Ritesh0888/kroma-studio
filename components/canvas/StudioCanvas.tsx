@@ -10,8 +10,14 @@ export function StudioCanvas() {
   const shadowDepth = useStudioStore((s) => s.shadowDepth);
   const aspectRatio = useStudioStore((s) => s.aspectRatio);
   const backgroundId = useStudioStore((s) => s.backgroundId);
+  const customBgFrom = useStudioStore((s) => s.customBgFrom);
+  const customBgTo = useStudioStore((s) => s.customBgTo);
 
-  const preset = getPresetById(backgroundId);
+  const backgroundCss =
+    backgroundId === "custom"
+      ? `linear-gradient(135deg, ${customBgFrom}, ${customBgTo})`
+      : getPresetById(backgroundId).css;
+
   const dims = ASPECT_RATIO_DIMENSIONS[aspectRatio];
   const shadow = computeShadow(shadowDepth);
 
@@ -22,7 +28,7 @@ export function StudioCanvas() {
       style={{
         width: dims ? `${dims.width}px` : "600px",
         height: dims ? `${dims.height}px` : "600px",
-        background: preset.css,
+        background: backgroundCss,
         padding: `${padding}px`,
         flexShrink: 0,
       }}

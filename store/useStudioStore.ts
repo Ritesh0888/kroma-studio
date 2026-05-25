@@ -22,6 +22,8 @@ interface StudioState {
   shadowDepth: number;
   aspectRatio: AspectRatio;
   backgroundId: string;
+  customBgFrom: string;
+  customBgTo: string;
   uploadedImage: string | null;
   isExporting: boolean;
 
@@ -30,6 +32,8 @@ interface StudioState {
   setShadowDepth: (v: number) => void;
   setAspectRatio: (r: AspectRatio) => void;
   setBackgroundId: (id: string) => void;
+  setCustomBgFrom: (c: string) => void;
+  setCustomBgTo: (c: string) => void;
   setUploadedImage: (url: string | null) => void;
   setIsExporting: (v: boolean) => void;
 }
@@ -40,6 +44,8 @@ export const useStudioStore = create<StudioState>((set) => ({
   shadowDepth: 60,
   aspectRatio: "16:9",
   backgroundId: "midnight",
+  customBgFrom: "#a855f7",
+  customBgTo: "#ec4899",
   uploadedImage: null,
   isExporting: false,
 
@@ -48,6 +54,8 @@ export const useStudioStore = create<StudioState>((set) => ({
   setShadowDepth: (v) => set({ shadowDepth: v }),
   setAspectRatio: (r) => set({ aspectRatio: r }),
   setBackgroundId: (id) => set({ backgroundId: id }),
+  setCustomBgFrom: (c) => set({ customBgFrom: c }),
+  setCustomBgTo: (c) => set({ customBgTo: c }),
   setUploadedImage: (url) => set({ uploadedImage: url }),
   setIsExporting: (v) => set({ isExporting: v }),
 }));

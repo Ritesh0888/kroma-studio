@@ -6,6 +6,7 @@ import { BACKGROUND_PRESETS } from "@/lib/backgrounds";
 import { SliderControl } from "@/components/controls/SliderControl";
 import { ModeSelector } from "@/components/controls/ModeSelector";
 import { EmailCapturePopover } from "@/components/ui/EmailCapturePopover";
+import { CustomColorPicker } from "@/components/ui/CustomColorPicker";
 
 type Tab = "bg" | "frame" | "size" | "animate";
 
@@ -47,18 +48,27 @@ const ANIMATION_PRESETS = [
 
 function BgTab() {
   const backgroundId = useStudioStore((s) => s.backgroundId);
+  const customBgFrom = useStudioStore((s) => s.customBgFrom);
+  const customBgTo = useStudioStore((s) => s.customBgTo);
   const setBackgroundId = useStudioStore((s) => s.setBackgroundId);
-  const activeLabel = BACKGROUND_PRESETS.find((p) => p.id === backgroundId)?.label;
+  const [showPicker, setShowPicker] = useState(false);
+
+  const isCustomActive = backgroundId === "custom";
+  const customCss = `linear-gradient(135deg, ${customBgFrom}, ${customBgTo})`;
+  const activeLabel = isCustomActive
+    ? "Custom gradient"
+    : BACKGROUND_PRESETS.find((p) => p.id === backgroundId)?.label;
 
   return (
     <div className="flex flex-col gap-3">
+      {/* Horizontal swatch row */}
       <div className="hide-scrollbar flex gap-3 overflow-x-auto pb-1 px-4">
         {BACKGROUND_PRESETS.map((preset) => {
           const active = backgroundId === preset.id;
           return (
             <button
               key={preset.id}
-              onClick={() => setBackgroundId(preset.id)}
+              onClick={() => { setBackgroundId(preset.id); setShowPicker(false); }}
               title={preset.label}
               className="flex flex-col items-center gap-1.5 shrink-0"
             >
@@ -76,9 +86,45 @@ function BgTab() {
             </button>
           );
         })}
+
+        {/* Custom "+" swatch */}
+        <button
+          onClick={() => {
+            setBackgroundId("custom");
+            setShowPicker((v) => !v);
+          }}
+          className="flex flex-col items-center gap-1.5 shrink-0"
+          title="Custom gradient"
+        >
+          <div
+            className={`w-14 h-14 rounded-full border-[3px] flex items-center justify-center transition-all ${
+              isCustomActive
+                ? "border-[#a855f7] scale-110 shadow-lg shadow-[#a855f7]/30"
+                : "border-dashed border-[#3a3a3a]"
+            }`}
+            style={{ background: isCustomActive ? customCss : "#111" }}
+          >
+            {!isCustomActive && (
+              <svg className="w-5 h-5 text-[#4a4a4a]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            )}
+          </div>
+          <span className={`text-[9px] leading-none ${isCustomActive ? "text-[#a855f7]" : "text-[#4a4a4a]"}`}>
+            Custom
+          </span>
+        </button>
       </div>
+
       {activeLabel && (
         <p className="text-[10px] text-[#6b6b6b] px-4">{activeLabel}</p>
+      )}
+
+      {/* Inline color picker */}
+      {isCustomActive && showPicker && (
+        <div className="px-4">
+          <CustomColorPicker onClose={() => setShowPicker(false)} />
+        </div>
       )}
     </div>
   );
