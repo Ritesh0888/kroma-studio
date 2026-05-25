@@ -1,7 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { useExport } from "@/hooks/useExport";
 import { useStudioStore } from "@/store/useStudioStore";
+import { ImageExportModal } from "@/components/ui/ImageExportModal";
+import { EmailCapturePopover } from "@/components/ui/EmailCapturePopover";
 
 function AdPlaceholder({ label, height }: { label: string; height: string }) {
   return (
@@ -20,12 +23,16 @@ function AdPlaceholder({ label, height }: { label: string; height: string }) {
 }
 
 export function RightSidebar() {
-  const { exportPng } = useExport();
+  const { exportPng, exportedImageUrl, clearExportedImage } = useExport();
   const isExporting = useStudioStore((s) => s.isExporting);
   const uploadedImage = useStudioStore((s) => s.uploadedImage);
+  const [showVideoPopover, setShowVideoPopover] = useState(false);
 
   return (
-    <aside className="w-[20%] h-full flex flex-col bg-[#080808] border-l border-[#1a1a1a] shrink-0 overflow-y-auto">
+    <aside className="w-full h-full flex flex-col bg-[#080808] border-l border-[#1a1a1a] shrink-0">
+      {/* ── Scrollable content area — min-h-0 prevents flex overflow bug ── */}
+      <div className="flex-1 overflow-y-auto min-h-0">
+
       {/* Export section */}
       <div className="px-4 py-5 border-b border-[#1a1a1a]">
         <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest mb-3">
@@ -107,44 +114,94 @@ export function RightSidebar() {
         </div>
       </div>
 
-      {/* Coming soon: video */}
+      {/* Animated Video — SOON */}
       <div className="px-4 py-4 border-b border-[#1a1a1a]">
-        <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest mb-3">
-          Animated Video
-        </p>
-        <div className="w-full py-3 px-4 rounded-xl border border-dashed border-[#1e1e1e] bg-[#0a0a0a] flex flex-col items-center gap-1.5">
-          <svg
-            className="w-5 h-5 text-[#2a2a2a]"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.5}
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 9.75v9A2.25 2.25 0 004.5 18.75z"
-            />
-          </svg>
-          <span className="text-[10px] text-[#2a2a2a] font-medium">Phase 3</span>
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest">
+            Animated Video
+          </p>
+          <span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-gradient-to-r from-[#a855f7] to-[#ec4899] text-white leading-none tracking-wide shadow-sm shadow-[#a855f7]/40">
+            PHASE 3
+          </span>
         </div>
+
+        {/* Render Video button — clickable SOON */}
+        <div className="relative">
+          <button
+            onClick={() => setShowVideoPopover((v) => !v)}
+            className="relative w-full py-3 px-4 rounded-xl border border-[#a855f7]/20 bg-[#0a0a0a] hover:bg-[#a855f7]/5 hover:border-[#a855f7]/40 transition-all group flex flex-col items-center gap-2"
+          >
+            <div className="flex items-center gap-2">
+              <svg
+                className="w-4 h-4 text-[#3a3a3a] group-hover:text-[#a855f7]/50 transition-colors"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 9.75v9A2.25 2.25 0 004.5 18.75z"
+                />
+              </svg>
+              <span className="text-xs font-semibold text-[#3a3a3a] group-hover:text-[#6b6b6b] transition-colors">
+                Render Animated Video
+              </span>
+            </div>
+            <div className="flex items-center gap-3 text-[9px] text-[#2a2a2a]">
+              <span>5s loop</span>
+              <span>·</span>
+              <span>60fps</span>
+              <span>·</span>
+              <span>.webm</span>
+            </div>
+
+            {/* SOON badge */}
+            <span className="absolute -top-1.5 -right-1 text-[8px] font-bold px-1 py-0.5 rounded bg-gradient-to-r from-[#a855f7] to-[#ec4899] text-white leading-none tracking-wide shadow-sm shadow-[#a855f7]/40">
+              SOON
+            </span>
+          </button>
+
+          {showVideoPopover && (
+            <EmailCapturePopover
+              teaser="We are launching animated video loops next week — Float, 3D Tilt & Auto-Scroll. Drop your email to get early access the moment it goes live!"
+              onClose={() => setShowVideoPopover(false)}
+            />
+          )}
+        </div>
+
+        <p className="text-[10px] text-[#2a2a2a] mt-2 leading-relaxed">
+          Client-side .webm export — no upload, no server.
+        </p>
       </div>
 
-      {/* Ad zones */}
-      <div className="flex-1 px-4 py-4 flex flex-col gap-4">
-        <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest">
-          Sponsored
-        </p>
+      {/* Ad zones — desktop only (RightSidebar is hidden on mobile via page.tsx) */}
+      <div className="px-4 py-4 flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest">
+            Sponsored
+          </p>
+          <span className="text-[8px] text-[#2a2a2a] uppercase tracking-wider">Desktop</span>
+        </div>
         <AdPlaceholder label="Display Ad · 300×250" height="160px" />
         <AdPlaceholder label="Display Ad · 300×600" height="220px" />
       </div>
 
-      {/* Bottom brand */}
+      {/* ── End of scrollable area ── */}
+      </div>
+
+      {/* Fixed bottom brand — always visible */}
       <div className="px-4 py-3 border-t border-[#1a1a1a] shrink-0">
         <p className="text-[10px] text-[#2a2a2a] text-center">
           kromastudio.in
         </p>
       </div>
+
+      {/* iOS export fallback modal */}
+      {exportedImageUrl && (
+        <ImageExportModal imageUrl={exportedImageUrl} onClose={clearExportedImage} />
+      )}
     </aside>
   );
 }

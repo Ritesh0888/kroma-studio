@@ -21,7 +21,7 @@ function SectionDivider({ label }: { label: string }) {
 
 export function LeftSidebar() {
   return (
-    <aside className="w-[25%] h-full flex flex-col bg-[#080808] border-r border-[#1a1a1a] overflow-y-auto shrink-0">
+    <aside className="w-full h-full flex flex-col bg-[#080808] border-r border-[#1a1a1a] shrink-0">
       {/* Logo / Brand */}
       <div className="px-4 py-4 border-b border-[#1a1a1a] shrink-0">
         <div className="flex items-center gap-2">
@@ -48,8 +48,8 @@ export function LeftSidebar() {
         </div>
       </div>
 
-      {/* Controls */}
-      <div className="flex-1 px-4 py-4 flex flex-col gap-5 overflow-y-auto">
+      {/* Controls — min-h-0 is required for flex overflow + scroll to work */}
+      <div className="flex-1 min-h-0 px-4 py-4 flex flex-col gap-5 overflow-y-auto">
         <div>
           <SectionDivider label="Mode" />
           <div className="mt-4">

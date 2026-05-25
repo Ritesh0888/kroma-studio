@@ -67,6 +67,7 @@ input[type="range"]::-moz-range-thumb {
 
 ::-webkit-scrollbar {
   width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -76,4 +77,13 @@ input[type="range"]::-moz-range-thumb {
 ::-webkit-scrollbar-thumb {
   background: #2a2a2a;
   border-radius: 2px;
+}
+
+/* Hide horizontal scrollbar on gradient swatch row (Instagram-style) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

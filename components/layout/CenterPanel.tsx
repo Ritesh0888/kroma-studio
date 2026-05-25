@@ -1,16 +1,38 @@
 "use client";
 
+import { useRef, useEffect, useState } from "react";
 import { useStudioStore, ASPECT_RATIO_DIMENSIONS } from "@/store/useStudioStore";
 import { StudioCanvas } from "@/components/canvas/StudioCanvas";
 
 export function CenterPanel() {
   const aspectRatio = useStudioStore((s) => s.aspectRatio);
   const dims = ASPECT_RATIO_DIMENSIONS[aspectRatio];
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  // Compute CSS scale so the canvas always fits the viewport without distortion
+  useEffect(() => {
+    if (!dims) { setScale(1); return; }
+
+    function compute() {
+      if (!viewportRef.current || !dims) return;
+      const { clientWidth: cw, clientHeight: ch } = viewportRef.current;
+      const padding = 24;
+      const scaleX = (cw - padding * 2) / dims.width;
+      const scaleY = (ch - padding * 2) / dims.height;
+      setScale(Math.min(scaleX, scaleY, 1));
+    }
+
+    compute();
+    const ro = new ResizeObserver(compute);
+    if (viewportRef.current) ro.observe(viewportRef.current);
+    return () => ro.disconnect();
+  }, [dims]);
 
   return (
-    <section className="flex-1 h-full flex flex-col bg-[#050505] overflow-hidden">
-      {/* Top bar */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-[#1a1a1a] shrink-0">
+    <section className="flex-1 flex flex-col bg-[#050505] overflow-hidden min-h-0">
+      {/* Top bar — desktop only */}
+      <div className="hidden md:flex items-center justify-between px-5 py-3 border-b border-[#1a1a1a] shrink-0">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-[#28c840] animate-pulse" />
           <span className="text-xs text-[#6b6b6b]">Canvas Preview</span>
@@ -20,16 +42,26 @@ export function CenterPanel() {
         </span>
       </div>
 
-      {/* Canvas viewport — dots pattern background */}
+      {/* Canvas viewport — dot grid, canvas scales to fit */}
       <div
-        className="flex-1 flex items-center justify-center overflow-hidden p-6"
+        ref={viewportRef}
+        className="flex-1 flex items-center justify-center overflow-hidden min-h-0 p-3 md:p-6"
         style={{
-          backgroundImage:
-            "radial-gradient(circle, #1e1e1e 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, #1e1e1e 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       >
-        <StudioCanvas />
+        {/* Scale wrapper — shrinks canvas proportionally on small screens */}
+        <div
+          style={{
+            transform: `scale(${scale})`,
+            transformOrigin: "center center",
+            // Keep DOM dimensions at natural size; CSS scale handles visual fit
+            flexShrink: 0,
+          }}
+        >
+          <StudioCanvas />
+        </div>
       </div>
     </section>
   );
