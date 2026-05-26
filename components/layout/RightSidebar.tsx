@@ -49,7 +49,7 @@ export function RightSidebar() {
 
         {/* Primary Export Button */}
         <button
-          onClick={() => { track("export_png_click"); exportPng(); }}
+          onClick={() => { track("export_png_click", { source: "desktop" }); exportPng(); }}
           disabled={isExporting}
           className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all relative overflow-hidden group ${
             isExporting
@@ -165,7 +165,10 @@ export function RightSidebar() {
 
         {/* Render Video button */}
         <button
-          onClick={() => { track("video_record_click", { preset: animationPreset, duration: recordDuration }); startRecording(); }}
+          onClick={() => {
+            track("video_record_click", { preset: animationPreset, duration: recordDuration, source: "desktop" });
+            startRecording();
+          }}
           disabled={isRecording || animationPreset === "none" || isSafari}
           className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all relative overflow-hidden group ${
             isRecording

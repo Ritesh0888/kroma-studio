@@ -46,7 +46,11 @@ function BgTab() {
           return (
             <button
               key={preset.id}
-              onClick={() => { setBackgroundId(preset.id); setShowPicker(false); }}
+              onClick={() => {
+                track("background_change", { preset: preset.id, label: preset.label, source: "mobile" });
+                setBackgroundId(preset.id);
+                setShowPicker(false);
+              }}
               title={preset.label}
               className="flex flex-col items-center gap-1.5 shrink-0"
             >
@@ -67,7 +71,11 @@ function BgTab() {
 
         {/* Custom "+" swatch */}
         <button
-          onClick={() => { setBackgroundId("custom"); setShowPicker((v) => !v); }}
+          onClick={() => {
+            track("background_custom_open", { source: "mobile" });
+            setBackgroundId("custom");
+            setShowPicker((v) => !v);
+          }}
           className="flex flex-col items-center gap-1.5 shrink-0"
           title="Custom gradient"
         >
@@ -181,7 +189,10 @@ function SizeTab() {
             return (
               <button
                 key={value}
-                onClick={() => setAspectRatio(value)}
+                onClick={() => {
+                  track("aspect_ratio_change", { ratio: value, source: "mobile" });
+                  setAspectRatio(value);
+                }}
                 className={`flex-1 py-2.5 rounded-lg border text-xs font-semibold transition-all ${
                   active
                     ? "border-neon-purple bg-neon-purple/10 text-neon-purple"
@@ -363,7 +374,10 @@ export function MobileControlSheet() {
           return (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => {
+                track("mobile_control_tab_select", { tab: tab.id });
+                setActiveTab(tab.id);
+              }}
               className={`relative shrink-0 px-5 flex items-center justify-center gap-1.5 pb-2.5 text-[11px] font-medium transition-all border-b-2 whitespace-nowrap ${
                 active
                   ? "border-neon-purple text-neon-purple"
