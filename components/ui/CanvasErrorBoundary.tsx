@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { track } from "@/lib/analytics";
 
 interface State {
   hasError: boolean;
@@ -22,9 +23,11 @@ export class CanvasErrorBoundary extends React.Component<
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
     console.error("[CanvasErrorBoundary]", error, info.componentStack);
+    track("canvas_error", { message: error.message });
   }
 
   handleReset = () => {
+    track("canvas_error_retry_click");
     this.setState({ hasError: false, message: "" });
   };
 

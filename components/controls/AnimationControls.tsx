@@ -28,6 +28,16 @@ export function AnimationControls() {
     track("animation_preset_select", { preset: id });
   }
 
+  function handleDurationClick(duration: 5 | 10) {
+    setRecordDuration(duration);
+    track("record_duration_select", { duration, preset });
+  }
+
+  function handleScrollSpeedClick(speed: ScrollSpeed) {
+    setScrollSpeed(speed);
+    track("scroll_speed_select", { speed });
+  }
+
   return (
     <div className="flex flex-col gap-3">
       {/* Preset grid */}
@@ -85,7 +95,7 @@ export function AnimationControls() {
             {([5, 10] as const).map((d) => (
               <button
                 key={d}
-                onClick={() => setRecordDuration(d)}
+                onClick={() => handleDurationClick(d)}
                 className={`flex-1 py-2 rounded-lg border text-xs font-semibold transition-all ${
                   recordDuration === d
                     ? "border-neon-purple bg-neon-purple/10 text-neon-purple"
@@ -109,7 +119,7 @@ export function AnimationControls() {
             {(["slow", "normal", "fast"] as const).map((s) => (
               <button
                 key={s}
-                onClick={() => setScrollSpeed(s as ScrollSpeed)}
+                onClick={() => handleScrollSpeedClick(s)}
                 className={`flex-1 py-2 rounded-lg border text-xs font-semibold capitalize transition-all ${
                   scrollSpeed === s
                     ? "border-neon-purple bg-neon-purple/10 text-neon-purple"

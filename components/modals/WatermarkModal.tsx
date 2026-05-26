@@ -20,7 +20,10 @@ export function WatermarkModal() {
     if (!showWatermarkModal) return;
 
     const handleKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setShowWatermarkModal(false);
+      if (event.key === "Escape") {
+        track("watermark_modal_dismiss", { reason: "escape" });
+        setShowWatermarkModal(false);
+      }
     };
 
     document.addEventListener("keydown", handleKey);
@@ -28,6 +31,11 @@ export function WatermarkModal() {
   }, [setShowWatermarkModal, showWatermarkModal]);
 
   if (!showWatermarkModal) return null;
+
+  const dismissWatermarkModal = (reason: "backdrop" | "close_button") => {
+    track("watermark_modal_dismiss", { reason });
+    setShowWatermarkModal(false);
+  };
 
   const unlockWatermark = (platform: "twitter" | "linkedin") => {
     track("share_intent_clicked", { platform });
@@ -38,7 +46,7 @@ export function WatermarkModal() {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 px-4 backdrop-blur-sm"
-      onClick={(event) => event.target === event.currentTarget && setShowWatermarkModal(false)}
+      onClick={(event) => event.target === event.currentTarget && dismissWatermarkModal("backdrop")}
     >
       <div className="w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-[#080808] shadow-2xl shadow-neon-purple/10">
         <div className="flex items-start justify-between border-b border-surface-2 px-5 py-4">
@@ -49,7 +57,7 @@ export function WatermarkModal() {
             </p>
           </div>
           <button
-            onClick={() => setShowWatermarkModal(false)}
+            onClick={() => dismissWatermarkModal("close_button")}
             className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-2 text-text-muted transition-colors hover:text-white"
             aria-label="Close watermark modal"
           >

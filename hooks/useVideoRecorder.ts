@@ -59,6 +59,7 @@ export function useVideoRecorder() {
     const node = document.getElementById("studio-canvas");
     if (!node) {
       console.error("[VideoRecorder] #studio-canvas not found");
+      track("video_record_error", { error: "Canvas not found", source });
       return;
     }
 

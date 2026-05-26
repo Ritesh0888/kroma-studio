@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { track } from "@/lib/analytics";
 
 export default function Error({
@@ -27,17 +28,21 @@ export default function Error({
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
-            onClick={unstable_retry}
+            onClick={() => {
+              track("app_error_retry_click");
+              unstable_retry();
+            }}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-linear-to-r from-neon-purple to-neon-pink text-white text-sm font-semibold hover:opacity-90 transition-opacity"
           >
             Try again
           </button>
-          <a
+          <Link
             href="/"
+            onClick={() => track("app_error_back_to_studio_click")}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-border text-text-muted text-sm font-medium hover:border-neon-purple/30 hover:text-white transition-all"
           >
             Back to Studio
-          </a>
+          </Link>
         </div>
       </div>
       <p className="absolute bottom-6 text-[10px] text-border tracking-widest uppercase">
