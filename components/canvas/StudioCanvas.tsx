@@ -4,6 +4,7 @@ import { useStudioStore, computeShadow, ASPECT_RATIO_DIMENSIONS } from "@/store/
 import { getPresetById } from "@/lib/backgrounds";
 import { BrowserFrame } from "./BrowserFrame";
 import { HeadlineLayer } from "./HeadlineLayer";
+import { AnimatedFrame } from "./AnimatedFrame";
 
 const HEADLINE_RESERVE = 64;
 
@@ -52,8 +53,8 @@ export function StudioCanvas() {
       {/* Headline text overlay */}
       {headlineEnabled && <HeadlineLayer />}
 
-      {/* Inner browser frame */}
-      <div
+      {/* Inner browser frame — AnimatedFrame adds motion when a preset is active */}
+      <AnimatedFrame
         className="w-full h-full"
         style={{
           borderRadius: `${borderRadius}px`,
@@ -62,7 +63,7 @@ export function StudioCanvas() {
         }}
       >
         <BrowserFrame />
-      </div>
+      </AnimatedFrame>
 
       {/* Watermark */}
       <span className="absolute bottom-1.5 right-2 text-[9px] text-white/30 select-none pointer-events-none font-mono tracking-wide">

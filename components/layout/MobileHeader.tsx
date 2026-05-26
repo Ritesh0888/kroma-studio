@@ -3,6 +3,7 @@
 import { useExport } from "@/hooks/useExport";
 import { useStudioStore } from "@/store/useStudioStore";
 import { ImageExportModal } from "@/components/ui/ImageExportModal";
+import { track } from "@/lib/analytics";
 
 export function MobileHeader() {
   const { exportPng, exportedImageUrl, clearExportedImage } = useExport();
@@ -31,7 +32,7 @@ export function MobileHeader() {
 
         {/* Export button */}
         <button
-          onClick={exportPng}
+          onClick={() => { track("export_png_click", { source: "mobile" }); exportPng(); }}
           disabled={isExporting}
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
             isExporting
