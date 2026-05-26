@@ -1,11 +1,14 @@
 "use client";
 
+import { useStudioStore } from "@/store/useStudioStore";
 import { PaddingControl } from "@/components/controls/PaddingControl";
 import { BorderRadiusControl } from "@/components/controls/BorderRadiusControl";
 import { ShadowControl } from "@/components/controls/ShadowControl";
 import { AspectRatioControl } from "@/components/controls/AspectRatioControl";
 import { BackgroundControl } from "@/components/controls/BackgroundControl";
 import { ModeSelector } from "@/components/controls/ModeSelector";
+import { CodeControls } from "@/components/controls/CodeControls";
+import { HeadlineControls } from "@/components/controls/HeadlineControls";
 import { AnimationTeaser } from "@/components/controls/AnimationTeaser";
 
 function SectionDivider({ label }: { label: string }) {
@@ -20,10 +23,12 @@ function SectionDivider({ label }: { label: string }) {
 }
 
 export function LeftSidebar() {
+  const mode = useStudioStore((s) => s.mode);
+
   return (
-    <aside className="w-full h-full flex flex-col bg-[#080808] border-r border-[#1a1a1a] shrink-0">
+    <aside className="w-full h-full flex flex-col bg-[#080808] border-r border-surface-2 shrink-0">
       {/* Logo / Brand */}
-      <div className="px-4 py-4 border-b border-[#1a1a1a] shrink-0">
+      <div className="px-4 py-4 border-b border-surface-2 shrink-0">
         <div className="flex items-center gap-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -36,7 +41,7 @@ export function LeftSidebar() {
           <div>
             <span className="text-sm font-bold text-white tracking-tight">
               Kroma
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a855f7] to-[#ec4899]">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-neon-purple to-neon-pink">
                 Studio
               </span>
             </span>
@@ -52,6 +57,16 @@ export function LeftSidebar() {
             <ModeSelector />
           </div>
         </div>
+
+        {/* Code controls — only visible when mode=code */}
+        {mode === "code" && (
+          <div>
+            <SectionDivider label="Code" />
+            <div className="mt-4">
+              <CodeControls />
+            </div>
+          </div>
+        )}
 
         <div>
           <SectionDivider label="Canvas" />
@@ -71,6 +86,13 @@ export function LeftSidebar() {
         </div>
 
         <div>
+          <SectionDivider label="Headline" />
+          <div className="mt-4">
+            <HeadlineControls />
+          </div>
+        </div>
+
+        <div>
           <SectionDivider label="Animate" />
           <div className="mt-4">
             <AnimationTeaser />
@@ -79,9 +101,9 @@ export function LeftSidebar() {
       </div>
 
       {/* Footer */}
-      <div className="px-4 py-3 border-t border-[#1a1a1a] shrink-0">
+      <div className="px-4 py-3 border-t border-surface-2 shrink-0">
         <p className="text-[10px] text-[#3a3a3a] text-center">
-          Phase 1 · Static Engine
+          Phase 2 · Code & Headline Engine
         </p>
       </div>
     </aside>

@@ -5,10 +5,12 @@ import { useStudioStore, type AspectRatio } from "@/store/useStudioStore";
 import { BACKGROUND_PRESETS } from "@/lib/backgrounds";
 import { SliderControl } from "@/components/controls/SliderControl";
 import { ModeSelector } from "@/components/controls/ModeSelector";
+import { CodeControls } from "@/components/controls/CodeControls";
+import { HeadlineControls } from "@/components/controls/HeadlineControls";
 import { EmailCapturePopover } from "@/components/ui/EmailCapturePopover";
 import { CustomColorPicker } from "@/components/ui/CustomColorPicker";
 
-type Tab = "bg" | "frame" | "size" | "animate";
+type Tab = "bg" | "frame" | "size" | "code" | "animate";
 
 const ASPECT_RATIOS: { value: AspectRatio; label: string }[] = [
   { value: "1:1", label: "1:1" },
@@ -61,7 +63,6 @@ function BgTab() {
 
   return (
     <div className="flex flex-col gap-3">
-      {/* Horizontal swatch row */}
       <div className="hide-scrollbar flex gap-3 overflow-x-auto pb-1 px-4">
         {BACKGROUND_PRESETS.map((preset) => {
           const active = backgroundId === preset.id;
@@ -75,12 +76,12 @@ function BgTab() {
               <div
                 className={`w-14 h-14 rounded-full border-[3px] transition-all ${
                   active
-                    ? "border-[#a855f7] scale-110 shadow-lg shadow-[#a855f7]/30"
+                    ? "border-neon-purple scale-110 shadow-lg shadow-neon-purple/30"
                     : "border-transparent"
                 }`}
                 style={{ background: preset.css }}
               />
-              <span className={`text-[9px] leading-none ${active ? "text-[#a855f7]" : "text-[#4a4a4a]"}`}>
+              <span className={`text-[9px] leading-none ${active ? "text-neon-purple" : "text-[#4a4a4a]"}`}>
                 {preset.label.split(" ")[0]}
               </span>
             </button>
@@ -89,17 +90,14 @@ function BgTab() {
 
         {/* Custom "+" swatch */}
         <button
-          onClick={() => {
-            setBackgroundId("custom");
-            setShowPicker((v) => !v);
-          }}
+          onClick={() => { setBackgroundId("custom"); setShowPicker((v) => !v); }}
           className="flex flex-col items-center gap-1.5 shrink-0"
           title="Custom gradient"
         >
           <div
             className={`w-14 h-14 rounded-full border-[3px] flex items-center justify-center transition-all ${
               isCustomActive
-                ? "border-[#a855f7] scale-110 shadow-lg shadow-[#a855f7]/30"
+                ? "border-neon-purple scale-110 shadow-lg shadow-neon-purple/30"
                 : "border-dashed border-[#3a3a3a]"
             }`}
             style={{ background: isCustomActive ? customCss : "#111" }}
@@ -110,17 +108,16 @@ function BgTab() {
               </svg>
             )}
           </div>
-          <span className={`text-[9px] leading-none ${isCustomActive ? "text-[#a855f7]" : "text-[#4a4a4a]"}`}>
+          <span className={`text-[9px] leading-none ${isCustomActive ? "text-neon-purple" : "text-[#4a4a4a]"}`}>
             Custom
           </span>
         </button>
       </div>
 
       {activeLabel && (
-        <p className="text-[10px] text-[#6b6b6b] px-4">{activeLabel}</p>
+        <p className="text-[10px] text-text-muted px-4">{activeLabel}</p>
       )}
 
-      {/* Inline color picker */}
       {isCustomActive && showPicker && (
         <div className="px-4">
           <CustomColorPicker onClose={() => setShowPicker(false)} />
@@ -166,8 +163,8 @@ function SizeTab() {
                 onClick={() => setAspectRatio(value)}
                 className={`flex-1 py-2.5 rounded-lg border text-xs font-semibold transition-all ${
                   active
-                    ? "border-[#a855f7] bg-[#a855f7]/10 text-[#a855f7]"
-                    : "border-[#2a2a2a] bg-[#0f0f0f] text-[#6b6b6b]"
+                    ? "border-neon-purple bg-neon-purple/10 text-neon-purple"
+                    : "border-border bg-surface text-text-muted"
                 }`}
               >
                 {label}
@@ -176,7 +173,6 @@ function SizeTab() {
           })}
         </div>
       </div>
-      <ModeSelector />
     </div>
   );
 }
@@ -187,13 +183,12 @@ function AnimateTab() {
 
   return (
     <div className="flex flex-col gap-4 px-4">
-      {/* Animation presets */}
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <label className="text-xs font-medium text-[#a0a0a0] uppercase tracking-wider">
             Animation
           </label>
-          <span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-gradient-to-r from-[#a855f7] to-[#ec4899] text-white leading-none tracking-wide">
+          <span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-linear-to-r from-neon-purple to-neon-pink text-white leading-none tracking-wide">
             PHASE 3
           </span>
         </div>
@@ -201,21 +196,19 @@ function AnimateTab() {
         {ANIMATION_PRESETS.map((preset) => (
           <div key={preset.id} className="relative">
             <button
-              onClick={() =>
-                setActivePopover(activePopover === preset.id ? null : preset.id)
-              }
-              className="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg border border-[#1a1a1a] bg-[#0a0a0a] text-left hover:border-[#a855f7]/30 hover:bg-[#a855f7]/5 transition-all group"
+              onClick={() => setActivePopover(activePopover === preset.id ? null : preset.id)}
+              className="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg border border-surface-2 bg-[#0a0a0a] text-left hover:border-neon-purple/30 hover:bg-neon-purple/5 transition-all group"
             >
-              <span className="text-base text-[#2a2a2a] group-hover:text-[#a855f7]/40 transition-colors w-5 text-center leading-none">
+              <span className="text-base text-border group-hover:text-neon-purple/40 transition-colors w-5 text-center leading-none">
                 {preset.icon}
               </span>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium text-[#3a3a3a] group-hover:text-[#6b6b6b] transition-colors leading-none">
+                <p className="text-xs font-medium text-[#3a3a3a] group-hover:text-text-muted transition-colors leading-none">
                   {preset.label}
                 </p>
-                <p className="text-[10px] text-[#2a2a2a] mt-0.5">{preset.desc}</p>
+                <p className="text-[10px] text-border mt-0.5">{preset.desc}</p>
               </div>
-              <span className="text-[8px] font-bold px-1 py-0.5 rounded bg-[#1a0033] border border-[#a855f7]/20 text-[#a855f7]/60 leading-none tracking-wide shrink-0">
+              <span className="text-[8px] font-bold px-1 py-0.5 rounded bg-[#1a0033] border border-neon-purple/20 text-neon-purple/60 leading-none tracking-wide shrink-0">
                 SOON
               </span>
             </button>
@@ -229,7 +222,6 @@ function AnimateTab() {
         ))}
       </div>
 
-      {/* Render Animated Video */}
       <div className="flex flex-col gap-2">
         <label className="text-xs font-medium text-[#a0a0a0] uppercase tracking-wider">
           Video Export
@@ -237,10 +229,10 @@ function AnimateTab() {
         <div className="relative">
           <button
             onClick={() => setShowVideoPopover((v) => !v)}
-            className="relative w-full flex items-center gap-3 px-3 py-3 rounded-xl border border-[#a855f7]/20 bg-[#0a0a0a] hover:bg-[#a855f7]/5 hover:border-[#a855f7]/40 transition-all group"
+            className="relative w-full flex items-center gap-3 px-3 py-3 rounded-xl border border-neon-purple/20 bg-[#0a0a0a] hover:bg-neon-purple/5 hover:border-neon-purple/40 transition-all group"
           >
             <svg
-              className="w-4 h-4 text-[#3a3a3a] group-hover:text-[#a855f7]/50 transition-colors shrink-0"
+              className="w-4 h-4 text-[#3a3a3a] group-hover:text-neon-purple/50 transition-colors shrink-0"
               fill="none"
               stroke="currentColor"
               strokeWidth={1.5}
@@ -253,14 +245,12 @@ function AnimateTab() {
               />
             </svg>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-[#3a3a3a] group-hover:text-[#6b6b6b] transition-colors leading-none">
+              <p className="text-xs font-semibold text-[#3a3a3a] group-hover:text-text-muted transition-colors leading-none">
                 Render Animated Video
               </p>
-              <p className="text-[10px] text-[#2a2a2a] mt-0.5">
-                5s loop · 60fps · .webm
-              </p>
+              <p className="text-[10px] text-border mt-0.5">5s loop · 60fps · .webm</p>
             </div>
-            <span className="text-[8px] font-bold px-1 py-0.5 rounded bg-gradient-to-r from-[#a855f7] to-[#ec4899] text-white leading-none tracking-wide shrink-0">
+            <span className="text-[8px] font-bold px-1 py-0.5 rounded bg-linear-to-r from-neon-purple to-neon-pink text-white leading-none tracking-wide shrink-0">
               SOON
             </span>
           </button>
@@ -271,10 +261,54 @@ function AnimateTab() {
             />
           )}
         </div>
-        <p className="text-[10px] text-[#2a2a2a] leading-relaxed">
+        <p className="text-[10px] text-border leading-relaxed">
           Client-side .webm — no upload, no server.
         </p>
       </div>
+    </div>
+  );
+}
+
+function CodeTab() {
+  const mode = useStudioStore((s) => s.mode);
+
+  return (
+    <div className="flex flex-col gap-5 px-4">
+      <ModeSelector />
+
+      {mode === "code" ? (
+        <>
+          <div>
+            <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest mb-3">
+              Code Settings
+            </p>
+            <CodeControls />
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest mb-3">
+              Headline
+            </p>
+            <HeadlineControls />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="flex flex-col gap-3">
+            <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest">
+              Headline
+            </p>
+            <HeadlineControls />
+          </div>
+          <div className="flex items-center gap-3 px-3 py-3 rounded-lg border border-dashed border-[#1e1e1e] bg-[#0a0a0a]">
+            <svg className="w-4 h-4 text-border shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+            </svg>
+            <p className="text-[10px] text-[#3a3a3a] leading-relaxed">
+              Switch to <span className="text-text-muted">Code</span> mode above to configure language, theme, and font settings.
+            </p>
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -308,12 +342,19 @@ const AnimateIcon = () => (
   </svg>
 );
 
+const CodeIcon = () => (
+  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25" />
+  </svg>
+);
+
 /* ── Tab definitions ── */
 
-const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
-  { id: "bg", label: "Background", icon: <BgIcon /> },
+const TABS: { id: Tab; label: string; icon: React.ReactNode; isNew?: boolean }[] = [
+  { id: "bg", label: "BG", icon: <BgIcon /> },
   { id: "frame", label: "Frame", icon: <FrameIcon /> },
   { id: "size", label: "Size", icon: <SizeIcon /> },
+  { id: "code", label: "Code", icon: <CodeIcon />, isNew: true },
   { id: "animate", label: "Animate", icon: <AnimateIcon /> },
 ];
 
@@ -323,33 +364,39 @@ export function MobileControlSheet() {
   const [activeTab, setActiveTab] = useState<Tab>("bg");
 
   return (
-    <div className="flex md:hidden flex-col bg-[#080808] border-t border-[#1a1a1a] shrink-0">
-      {/* Tab bar */}
-      <div className="hide-scrollbar flex overflow-x-auto border-b border-[#1a1a1a]">
+    <div className="flex md:hidden flex-col bg-[#080808] border-t border-surface-2 shrink-0">
+      {/* Tab bar — pt-2 gives vertical room so the NEW badge isn't clipped by overflow-x-auto */}
+      <div className="hide-scrollbar flex overflow-x-auto border-b border-surface-2 pt-2">
         {TABS.map((tab) => {
           const active = activeTab === tab.id;
           return (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 min-w-[72px] flex items-center justify-center gap-1 py-2.5 text-[11px] font-medium transition-all border-b-2 whitespace-nowrap ${
+              className={`relative flex-1 min-w-[60px] flex items-center justify-center gap-1 pb-2.5 text-[11px] font-medium transition-all border-b-2 whitespace-nowrap ${
                 active
-                  ? "border-[#a855f7] text-[#a855f7]"
+                  ? "border-neon-purple text-neon-purple"
                   : "border-transparent text-[#4a4a4a]"
               }`}
             >
               {tab.icon}
               <span>{tab.label}</span>
+              {tab.isNew && (
+                <span className="absolute -top-1 right-0.5 text-[7px] font-bold px-1 py-px rounded bg-linear-to-r from-neon-purple to-neon-pink text-white leading-none tracking-wide shadow-sm shadow-neon-purple/40">
+                  NEW
+                </span>
+              )}
             </button>
           );
         })}
       </div>
 
       {/* Tab content */}
-      <div className="py-4 overflow-y-auto min-h-0" style={{ maxHeight: "36vh" }}>
+      <div className="py-4 overflow-y-auto min-h-0" style={{ maxHeight: "40vh" }}>
         {activeTab === "bg" && <BgTab />}
         {activeTab === "frame" && <FrameTab />}
         {activeTab === "size" && <SizeTab />}
+        {activeTab === "code" && <CodeTab />}
         {activeTab === "animate" && <AnimateTab />}
       </div>
     </div>

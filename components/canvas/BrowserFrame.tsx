@@ -1,8 +1,17 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import { useStudioStore } from "@/store/useStudioStore";
 import { ImageDropzone } from "./ImageDropzone";
 
+const CodeDisplay = dynamic(
+  () => import("./CodeDisplay").then((m) => ({ default: m.CodeDisplay })),
+  { ssr: false, loading: () => <div className="w-full h-full bg-[#1c1c1e]" /> }
+);
+
 export function BrowserFrame() {
+  const mode = useStudioStore((s) => s.mode);
+
   return (
     <div className="flex flex-col w-full h-full bg-[#1c1c1e] rounded-lg overflow-hidden">
       {/* Title bar */}
@@ -30,7 +39,7 @@ export function BrowserFrame() {
         <div className="flex-1 mx-2 md:mx-4">
           <div className="flex items-center gap-1.5 bg-[#1c1c1e] rounded-md px-2 md:px-3 py-0.5 md:py-1 max-w-xs mx-auto">
             <svg
-              className="w-2.5 h-2.5 md:w-3 md:h-3 text-[#6b6b6b] shrink-0"
+              className="w-2.5 h-2.5 md:w-3 md:h-3 text-text-muted shrink-0"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -40,7 +49,7 @@ export function BrowserFrame() {
                 clipRule="evenodd"
               />
             </svg>
-            <span className="text-[9px] md:text-[11px] text-[#6b6b6b] truncate select-none">
+            <span className="text-[9px] md:text-[11px] text-text-muted truncate select-none">
               kromastudio.in
             </span>
           </div>
@@ -49,7 +58,7 @@ export function BrowserFrame() {
 
       {/* Content area */}
       <div className="flex-1 overflow-hidden">
-        <ImageDropzone />
+        {mode === "code" ? <CodeDisplay /> : <ImageDropzone />}
       </div>
     </div>
   );

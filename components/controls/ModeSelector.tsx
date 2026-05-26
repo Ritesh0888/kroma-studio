@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useStudioStore, type StudioMode } from "@/store/useStudioStore";
 import { EmailCapturePopover } from "../ui/EmailCapturePopover";
 import { track } from "@/lib/analytics";
 
-interface Mode {
-  id: string;
+interface ModeConfig {
+  id: StudioMode;
   label: string;
   icon: React.ReactNode;
-  active: boolean;
   soon: boolean;
+  isNew: boolean;
   teaser: string;
 }
 
@@ -31,34 +32,36 @@ const TextIcon = () => (
   </svg>
 );
 
-const MODES: Mode[] = [
+const MODES: ModeConfig[] = [
   {
     id: "mockup",
     label: "Mockup",
     icon: <ImageIcon />,
-    active: true,
     soon: false,
+    isNew: false,
     teaser: "",
   },
   {
     id: "code",
     label: "Code",
     icon: <CodeIcon />,
-    active: false,
-    soon: true,
-    teaser: "Syntax-highlighted code snapshots are coming next week! Drop your email to get early access.",
+    soon: false,
+    isNew: true,
+    teaser: "",
   },
   {
     id: "content",
     label: "Content",
     icon: <TextIcon />,
-    active: false,
     soon: true,
+    isNew: false,
     teaser: "Tweet & text content mode is dropping soon! Get notified the moment it goes live.",
   },
 ];
 
 export function ModeSelector() {
+  const mode = useStudioStore((s) => s.mode);
+  const setMode = useStudioStore((s) => s.setMode);
   const [popover, setPopover] = useState<{ id: string; teaser: string } | null>(null);
 
   return (
@@ -68,33 +71,42 @@ export function ModeSelector() {
       </label>
 
       <div className="flex gap-1.5">
-        {MODES.map((mode) => (
-          <div key={mode.id} className="relative flex-1">
+        {MODES.map((m) => (
+          <div key={m.id} className="relative flex-1">
             <button
-              disabled={mode.soon}
               onClick={() => {
-                track("mode_click", { mode: mode.id, is_soon: mode.soon });
-                if (mode.soon) setPopover({ id: mode.id, teaser: mode.teaser });
+                track("mode_click", { mode: m.id, is_soon: m.soon });
+                if (m.soon) {
+                  setPopover({ id: m.id, teaser: m.teaser });
+                } else {
+                  setMode(m.id);
+                  setPopover(null);
+                }
               }}
               className={`relative w-full flex flex-col items-center gap-1 py-2.5 px-1 rounded-lg border text-center transition-all ${
-                mode.active && !mode.soon
+                mode === m.id && !m.soon
                   ? "border-neon-purple bg-neon-purple/10 text-neon-purple"
-                  : mode.soon
+                  : m.soon
                   ? "border-[#1e1e1e] bg-[#0a0a0a] text-[#3a3a3a] cursor-pointer hover:border-neon-purple/30 hover:text-text-muted"
-                  : "border-border bg-surface text-text-muted"
+                  : "border-[#1e1e1e] bg-[#0a0a0a] text-text-muted hover:border-border hover:text-[#a0a0a0]"
               }`}
             >
-              {mode.icon}
-              <span className="text-[10px] font-medium leading-none">{mode.label}</span>
+              {m.icon}
+              <span className="text-[10px] font-medium leading-none">{m.label}</span>
 
-              {mode.soon && (
+              {m.soon && (
                 <span className="absolute -top-1.5 -right-1 text-[8px] font-bold px-1 py-0.5 rounded bg-linear-to-r from-neon-purple to-neon-pink text-white leading-none tracking-wide shadow-sm shadow-neon-purple/40">
                   SOON
                 </span>
               )}
+              {m.isNew && (
+                <span className="absolute -top-1.5 -right-1 text-[8px] font-bold px-1 py-0.5 rounded bg-linear-to-r from-neon-purple to-neon-pink text-white leading-none tracking-wide shadow-sm shadow-neon-purple/40">
+                  NEW
+                </span>
+              )}
             </button>
 
-            {popover?.id === mode.id && (
+            {popover?.id === m.id && (
               <EmailCapturePopover
                 teaser={popover.teaser}
                 onClose={() => setPopover(null)}
