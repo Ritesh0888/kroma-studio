@@ -1,6 +1,7 @@
 "use client";
 
 import { useStudioStore, type AspectRatio } from "@/store/useStudioStore";
+import { track } from "@/lib/analytics";
 
 const RATIOS: { value: AspectRatio; label: string; sub: string }[] = [
   { value: "1:1", label: "1:1", sub: "Square" },
@@ -24,7 +25,7 @@ export function AspectRatioControl() {
           return (
             <button
               key={value}
-              onClick={() => setAspectRatio(value)}
+              onClick={() => { track("aspect_ratio_change", { ratio: value }); setAspectRatio(value); }}
               className={`flex flex-col items-center py-2.5 px-2 rounded-lg border text-center transition-all ${
                 active
                   ? "border-[#a855f7] bg-[#a855f7]/10 text-[#a855f7]"

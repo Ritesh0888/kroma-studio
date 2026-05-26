@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { EmailCapturePopover } from "@/components/ui/EmailCapturePopover";
+import { track } from "@/lib/analytics";
 
 const PRESETS = [
   {
@@ -45,7 +46,11 @@ export function AnimationTeaser() {
         {PRESETS.map((preset) => (
           <div key={preset.id} className="relative">
             <button
-              onClick={() => setPopover(popover === preset.id ? null : preset.id)}
+              onClick={() => {
+                const opening = popover !== preset.id;
+                if (opening) track("animation_teaser_click", { preset: preset.label });
+                setPopover(opening ? preset.id : null);
+              }}
               className="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg border border-[#1a1a1a] bg-[#0a0a0a] text-left hover:border-[#a855f7]/30 hover:bg-[#a855f7]/5 transition-all group"
             >
               <span className="text-base text-[#2a2a2a] group-hover:text-[#a855f7]/40 transition-colors w-5 text-center leading-none">
