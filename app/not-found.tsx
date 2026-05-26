@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Page Not Found | KromaStudio",
+  description: "This page doesn't exist. Head back to the studio.",
+};
 
 export default function NotFound() {
   return (

@@ -1,0 +1,25 @@
+{
+  "name": "KromaStudio",
+  "short_name": "KromaStudio",
+  "description": "Aesthetic code screenshots, browser mockups, and animated video loops. 100% client-side.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#080808",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "design", "utilities"],
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

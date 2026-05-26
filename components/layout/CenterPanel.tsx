@@ -3,6 +3,8 @@
 import { useRef, useEffect, useState } from "react";
 import { useStudioStore, ASPECT_RATIO_DIMENSIONS } from "@/store/useStudioStore";
 import { StudioCanvas } from "@/components/canvas/StudioCanvas";
+import { CanvasErrorBoundary } from "@/components/ui/CanvasErrorBoundary";
+import { RenderingOverlay } from "@/components/canvas/RenderingOverlay";
 
 export function CenterPanel() {
   const aspectRatio = useStudioStore((s) => s.aspectRatio);
@@ -60,9 +62,19 @@ export function CenterPanel() {
             flexShrink: 0,
           }}
         >
-          <StudioCanvas />
+          <CanvasErrorBoundary>
+            <StudioCanvas />
+          </CanvasErrorBoundary>
         </div>
       </div>
+
+      {/*
+        RenderingOverlay lives here — OUTSIDE the scale wrapper.
+        position:fixed inside transform:scale() is positioned relative to the
+        transformed ancestor, not the viewport. This placement ensures the
+        overlay always covers the full screen correctly.
+      */}
+      <RenderingOverlay />
     </section>
   );
 }
