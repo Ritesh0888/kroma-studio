@@ -13,11 +13,14 @@ export function MobileHeader() {
       <header className="flex md:hidden items-center justify-between px-4 h-12 bg-[#080808] border-b border-[#1a1a1a] shrink-0 z-30">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#a855f7] to-[#ec4899] flex items-center justify-center">
-            <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12v10H4V5z" />
-            </svg>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="KromaStudio Logo"
+            width={32}
+            height={32}
+            className="w-8 h-8 rounded-md object-cover"
+          />
           <span className="text-sm font-bold text-white tracking-tight">
             Kroma
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a855f7] to-[#ec4899]">

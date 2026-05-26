@@ -25,24 +25,20 @@ export function LeftSidebar() {
       {/* Logo / Brand */}
       <div className="px-4 py-4 border-b border-[#1a1a1a] shrink-0">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#a855f7] to-[#ec4899] flex items-center justify-center">
-            <svg
-              className="w-4 h-4 text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12v10H4V5z" />
-            </svg>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="KromaStudio Logo"
+            width={40}
+            height={40}
+            className="w-10 h-10 rounded-lg object-cover"
+          />
           <div>
             <span className="text-sm font-bold text-white tracking-tight">
               Kroma
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a855f7] to-[#ec4899]">
                 Studio
               </span>
-            </span>
-            <span className="block text-[9px] text-[#4a4a4a] -mt-0.5 tracking-widest uppercase">
-              Phase 1 · Mockup
             </span>
           </div>
         </div>
