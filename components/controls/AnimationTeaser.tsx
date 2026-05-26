@@ -65,6 +65,7 @@ export function AnimationTeaser() {
             {popover === preset.id && (
               <EmailCapturePopover
                 teaser={preset.teaser}
+                feature={preset.label}
                 onClose={() => setPopover(null)}
               />
             )}
