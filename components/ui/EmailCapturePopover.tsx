@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 interface Props {
   teaser: string;
+  feature?: string;
   onClose: () => void;
 }
 
@@ -30,9 +31,10 @@ function alreadySaved(email: string): boolean {
   }
 }
 
-export function EmailCapturePopover({ teaser, onClose }: Props) {
+export function EmailCapturePopover({ teaser, feature, onClose }: Props) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const ref = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -62,12 +64,24 @@ export function EmailCapturePopover({ teaser, onClose }: Props) {
     return () => document.removeEventListener("keydown", handleKey);
   }, [onClose]);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const trimmed = email.trim();
     if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
       setError("Valid email chahiye!");
       return;
+    }
+    setLoading(true);
+    try {
+      await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmed, feature }),
+      });
+    } catch {
+      // silent — still mark as submitted locally
+    } finally {
+      setLoading(false);
     }
     saveEmail(trimmed);
     setSubmitted(true);
@@ -123,9 +137,10 @@ export function EmailCapturePopover({ teaser, onClose }: Props) {
               )}
               <button
                 type="submit"
-                className="w-full py-2 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#ec4899] text-white text-xs font-semibold hover:opacity-90 transition-opacity"
+                disabled={loading}
+                className="w-full py-2 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#ec4899] text-white text-xs font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
               >
-                Notify Me — It&apos;s Free
+                {loading ? "Sending…" : "Notify Me — It's Free"}
               </button>
             </form>
 
