@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useStudioStore } from "@/store/useStudioStore";
 import { BACKGROUND_PRESETS } from "@/lib/backgrounds";
 import { CustomColorPicker } from "@/components/ui/CustomColorPicker";
+import { track } from "@/lib/analytics";
 
 export function BackgroundControl() {
   const backgroundId = useStudioStore((s) => s.backgroundId);
@@ -28,7 +29,7 @@ export function BackgroundControl() {
           return (
             <button
               key={preset.id}
-              onClick={() => { setBackgroundId(preset.id); setShowPicker(false); }}
+              onClick={() => { track("background_change", { preset: preset.id, label: preset.label }); setBackgroundId(preset.id); setShowPicker(false); }}
               title={preset.label}
               className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${
                 active
@@ -51,6 +52,7 @@ export function BackgroundControl() {
         {/* Custom gradient swatch */}
         <button
           onClick={() => {
+            track("background_custom_open");
             setBackgroundId("custom");
             setShowPicker((v) => !v);
           }}

@@ -3,14 +3,16 @@
 import { useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { useStudioStore } from "@/store/useStudioStore";
+import { track } from "@/lib/analytics";
 
 export function ImageDropzone() {
   const uploadedImage = useStudioStore((s) => s.uploadedImage);
   const setUploadedImage = useStudioStore((s) => s.setUploadedImage);
 
   const loadFile = useCallback(
-    (file: File) => {
+    (file: File, method: "drop_or_click" | "paste") => {
       if (!file.type.startsWith("image/")) return;
+      track("image_upload", { method, file_type: file.type });
       const reader = new FileReader();
       reader.onload = (e) => {
         if (e.target?.result) {
@@ -24,7 +26,7 @@ export function ImageDropzone() {
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
-      if (acceptedFiles[0]) loadFile(acceptedFiles[0]);
+      if (acceptedFiles[0]) loadFile(acceptedFiles[0], "drop_or_click");
     },
     [loadFile]
   );
@@ -44,7 +46,7 @@ export function ImageDropzone() {
       for (const item of Array.from(items)) {
         if (item.type.startsWith("image/")) {
           const file = item.getAsFile();
-          if (file) loadFile(file);
+          if (file) loadFile(file, "paste");
           break;
         }
       }
@@ -64,7 +66,7 @@ export function ImageDropzone() {
           draggable={false}
         />
         <button
-          onClick={() => setUploadedImage(null)}
+          onClick={() => { track("image_replace"); setUploadedImage(null); }}
           className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black/70 hover:bg-black/90 text-white text-xs px-2 py-1 rounded-md border border-white/10"
         >
           Replace

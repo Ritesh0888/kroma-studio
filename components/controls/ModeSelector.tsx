@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { EmailCapturePopover } from "../ui/EmailCapturePopover";
+import { track } from "@/lib/analytics";
 
 interface Mode {
   id: string;
@@ -72,6 +73,7 @@ export function ModeSelector() {
             <button
               disabled={mode.soon}
               onClick={() => {
+                track("mode_click", { mode: mode.id, is_soon: mode.soon });
                 if (mode.soon) setPopover({ id: mode.id, teaser: mode.teaser });
               }}
               className={`relative w-full flex flex-col items-center gap-1 py-2.5 px-1 rounded-lg border text-center transition-all ${

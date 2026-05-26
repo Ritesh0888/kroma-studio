@@ -5,6 +5,7 @@ import { useExport } from "@/hooks/useExport";
 import { useStudioStore } from "@/store/useStudioStore";
 import { ImageExportModal } from "@/components/ui/ImageExportModal";
 import { EmailCapturePopover } from "@/components/ui/EmailCapturePopover";
+import { track } from "@/lib/analytics";
 
 function AdPlaceholder({ label, height }: { label: string; height: string }) {
   return (
@@ -41,7 +42,7 @@ export function RightSidebar() {
 
         {/* Primary Export Button */}
         <button
-          onClick={exportPng}
+          onClick={() => { track("export_png_click"); exportPng(); }}
           disabled={isExporting}
           className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all relative overflow-hidden group ${
             isExporting
@@ -128,7 +129,7 @@ export function RightSidebar() {
         {/* Render Video button — clickable SOON */}
         <div className="relative">
           <button
-            onClick={() => setShowVideoPopover((v) => !v)}
+            onClick={() => { track("video_soon_click"); setShowVideoPopover((v) => !v); }}
             className="relative w-full py-3 px-4 rounded-xl border border-[#a855f7]/20 bg-[#0a0a0a] hover:bg-[#a855f7]/5 hover:border-[#a855f7]/40 transition-all group flex flex-col items-center gap-2"
           >
             <div className="flex items-center gap-2">

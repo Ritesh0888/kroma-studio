@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 
 interface Props {
   teaser: string;
@@ -83,6 +84,7 @@ export function EmailCapturePopover({ teaser, feature, onClose }: Props) {
     } finally {
       setLoading(false);
     }
+    track("waitlist_signup", { feature: feature ?? "unknown" });
     saveEmail(trimmed);
     setSubmitted(true);
   }
