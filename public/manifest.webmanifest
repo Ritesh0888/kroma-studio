@@ -7,12 +7,19 @@
   "background_color": "#080808",
   "theme_color": "#080808",
   "orientation": "portrait-primary",
+  "categories": ["productivity", "design", "utilities"],
   "icons": [
     {
       "src": "/icon.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
