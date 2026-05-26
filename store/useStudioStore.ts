@@ -5,6 +5,9 @@ import { create } from "zustand";
 export type AspectRatio = "1:1" | "16:9" | "9:16" | "free";
 export type StudioMode = "mockup" | "code" | "content";
 export type HeadlinePosition = "top" | "bottom";
+export type AnimationPreset = "none" | "float" | "tilt" | "scroll";
+export type ScrollSpeed = "slow" | "normal" | "fast";
+export type ChromeStyle = "macos-dark" | "macos-light" | "windows" | "minimal" | "none";
 
 export interface AspectRatioDimensions {
   width: number;
@@ -101,6 +104,24 @@ interface StudioState {
   setHeadlineFontSize: (s: number) => void;
   setHeadlineColor: (c: string) => void;
   setHeadlinePosition: (p: HeadlinePosition) => void;
+
+  // Chrome style
+  chromeStyle: ChromeStyle;
+  setChromeStyle: (s: ChromeStyle) => void;
+
+  // Animation
+  animationPreset: AnimationPreset;
+  recordDuration: 5 | 10;
+  scrollSpeed: ScrollSpeed;
+  isRecording: boolean;
+  recordingProgress: number;
+
+  // Animation setters
+  setAnimationPreset: (p: AnimationPreset) => void;
+  setRecordDuration: (d: 5 | 10) => void;
+  setScrollSpeed: (s: ScrollSpeed) => void;
+  setIsRecording: (v: boolean) => void;
+  setRecordingProgress: (p: number) => void;
 }
 
 export const useStudioStore = create<StudioState>((set) => ({
@@ -132,6 +153,17 @@ export const useStudioStore = create<StudioState>((set) => ({
   headlineFontSize: 40,
   headlineColor: "#ffffff",
   headlinePosition: "top",
+
+  // Chrome style default
+  chromeStyle: "macos-dark",
+  setChromeStyle: (s) => set({ chromeStyle: s }),
+
+  // Animation defaults
+  animationPreset: "none",
+  recordDuration: 5,
+  scrollSpeed: "normal",
+  isRecording: false,
+  recordingProgress: 0,
 
   // Canvas setters
   setPadding: (v) => set({ padding: v }),
@@ -167,6 +199,13 @@ export const useStudioStore = create<StudioState>((set) => ({
   setHeadlineFontSize: (s) => set({ headlineFontSize: s }),
   setHeadlineColor: (c) => set({ headlineColor: c }),
   setHeadlinePosition: (p) => set({ headlinePosition: p }),
+
+  // Animation setters
+  setAnimationPreset: (p) => set({ animationPreset: p }),
+  setRecordDuration: (d) => set({ recordDuration: d }),
+  setScrollSpeed: (s) => set({ scrollSpeed: s }),
+  setIsRecording: (v) => set({ isRecording: v }),
+  setRecordingProgress: (p) => set({ recordingProgress: p }),
 }));
 
 export function computeShadow(depth: number): string {

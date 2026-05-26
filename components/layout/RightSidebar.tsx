@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { useExport } from "@/hooks/useExport";
 import { useStudioStore } from "@/store/useStudioStore";
 import { ImageExportModal } from "@/components/ui/ImageExportModal";
-import { EmailCapturePopover } from "@/components/ui/EmailCapturePopover";
+import { AnimationControls } from "@/components/controls/AnimationControls";
+import { useVideoRecorder } from "@/hooks/useVideoRecorder";
 import { track } from "@/lib/analytics";
 
 function AdPlaceholder({ label, height }: { label: string; height: string }) {
@@ -27,7 +27,10 @@ export function RightSidebar() {
   const { exportPng, exportedImageUrl, clearExportedImage } = useExport();
   const isExporting = useStudioStore((s) => s.isExporting);
   const uploadedImage = useStudioStore((s) => s.uploadedImage);
-  const [showVideoPopover, setShowVideoPopover] = useState(false);
+  const isRecording = useStudioStore((s) => s.isRecording);
+  const animationPreset = useStudioStore((s) => s.animationPreset);
+  const recordDuration = useStudioStore((s) => s.recordDuration);
+  const { startRecording, isSafari } = useVideoRecorder();
 
   return (
     <aside className="w-full h-full flex flex-col bg-[#080808] border-l border-[#1a1a1a] shrink-0">
@@ -115,66 +118,62 @@ export function RightSidebar() {
         </div>
       </div>
 
-      {/* Animated Video — SOON */}
-      <div className="px-4 py-4 border-b border-[#1a1a1a]">
-        <div className="flex items-center justify-between mb-3">
-          <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest">
-            Animated Video
-          </p>
-          <span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-gradient-to-r from-[#a855f7] to-[#ec4899] text-white leading-none tracking-wide shadow-sm shadow-[#a855f7]/40">
-            PHASE 3
-          </span>
-        </div>
-
-        {/* Render Video button — clickable SOON */}
-        <div className="relative">
-          <button
-            onClick={() => { track("video_soon_click"); setShowVideoPopover((v) => !v); }}
-            className="relative w-full py-3 px-4 rounded-xl border border-[#a855f7]/20 bg-[#0a0a0a] hover:bg-[#a855f7]/5 hover:border-[#a855f7]/40 transition-all group flex flex-col items-center gap-2"
-          >
-            <div className="flex items-center gap-2">
-              <svg
-                className="w-4 h-4 text-[#3a3a3a] group-hover:text-[#a855f7]/50 transition-colors"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={1.5}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 9.75v9A2.25 2.25 0 004.5 18.75z"
-                />
-              </svg>
-              <span className="text-xs font-semibold text-[#3a3a3a] group-hover:text-[#6b6b6b] transition-colors">
-                Render Animated Video
-              </span>
-            </div>
-            <div className="flex items-center gap-3 text-[9px] text-[#2a2a2a]">
-              <span>5s loop</span>
-              <span>·</span>
-              <span>60fps</span>
-              <span>·</span>
-              <span>.webm</span>
-            </div>
-
-            {/* SOON badge */}
-            <span className="absolute -top-1.5 -right-1 text-[8px] font-bold px-1 py-0.5 rounded bg-gradient-to-r from-[#a855f7] to-[#ec4899] text-white leading-none tracking-wide shadow-sm shadow-[#a855f7]/40">
-              SOON
-            </span>
-          </button>
-
-          {showVideoPopover && (
-            <EmailCapturePopover
-              teaser="We are launching animated video loops next week — Float, 3D Tilt & Auto-Scroll. Drop your email to get early access the moment it goes live!"
-              onClose={() => setShowVideoPopover(false)}
-            />
-          )}
-        </div>
-
-        <p className="text-[10px] text-[#2a2a2a] mt-2 leading-relaxed">
-          Client-side .webm export — no upload, no server.
+      {/* Animated Video */}
+      <div className="px-4 py-4 border-b border-surface-2">
+        <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest mb-3">
+          Animated Video
         </p>
+
+        {/* Animation preset + duration picker */}
+        <div className="mb-3">
+          <AnimationControls />
+        </div>
+
+        {/* Render Video button */}
+        <button
+          onClick={() => { track("video_record_click", { preset: animationPreset, duration: recordDuration }); startRecording(); }}
+          disabled={isRecording || animationPreset === "none" || isSafari}
+          className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all relative overflow-hidden group ${
+            isRecording
+              ? "bg-[#1a0033] border border-neon-purple/30 text-neon-purple/60 cursor-not-allowed"
+              : isSafari || animationPreset === "none"
+              ? "bg-[#0a0a0a] border border-surface-2 text-[#3a3a3a] cursor-not-allowed"
+              : "bg-linear-to-r from-neon-purple to-neon-pink text-white hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-neon-purple/20"
+          }`}
+        >
+          {isRecording ? (
+            <span className="flex items-center justify-center gap-2">
+              <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              Recording…
+            </span>
+          ) : (
+            <span className="flex items-center justify-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 9.75v9A2.25 2.25 0 004.5 18.75z" />
+              </svg>
+              Render Animated Video
+            </span>
+          )}
+        </button>
+
+        {isSafari && (
+          <p className="text-[10px] text-[#3a3a3a] text-center mt-2">
+            ⚠ Safari detected — use Chrome or Firefox for video export
+          </p>
+        )}
+        {!isSafari && animationPreset === "none" && !isRecording && (
+          <p className="text-[10px] text-[#3a3a3a] text-center mt-2">
+            Select an animation preset above to enable export
+          </p>
+        )}
+        {!isSafari && animationPreset !== "none" && !isRecording && (
+          <p className="text-[10px] text-[#3a3a3a] text-center mt-2">
+            {recordDuration}s loop · 60fps · .webm · client-side
+          </p>
+        )}
       </div>
 
       {/* Ad zones — desktop only (RightSidebar is hidden on mobile via page.tsx) */}

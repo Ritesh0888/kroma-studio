@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
 import { useStudioStore } from "@/store/useStudioStore";
 import type { Highlighter } from "shiki";
 
@@ -39,10 +40,14 @@ export function CodeDisplay() {
   const showLineNumbers = useStudioStore((s) => s.showLineNumbers);
   const codeWrap = useStudioStore((s) => s.codeWrap);
   const codeFontSize = useStudioStore((s) => s.codeFontSize);
+  const animationPreset = useStudioStore((s) => s.animationPreset);
+  const scrollSpeed = useStudioStore((s) => s.scrollSpeed);
 
   const [html, setHtml] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const [scrollDist, setScrollDist] = useState(0);
   const highlighterRef = useRef<Highlighter | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -72,6 +77,29 @@ export function CodeDisplay() {
     return () => { cancelled = true; };
   }, [codeContent, codeLanguage, codeTheme]);
 
+  // Measure scroll distance whenever content changes or scroll preset activates.
+  // Must run after html is painted, so we observe the container with ResizeObserver.
+  useEffect(() => {
+    if (animationPreset !== "scroll") {
+      setScrollDist(0);
+      return;
+    }
+
+    function measure() {
+      const el = containerRef.current;
+      if (!el) return;
+      // scrollHeight works correctly even with overflow:hidden — it returns the
+      // full natural content height regardless of clipping.
+      const dist = el.scrollHeight - el.clientHeight;
+      setScrollDist(dist > 0 ? dist : 0);
+    }
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (containerRef.current) ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, [animationPreset, html, codeFontSize]);
+
   if (loading) {
     return (
       <div className="w-full h-full flex items-center justify-center bg-[#1c1c1e]">
@@ -86,10 +114,23 @@ export function CodeDisplay() {
     );
   }
 
+  const isScrollMode = animationPreset === "scroll";
+
+  // Translate speed label → animation loop duration in seconds.
+  // Independent of recordDuration — video length and scroll cadence are separate concerns.
+  const scrollDuration = scrollSpeed === "slow" ? 18 : scrollSpeed === "fast" ? 10 : 14;
+
   return (
     <div
-      className="w-full h-full overflow-auto"
-      style={{ fontSize: `${codeFontSize}px` }}
+      id="code-display"
+      ref={containerRef}
+      className="w-full h-full"
+      style={{
+        fontSize: `${codeFontSize}px`,
+        // In scroll mode: clip the content so the motion.div animation scrolls
+        // it through the visible window. In normal mode: let the user scroll.
+        overflow: isScrollMode ? "hidden" : "auto",
+      }}
     >
       <style>{`
         .shiki-code-display pre {
@@ -122,10 +163,24 @@ export function CodeDisplay() {
         }
         ` : ""}
       `}</style>
-      <div
-        className="shiki-code-display w-full h-full"
-        dangerouslySetInnerHTML={{ __html: addLineAttributes(html) }}
-      />
+
+      {isScrollMode && scrollDist > 0 ? (
+        // Animate only the code content — the BrowserFrame and its chrome stay
+        // perfectly still. translateY goes from 0 → -scrollDist, revealing the
+        // bottom of the code, then loops back to 0.
+        <motion.div
+          key={`scroll-${scrollSpeed}-${scrollDist}`}
+          className="shiki-code-display w-full"
+          animate={{ y: [0, -scrollDist, 0] }}
+          transition={{ duration: scrollDuration, repeat: Infinity, ease: "linear" }}
+          dangerouslySetInnerHTML={{ __html: addLineAttributes(html) }}
+        />
+      ) : (
+        <div
+          className="shiki-code-display w-full h-full"
+          dangerouslySetInnerHTML={{ __html: addLineAttributes(html) }}
+        />
+      )}
     </div>
   );
 }
