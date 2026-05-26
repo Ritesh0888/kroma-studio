@@ -57,6 +57,8 @@ interface StudioState {
   customBgTo: string;
   uploadedImage: string | null;
   isExporting: boolean;
+  watermarkVisible: boolean;
+  showWatermarkModal: boolean;
 
   // Mode
   mode: StudioMode;
@@ -86,6 +88,8 @@ interface StudioState {
   setCustomBgTo: (c: string) => void;
   setUploadedImage: (url: string | null) => void;
   setIsExporting: (v: boolean) => void;
+  setWatermarkVisible: (v: boolean) => void;
+  setShowWatermarkModal: (v: boolean) => void;
 
   // Mode setters
   setMode: (m: StudioMode) => void;
@@ -135,6 +139,8 @@ export const useStudioStore = create<StudioState>((set) => ({
   customBgTo: "#ec4899",
   uploadedImage: null,
   isExporting: false,
+  watermarkVisible: true,
+  showWatermarkModal: false,
 
   // Mode default
   mode: "mockup",
@@ -175,6 +181,8 @@ export const useStudioStore = create<StudioState>((set) => ({
   setCustomBgTo: (c) => set({ customBgTo: c }),
   setUploadedImage: (url) => set({ uploadedImage: url }),
   setIsExporting: (v) => set({ isExporting: v }),
+  setWatermarkVisible: (v) => set({ watermarkVisible: v }),
+  setShowWatermarkModal: (v) => set({ showWatermarkModal: v }),
 
   // Mode setters
   setMode: (m) => set({ mode: m }),

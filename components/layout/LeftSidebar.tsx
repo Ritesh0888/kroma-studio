@@ -94,13 +94,6 @@ export function LeftSidebar() {
         </div>
 
       </div>
-
-      {/* Footer */}
-      <div className="px-4 py-3 border-t border-surface-2 shrink-0">
-        <p className="text-[10px] text-[#3a3a3a] text-center">
-          Phase 3 · Animation & Video Engine
-        </p>
-      </div>
     </aside>
   );
 }

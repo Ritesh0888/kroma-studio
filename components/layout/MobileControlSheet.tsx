@@ -108,13 +108,56 @@ function FrameTab() {
   const padding = useStudioStore((s) => s.padding);
   const borderRadius = useStudioStore((s) => s.borderRadius);
   const shadowDepth = useStudioStore((s) => s.shadowDepth);
+  const watermarkVisible = useStudioStore((s) => s.watermarkVisible);
   const setPadding = useStudioStore((s) => s.setPadding);
   const setBorderRadius = useStudioStore((s) => s.setBorderRadius);
   const setShadowDepth = useStudioStore((s) => s.setShadowDepth);
+  const setWatermarkVisible = useStudioStore((s) => s.setWatermarkVisible);
+  const setShowWatermarkModal = useStudioStore((s) => s.setShowWatermarkModal);
+
+  const handleWatermarkClick = () => {
+    if (watermarkVisible) {
+      track("watermark_modal_open", { source: "mobile" });
+      setShowWatermarkModal(true);
+      return;
+    }
+
+    track("watermark_re_enabled", { source: "mobile" });
+    setWatermarkVisible(true);
+  };
 
   return (
     <div className="flex flex-col gap-4 px-4">
       <ChromeStyleControl />
+      <div className="rounded-xl border border-surface-2 bg-surface p-3">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold text-white">Watermark</p>
+            <p className="mt-0.5 text-[10px] text-text-muted">
+              {watermarkVisible ? "Share once to remove from exports" : "Watermark-free exports unlocked"}
+            </p>
+          </div>
+          <button
+            onClick={handleWatermarkClick}
+            className={`relative h-5 w-9 shrink-0 rounded-full transition-colors ${
+              watermarkVisible ? "bg-neon-purple" : "bg-[#1e1e1e]"
+            }`}
+            aria-label={watermarkVisible ? "Remove watermark" : "Re-enable watermark"}
+          >
+            <span
+              className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200 ${
+                watermarkVisible ? "translate-x-4" : "translate-x-0"
+              }`}
+            />
+          </button>
+        </div>
+        <button
+          onClick={handleWatermarkClick}
+          className="mt-3 w-full rounded-lg border border-border px-3 py-2 text-xs font-semibold text-text-muted transition-colors active:scale-95"
+        >
+          {watermarkVisible ? "Remove Watermark" : "Turn Watermark Back On"}
+        </button>
+      </div>
       <SliderControl label="Padding" value={padding} min={0} max={40} unit="px" onChange={setPadding} />
       <SliderControl label="Corner Radius" value={borderRadius} min={0} max={32} unit="px" onChange={setBorderRadius} />
       <SliderControl label="Shadow" value={shadowDepth} min={0} max={100} unit="%" onChange={setShadowDepth} />
