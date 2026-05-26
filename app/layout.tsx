@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
@@ -14,6 +14,13 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#080808",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kromastudio.in"),
@@ -41,6 +48,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://kromastudio.in",
   },
+  manifest: "/manifest.webmanifest",
   openGraph: {
     title: "KromaStudio | Aesthetic Mockups Instantly",
     description:
@@ -103,6 +111,7 @@ const jsonLd = {
     "12 aesthetic gradient background presets",
     "Line numbers toggle",
     "HD PNG export at 2× resolution",
+    "Animated video export — Float, 3D Tilt, Auto-Scroll loops as .webm",
     "100% client-side — no upload, no sign-up",
   ],
 };

@@ -2,7 +2,10 @@
 
 export function MobileAdFooter() {
   return (
-    <div className="flex md:hidden items-center justify-center bg-[#080808] border-t border-[#1a1a1a] shrink-0" style={{ height: "50px" }}>
+    <div
+      className="flex md:hidden items-center justify-center bg-[#080808] border-t border-[#1a1a1a] shrink-0"
+      style={{ height: "50px", paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
       {/* 320×50 Smart Anchor Ad placeholder */}
       <div
         className="flex items-center justify-center border border-dashed border-[#1e1e1e] rounded-lg bg-[#0a0a0a] text-center"

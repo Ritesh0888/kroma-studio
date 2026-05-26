@@ -7,8 +7,11 @@ import { SliderControl } from "@/components/controls/SliderControl";
 import { ModeSelector } from "@/components/controls/ModeSelector";
 import { CodeControls } from "@/components/controls/CodeControls";
 import { HeadlineControls } from "@/components/controls/HeadlineControls";
-import { EmailCapturePopover } from "@/components/ui/EmailCapturePopover";
+import { AnimationControls } from "@/components/controls/AnimationControls";
+import { ChromeStyleControl } from "@/components/controls/ChromeStyleControl";
 import { CustomColorPicker } from "@/components/ui/CustomColorPicker";
+import { useVideoRecorder } from "@/hooks/useVideoRecorder";
+import { track } from "@/lib/analytics";
 
 type Tab = "bg" | "frame" | "size" | "code" | "animate";
 
@@ -19,32 +22,6 @@ const ASPECT_RATIOS: { value: AspectRatio; label: string }[] = [
   { value: "free", label: "Free" },
 ];
 
-const ANIMATION_PRESETS = [
-  {
-    id: "float",
-    label: "Subtle Float",
-    desc: "Hover loop",
-    icon: "〜",
-    teaser:
-      "Animated video loops are launching next week! Drop your email to get early access the moment it goes live.",
-  },
-  {
-    id: "tilt",
-    label: "3D Tilt",
-    desc: "Auto rotate",
-    icon: "◈",
-    teaser:
-      "3D tilt animation export is coming soon. Be the first to know — drop your email!",
-  },
-  {
-    id: "scroll",
-    label: "Auto Scroll",
-    desc: "Code pan",
-    icon: "⇕",
-    teaser:
-      "Auto-scroll for long code snapshots is dropping soon. Leave your email for early access!",
-  },
-];
 
 /* ── Tabs ── */
 
@@ -63,7 +40,7 @@ function BgTab() {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="hide-scrollbar flex gap-3 overflow-x-auto pb-1 px-4">
+      <div className="hide-scrollbar flex gap-3 overflow-x-auto pt-2 pb-1 px-4">
         {BACKGROUND_PRESETS.map((preset) => {
           const active = backgroundId === preset.id;
           return (
@@ -137,6 +114,7 @@ function FrameTab() {
 
   return (
     <div className="flex flex-col gap-4 px-4">
+      <ChromeStyleControl />
       <SliderControl label="Padding" value={padding} min={0} max={40} unit="px" onChange={setPadding} />
       <SliderControl label="Corner Radius" value={borderRadius} min={0} max={32} unit="px" onChange={setBorderRadius} />
       <SliderControl label="Shadow" value={shadowDepth} min={0} max={100} unit="%" onChange={setShadowDepth} />
@@ -178,93 +156,63 @@ function SizeTab() {
 }
 
 function AnimateTab() {
-  const [activePopover, setActivePopover] = useState<string | null>(null);
-  const [showVideoPopover, setShowVideoPopover] = useState(false);
+  const isRecording = useStudioStore((s) => s.isRecording);
+  const animationPreset = useStudioStore((s) => s.animationPreset);
+  const recordDuration = useStudioStore((s) => s.recordDuration);
+  const { startRecording, isSafari } = useVideoRecorder();
 
   return (
     <div className="flex flex-col gap-4 px-4">
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-2">
-          <label className="text-xs font-medium text-[#a0a0a0] uppercase tracking-wider">
-            Animation
-          </label>
-          <span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-linear-to-r from-neon-purple to-neon-pink text-white leading-none tracking-wide">
-            PHASE 3
-          </span>
-        </div>
+      <AnimationControls />
 
-        {ANIMATION_PRESETS.map((preset) => (
-          <div key={preset.id} className="relative">
-            <button
-              onClick={() => setActivePopover(activePopover === preset.id ? null : preset.id)}
-              className="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg border border-surface-2 bg-[#0a0a0a] text-left hover:border-neon-purple/30 hover:bg-neon-purple/5 transition-all group"
-            >
-              <span className="text-base text-border group-hover:text-neon-purple/40 transition-colors w-5 text-center leading-none">
-                {preset.icon}
-              </span>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium text-[#3a3a3a] group-hover:text-text-muted transition-colors leading-none">
-                  {preset.label}
-                </p>
-                <p className="text-[10px] text-border mt-0.5">{preset.desc}</p>
-              </div>
-              <span className="text-[8px] font-bold px-1 py-0.5 rounded bg-[#1a0033] border border-neon-purple/20 text-neon-purple/60 leading-none tracking-wide shrink-0">
-                SOON
-              </span>
-            </button>
-            {activePopover === preset.id && (
-              <EmailCapturePopover
-                teaser={preset.teaser}
-                onClose={() => setActivePopover(null)}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <label className="text-xs font-medium text-[#a0a0a0] uppercase tracking-wider">
-          Video Export
-        </label>
-        <div className="relative">
-          <button
-            onClick={() => setShowVideoPopover((v) => !v)}
-            className="relative w-full flex items-center gap-3 px-3 py-3 rounded-xl border border-neon-purple/20 bg-[#0a0a0a] hover:bg-neon-purple/5 hover:border-neon-purple/40 transition-all group"
-          >
-            <svg
-              className="w-4 h-4 text-[#3a3a3a] group-hover:text-neon-purple/50 transition-colors shrink-0"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={1.5}
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 9.75v9A2.25 2.25 0 004.5 18.75z"
-              />
+      {/* Render Video button */}
+      <button
+        onClick={() => {
+          track("video_record_click", { preset: animationPreset, duration: recordDuration, source: "mobile" });
+          startRecording();
+        }}
+        disabled={isRecording || animationPreset === "none" || isSafari}
+        className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all ${
+          isRecording
+            ? "bg-[#1a0033] border border-neon-purple/30 text-neon-purple/60 cursor-not-allowed"
+            : isSafari || animationPreset === "none"
+            ? "bg-[#0a0a0a] border border-surface-2 text-[#3a3a3a] cursor-not-allowed"
+            : "bg-linear-to-r from-neon-purple to-neon-pink text-white active:scale-95 shadow-lg shadow-neon-purple/20"
+        }`}
+      >
+        {isRecording ? (
+          <span className="flex items-center justify-center gap-2">
+            <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-[#3a3a3a] group-hover:text-text-muted transition-colors leading-none">
-                Render Animated Video
-              </p>
-              <p className="text-[10px] text-border mt-0.5">5s loop · 60fps · .webm</p>
-            </div>
-            <span className="text-[8px] font-bold px-1 py-0.5 rounded bg-linear-to-r from-neon-purple to-neon-pink text-white leading-none tracking-wide shrink-0">
-              SOON
-            </span>
-          </button>
-          {showVideoPopover && (
-            <EmailCapturePopover
-              teaser="We are launching animated video loops next week — Float, 3D Tilt & Auto-Scroll. Drop your email to get early access the moment it goes live!"
-              onClose={() => setShowVideoPopover(false)}
-            />
-          )}
-        </div>
-        <p className="text-[10px] text-border leading-relaxed">
-          Client-side .webm — no upload, no server.
+            Recording…
+          </span>
+        ) : (
+          <span className="flex items-center justify-center gap-2">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 9.75v9A2.25 2.25 0 004.5 18.75z" />
+            </svg>
+            Render Animated Video
+          </span>
+        )}
+      </button>
+
+      {isSafari && (
+        <p className="text-[10px] text-border text-center">
+          ⚠ Safari detected — use Chrome or Firefox for video export
         </p>
-      </div>
+      )}
+      {!isSafari && animationPreset === "none" && !isRecording && (
+        <p className="text-[10px] text-border text-center">
+          Select a preset above to enable export
+        </p>
+      )}
+      {!isSafari && animationPreset !== "none" && !isRecording && (
+        <p className="text-[10px] text-border text-center">
+          {recordDuration}s loop · 60fps · .webm · client-side
+        </p>
+      )}
     </div>
   );
 }
@@ -366,14 +314,14 @@ export function MobileControlSheet() {
   return (
     <div className="flex md:hidden flex-col bg-[#080808] border-t border-surface-2 shrink-0">
       {/* Tab bar — pt-2 gives vertical room so the NEW badge isn't clipped by overflow-x-auto */}
-      <div className="hide-scrollbar flex overflow-x-auto border-b border-surface-2 pt-2">
+      <div className="hide-scrollbar flex overflow-x-auto border-b border-surface-2 pt-2 px-1">
         {TABS.map((tab) => {
           const active = activeTab === tab.id;
           return (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`relative flex-1 min-w-[60px] flex items-center justify-center gap-1 pb-2.5 text-[11px] font-medium transition-all border-b-2 whitespace-nowrap ${
+              className={`relative shrink-0 px-5 flex items-center justify-center gap-1.5 pb-2.5 text-[11px] font-medium transition-all border-b-2 whitespace-nowrap ${
                 active
                   ? "border-neon-purple text-neon-purple"
                   : "border-transparent text-[#4a4a4a]"

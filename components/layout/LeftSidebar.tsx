@@ -9,7 +9,7 @@ import { BackgroundControl } from "@/components/controls/BackgroundControl";
 import { ModeSelector } from "@/components/controls/ModeSelector";
 import { CodeControls } from "@/components/controls/CodeControls";
 import { HeadlineControls } from "@/components/controls/HeadlineControls";
-import { AnimationTeaser } from "@/components/controls/AnimationTeaser";
+import { ChromeStyleControl } from "@/components/controls/ChromeStyleControl";
 
 function SectionDivider({ label }: { label: string }) {
   return (
@@ -79,6 +79,7 @@ export function LeftSidebar() {
         <div>
           <SectionDivider label="Frame" />
           <div className="mt-4 flex flex-col gap-5">
+            <ChromeStyleControl />
             <PaddingControl />
             <BorderRadiusControl />
             <ShadowControl />
@@ -92,18 +93,12 @@ export function LeftSidebar() {
           </div>
         </div>
 
-        <div>
-          <SectionDivider label="Animate" />
-          <div className="mt-4">
-            <AnimationTeaser />
-          </div>
-        </div>
       </div>
 
       {/* Footer */}
       <div className="px-4 py-3 border-t border-surface-2 shrink-0">
         <p className="text-[10px] text-[#3a3a3a] text-center">
-          Phase 2 · Code & Headline Engine
+          Phase 3 · Animation & Video Engine
         </p>
       </div>
     </aside>
