@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,14 +19,20 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://kromastudio.in"),
   title: "KromaStudio | Aesthetic Code Screenshots & Mockup Generator",
   description:
-    "Turn raw code, screenshots, and tweets into stunning, professional graphics and animations. Free browser mockup generator — 100% client-side, zero sign-up.",
+    "Turn your code snippets and screenshots into stunning aesthetic visuals. Syntax-highlighted code screenshots with Dracula, One Dark Pro, GitHub Dark & more. Free browser mockup generator — 100% client-side, zero sign-up.",
   keywords: [
     "code mockup generator",
     "aesthetic screenshot editor",
     "browser frame mockup",
-    "tweet screenshot maker",
+    "syntax highlighted code screenshot",
+    "code to image online",
+    "code screenshot maker free",
+    "beautiful code screenshots",
+    "code snippet to image",
+    "dracula theme screenshot",
     "code snippet beautifier",
     "browser mockup online",
+    "tweet screenshot maker",
     "aesthetic video loop maker",
   ],
   authors: [{ name: "KromaStudio", url: "https://kromastudio.in" }],
@@ -37,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "KromaStudio | Aesthetic Mockups Instantly",
     description:
-      "Stop posting boring screenshots. Make them pop with premium backgrounds and layouts. Free browser mockup generator — runs entirely in your browser.",
+      "Stop posting boring screenshots. Paste your code — get a stunning syntax-highlighted card with Dracula, One Dark Pro & more themes. Browser mockups too. Free, runs in your browser.",
     url: "https://kromastudio.in",
     siteName: "KromaStudio",
     images: [
@@ -55,7 +62,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "KromaStudio | Aesthetic Code & Mockups",
     description:
-      "Generate browser frame mockups and aesthetic screenshots for free. 100% client-side, no upload needed.",
+      "Paste code → get a beautiful syntax-highlighted screenshot. Dracula, One Dark Pro, GitHub Dark & more. Browser mockups too. Free, client-side.",
     images: ["/og-image.png"],
     site: "@KromaStudio",
     creator: "@KromaStudio",
@@ -81,18 +88,22 @@ const jsonLd = {
   applicationCategory: "DesignApplication",
   browserRequirements: "Requires HTML5 canvas support",
   description:
-    "Free online browser mockup and aesthetic screenshot generator. Turn code, screenshots, and content into premium graphic assets — 100% client-side.",
+    "Free online tool to create syntax-highlighted code screenshots and browser mockups. Supports Dracula, One Dark Pro, GitHub Dark, Night Owl, and Tokyo Night themes. Export HD PNG — 100% client-side, no sign-up.",
   offers: {
     "@type": "Offer",
     price: "0",
     priceCurrency: "USD",
   },
   featureList: [
-    "Browser frame mockups",
-    "Code snippet beautifier",
-    "Aesthetic background presets",
-    "HD PNG export",
-    "100% client-side processing",
+    "Browser frame mockups with macOS chrome",
+    "Syntax-highlighted code screenshots",
+    "Code themes: Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night",
+    "Supported languages: JavaScript, TypeScript, Python, HTML, CSS, Go, Rust",
+    "Headline text overlay for social posts",
+    "12 aesthetic gradient background presets",
+    "Line numbers toggle",
+    "HD PNG export at 2× resolution",
+    "100% client-side — no upload, no sign-up",
   ],
 };
 
@@ -126,6 +137,7 @@ export default function RootLayout({
         />
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

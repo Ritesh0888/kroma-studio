@@ -15,9 +15,17 @@ export default function Home() {
       <div className="sr-only" aria-hidden="false">
         <h1>Stop Posting Boring Screenshots. Make Code &amp; Mockups Aesthetic.</h1>
         <h2>Premium Browser Frame Mockups</h2>
-        <h2>Code Snippet Beautifier &amp; Screenshot Editor</h2>
-        <h2>Aesthetic Background Presets for Developers &amp; Designers</h2>
-        <p>Free online tool to generate stunning browser mockups, aesthetic code screenshots, and graphic assets — 100% client-side, no sign-up required.</p>
+        <h2>Syntax-Highlighted Code Screenshots</h2>
+        <h2>Code Themes: Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night</h2>
+        <h2>12 Aesthetic Gradient Background Presets for Developers &amp; Designers</h2>
+        <h2>Headline Text Overlay for Viral Social Posts</h2>
+        <h2>Export HD PNG Free — No Sign-Up Required</h2>
+        <p>
+          Free online tool to generate stunning browser mockups and syntax-highlighted code screenshots.
+          Supports JavaScript, TypeScript, Python, HTML, CSS, Go, and Rust with themes including Dracula,
+          One Dark Pro, GitHub Dark, Night Owl, and Tokyo Night. Add a custom headline text overlay and
+          gradient background to create scroll-stopping social media graphics — 100% client-side, no sign-up required.
+        </p>
       </div>
       {/* ── Mobile-only: fixed top header ── */}
       <MobileHeader />

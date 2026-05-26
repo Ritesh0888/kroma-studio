@@ -1,0 +1,74 @@
+---
+description: UI quality and mobile web checklist — run through this whenever building or editing any component in KromaStudio
+globs: **/*.tsx
+alwaysApply: false
+---
+
+# UI & Mobile Web Checklist
+
+Run through every item below whenever creating or editing a component.
+
+## Toggle / Switch
+
+- Always set `left-0.5` explicitly on the knob span — do NOT rely on `left: auto`
+- OFF state: `translate-x-0` (not `translate-x-0.5`)
+- ON state: `translate-x-4` (16px) — gives symmetric 2px gaps when knob is `w-4` inside `w-9`
+- Add `duration-200` for smooth animation
+
+```tsx
+// ✅ CORRECT
+<button className={`relative w-9 h-5 rounded-full transition-colors ${on ? "bg-neon-purple" : "bg-[#1e1e1e]"}`}>
+  <span className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200 ${on ? "translate-x-4" : "translate-x-0"}`} />
+</button>
+
+// ❌ WRONG — asymmetric, knob drifts right on ON state
+<span className={`absolute top-0.5 w-4 h-4 ... ${on ? "translate-x-4" : "translate-x-0.5"}`} />
+```
+
+## Badges on overflow containers
+
+- `overflow-x-auto` also clips `overflow-y` → badges with negative `top` get cut off
+- Fix: add `pt-2` to the scrollable row so there is headroom above, use `pb-*` on buttons for bottom spacing
+
+```tsx
+// ✅ CORRECT
+<div className="hide-scrollbar flex overflow-x-auto pt-2 border-b ...">
+  <button className="... pb-2.5">
+    <span className="absolute -top-1 right-0.5 ...">NEW</span>
+  </button>
+</div>
+
+// ❌ WRONG — badge clipped
+<div className="flex overflow-x-auto">
+  <button className="py-2.5">
+    <span className="absolute -top-0.5 ...">NEW</span>
+  </button>
+</div>
+```
+
+## Mobile web (mweb) parity
+
+Every desktop feature added to `LeftSidebar` must have a corresponding control in `MobileControlSheet`:
+
+| Desktop | Mobile |
+|---|---|
+| New sidebar section | New tab or inline section in existing tab |
+| Mode-specific controls | Show/hide inside CodeTab based on `mode` state |
+| Toggle | Same toggle component, not a reimplementation |
+
+Check `components/layout/MobileControlSheet.tsx` for every sidebar change.
+
+## Tailwind aliases — use project tokens not raw hex
+
+| Raw | Alias |
+|---|---|
+| `text-[#6b6b6b]` | `text-text-muted` |
+| `bg-[#0f0f0f]` | `bg-surface` |
+| `border-[#2a2a2a]` | `border-border` |
+| `border-[#1a1a1a]` | `border-surface-2` |
+| `text-[#2a2a2a]` | `text-border` |
+| `bg-gradient-to-r from-[#a855f7] to-[#ec4899]` | `bg-linear-to-r from-neon-purple to-neon-pink` |
+| `text-[#a855f7]` | `text-neon-purple` |
+| `border-[#a855f7]` | `border-neon-purple` |
+
+Run `ReadLints` on every file after editing to catch remaining alias violations.

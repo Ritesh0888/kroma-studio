@@ -63,6 +63,34 @@ export const BACKGROUND_PRESETS: BackgroundPreset[] = [
     previewFrom: "#001100",
     previewTo: "#003300",
   },
+  {
+    id: "neon_sunset",
+    label: "Neon Sunset",
+    css: "linear-gradient(135deg, #f953c6, #b91d73)",
+    previewFrom: "#f953c6",
+    previewTo: "#b91d73",
+  },
+  {
+    id: "deep_ocean",
+    label: "Deep Ocean",
+    css: "linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #533483)",
+    previewFrom: "#1a1a2e",
+    previewTo: "#533483",
+  },
+  {
+    id: "golden_hour",
+    label: "Golden Hour",
+    css: "linear-gradient(135deg, #f7971e, #ffd200)",
+    previewFrom: "#f7971e",
+    previewTo: "#ffd200",
+  },
+  {
+    id: "void",
+    label: "Void",
+    css: "#000000",
+    previewFrom: "#000000",
+    previewTo: "#111111",
+  },
 ];
 
 export function getPresetById(id: string): BackgroundPreset {
