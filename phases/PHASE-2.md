@@ -16,6 +16,8 @@ Add a "Mode Selector" tab UI to the Left Sidebar with three modes:
 
 Store the active mode in Zustand: `mode: 'mockup' | 'code' | 'content'`
 
+> **Deferred:** The `content` mode tab was added as a teaser/lead-capture surface only. The full rich text / tweet mockup editor is planned separately in `PHASE-5.md`.
+
 ---
 
 ## 1. Code Mode Integration

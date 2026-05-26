@@ -32,12 +32,12 @@ export function CenterPanel() {
   }, [dims]);
 
   return (
-    <section className="flex-1 flex flex-col bg-[#050505] overflow-hidden min-h-0">
+    <section className="flex-1 min-w-0 flex flex-col bg-[#050505] overflow-hidden min-h-0">
       {/* Top bar — desktop only */}
-      <div className="hidden md:flex items-center justify-between px-5 py-3 border-b border-[#1a1a1a] shrink-0">
+      <div className="hidden md:flex items-center justify-between px-5 py-3 border-b border-surface-2 shrink-0">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-[#28c840] animate-pulse" />
-          <span className="text-xs text-[#6b6b6b]">Canvas Preview</span>
+          <span className="text-xs text-text-muted">Canvas Preview</span>
         </div>
         <span className="text-[10px] font-mono text-[#3a3a3a]">
           {dims ? `${dims.width} × ${dims.height}` : "Fluid"}
@@ -53,19 +53,32 @@ export function CenterPanel() {
           backgroundSize: "24px 24px",
         }}
       >
-        {/* Scale wrapper — shrinks canvas proportionally on small screens */}
-        <div
-          style={{
-            transform: `scale(${scale})`,
-            transformOrigin: "center center",
-            // Keep DOM dimensions at natural size; CSS scale handles visual fit
-            flexShrink: 0,
-          }}
-        >
+        {dims ? (
+          <div
+            style={{
+              width: `${dims.width * scale}px`,
+              height: `${dims.height * scale}px`,
+              flexShrink: 0,
+            }}
+          >
+            <div
+              style={{
+                width: `${dims.width}px`,
+                height: `${dims.height}px`,
+                transform: `scale(${scale})`,
+                transformOrigin: "top left",
+              }}
+            >
+              <CanvasErrorBoundary>
+                <StudioCanvas />
+              </CanvasErrorBoundary>
+            </div>
+          </div>
+        ) : (
           <CanvasErrorBoundary>
             <StudioCanvas />
           </CanvasErrorBoundary>
-        </div>
+        )}
       </div>
 
       {/*

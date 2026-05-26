@@ -145,6 +145,13 @@ export default function RootLayout({
             gtag('config', 'G-NVCK4NV505');
           `}
         </Script>
+        {process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}`}
+            crossOrigin="anonymous"
+          />
+        )}
 
         <script
           type="application/ld+json"
