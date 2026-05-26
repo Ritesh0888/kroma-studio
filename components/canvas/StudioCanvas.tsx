@@ -18,6 +18,7 @@ export function StudioCanvas() {
   const customBgTo = useStudioStore((s) => s.customBgTo);
   const headlineEnabled = useStudioStore((s) => s.headlineEnabled);
   const headlinePosition = useStudioStore((s) => s.headlinePosition);
+  const watermarkVisible = useStudioStore((s) => s.watermarkVisible);
 
   const backgroundCss =
     backgroundId === "custom"
@@ -66,9 +67,11 @@ export function StudioCanvas() {
       </AnimatedFrame>
 
       {/* Watermark */}
-      <span className="absolute bottom-1.5 right-2 text-[9px] text-white/30 select-none pointer-events-none font-mono tracking-wide">
-        via KromaStudio
-      </span>
+      {watermarkVisible && (
+        <span className="absolute bottom-1.5 right-2 text-xs opacity-50 select-none pointer-events-none font-sans">
+          via KromaStudio
+        </span>
+      )}
     </div>
   );
 }
