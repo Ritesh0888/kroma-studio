@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kromastudio.in"),
+  metadataBase: new URL("https://www.kromastudio.in"),
   title: "KromaStudio | Aesthetic Code Screenshots & Mockup Generator",
   description:
     "Turn your code snippets and screenshots into stunning aesthetic visuals. Syntax-highlighted code screenshots with Dracula, One Dark Pro, GitHub Dark & more. Free browser mockup generator — 100% client-side, zero sign-up.",
@@ -47,18 +47,18 @@ export const metadata: Metadata = {
     "code screenshot mobile",
     "code image generator no signup",
   ],
-  authors: [{ name: "KromaStudio", url: "https://kromastudio.in" }],
+  authors: [{ name: "KromaStudio", url: "https://www.kromastudio.in" }],
   creator: "KromaStudio",
   category: "Design Tools",
   alternates: {
-    canonical: "https://kromastudio.in",
+    canonical: "https://www.kromastudio.in",
   },
   manifest: "/manifest.webmanifest",
   openGraph: {
     title: "KromaStudio | Aesthetic Mockups Instantly",
     description:
       "Stop posting boring screenshots. Paste your code — get a stunning syntax-highlighted card with Dracula, One Dark Pro & more themes. Browser mockups too. Free, runs in your browser.",
-    url: "https://kromastudio.in",
+    url: "https://www.kromastudio.in",
     siteName: "KromaStudio",
     images: [
       {
@@ -96,7 +96,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: "KromaStudio",
-  url: "https://kromastudio.in",
+  url: "https://www.kromastudio.in",
   operatingSystem: "Browser",
   applicationCategory: "DesignApplication",
   browserRequirements: "Requires HTML5 canvas support",
