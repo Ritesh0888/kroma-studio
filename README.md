@@ -31,6 +31,8 @@ NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR_BOTTOM=8619948978
 NEXT_PUBLIC_ADSENSE_SLOT_FOOTER=1397584983
 NEXT_PUBLIC_ADSENSE_SLOT_MOBILE_FOOTER=8947252033
 NEXT_PUBLIC_ADSENSE_SLOT_RENDERING_OVERLAY=5517627547
+# Set to true to load real AdSense slots on localhost (layout testing)
+NEXT_PUBLIC_ADSENSE_DEV=true
 ```
 
 `NEXT_PUBLIC_*` values are intentionally exposed to the browser. Restart the dev server after changing them.

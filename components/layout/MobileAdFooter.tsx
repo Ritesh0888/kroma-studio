@@ -22,6 +22,7 @@ export function MobileAdFooter() {
           width={320}
           height={50}
           format="horizontal"
+          fixedSize={false}
         />
       </div>
     </div>

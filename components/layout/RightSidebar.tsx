@@ -243,10 +243,10 @@ export function RightSidebar() {
           key={`${SIDEBAR_BOTTOM_AD_ID}-${adRefreshKeys[SIDEBAR_BOTTOM_AD_ID] ?? 0}`}
           id={SIDEBAR_BOTTOM_AD_ID}
           slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR_BOTTOM}
-          label="Display Ad · 300×600"
+          label="Display Ad · 300×250"
           width={300}
-          height={600}
-          format="vertical"
+          height={250}
+          format="rectangle"
         />
       </div>
 

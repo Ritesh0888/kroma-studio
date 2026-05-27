@@ -11,12 +11,9 @@ import { WatermarkModal } from "@/components/modals/WatermarkModal";
 
 export default function Home() {
   return (
-    <div
-      className="flex flex-col"
-      style={{ height: "100dvh", width: "100vw", overflow: "hidden", background: "#000" }}
-    >
+    <div className="fixed inset-0 flex flex-col overflow-hidden bg-black">
       <SeoHero />
-      <main className="flex flex-1 min-h-0 overflow-hidden flex-col md:flex-row">
+      <main className="flex min-h-0 flex-1 basis-0 overflow-hidden flex-col md:flex-row">
         {/* SEO semantic content — h1 on mobile (SeoHero is desktop-only), h2s for crawlers */}
         <div className="sr-only" aria-hidden="false">
           <h1 className="md:hidden">
@@ -39,7 +36,7 @@ export default function Home() {
         <MobileHeader />
 
         {/* ── Desktop-only: left sidebar ── */}
-        <div className="hidden md:flex md:w-[25%] h-full min-h-0 shrink-0 overflow-hidden">
+        <div className="hidden md:flex md:w-[25%] min-h-0 shrink-0 self-stretch overflow-hidden">
           <LeftSidebar />
         </div>
 
@@ -47,7 +44,7 @@ export default function Home() {
         <CenterPanel />
 
         {/* ── Desktop-only: right sidebar ── */}
-        <div className="hidden md:flex md:w-[20%] h-full min-h-0 shrink-0 overflow-hidden">
+        <div className="hidden md:flex md:w-[20%] min-h-0 shrink-0 self-stretch overflow-hidden">
           <RightSidebar />
         </div>
 

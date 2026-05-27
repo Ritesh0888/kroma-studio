@@ -22,7 +22,7 @@ export function CenterPanel() {
       const padding = 24;
       const scaleX = (cw - padding * 2) / dims.width;
       const scaleY = (ch - padding * 2) / dims.height;
-      setScale(Math.min(scaleX, scaleY, 1));
+      setScale(Math.max(Math.min(scaleX, scaleY, 1), 0.05));
     }
 
     compute();
@@ -36,7 +36,7 @@ export function CenterPanel() {
   }, [dims]);
 
   return (
-    <section className="flex-1 min-w-0 h-full min-h-0 flex flex-col bg-[#050505] overflow-hidden">
+    <section className="flex min-h-0 min-w-0 flex-1 basis-0 flex-col overflow-hidden bg-[#050505]">
       {/* Top bar — desktop only */}
       <div className="hidden md:flex items-center justify-between px-5 py-3 border-b border-surface-2 shrink-0">
         <div className="flex items-center gap-2">

@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
-declare global {
-  interface Window {
-    adsbygoogle?: unknown[];
-  }
-}
+import { ADSENSE_CLIENT, isAdsenseEnabled } from "@/lib/ads-config";
+import {
+  isAdZoneVisible,
+  isExpectedDevAdsenseError,
+  pushAdsenseSlot,
+  waitForAdsenseScript,
+} from "@/lib/adsense-push";
 
 interface AdZoneProps {
   id: string;
@@ -16,10 +17,9 @@ interface AdZoneProps {
   height: number;
   className?: string;
   format?: "auto" | "rectangle" | "horizontal" | "vertical";
+  /** When true, ad slot keeps a fixed box so iframes cannot blow out the studio layout. */
+  fixedSize?: boolean;
 }
-
-const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
-const ADSENSE_ENABLED = process.env.NODE_ENV === "production";
 
 export function AdZone({
   id,
@@ -29,51 +29,85 @@ export function AdZone({
   height,
   className = "",
   format = "auto",
+  fixedSize = true,
 }: AdZoneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [adFailed, setAdFailed] = useState(false);
-  const hasConfig = ADSENSE_ENABLED && Boolean(ADSENSE_CLIENT && slot);
+  const hasConfig = isAdsenseEnabled() && Boolean(ADSENSE_CLIENT && slot);
 
   useEffect(() => {
     if (!hasConfig) return;
 
-    const timeout = window.setTimeout(() => {
-      const rect = containerRef.current?.getBoundingClientRect();
+    let cancelled = false;
 
-      if (!rect || rect.width < 1 || rect.height < 1) return;
+    async function initAd() {
+      const container = containerRef.current;
+      if (!container || cancelled) return;
+
+      if (!isAdZoneVisible(container)) return;
+
+      const ins = container.querySelector("ins.adsbygoogle");
+      if (!(ins instanceof HTMLElement)) return;
+
+      const scriptReady = await waitForAdsenseScript();
+      if (!scriptReady || cancelled) {
+        setAdFailed(true);
+        return;
+      }
+
+      if (!isAdZoneVisible(container)) return;
 
       try {
-        window.adsbygoogle = window.adsbygoogle || [];
-        window.adsbygoogle.push({});
+        pushAdsenseSlot(ins);
       } catch (error) {
-        console.warn("[AdZone] AdSense push failed", { id, error });
+        if (isExpectedDevAdsenseError(error)) {
+          console.debug("[AdZone] AdSense skipped in dev (expected on localhost)", { id });
+        } else {
+          console.warn("[AdZone] AdSense push failed", { id, error });
+        }
         setAdFailed(true);
       }
-    }, 0);
+    }
 
-    return () => window.clearTimeout(timeout);
+    const timeout = window.setTimeout(() => {
+      void initAd();
+    }, 100);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeout);
+    };
   }, [hasConfig, id]);
 
   return (
     <div
       ref={containerRef}
       id={id}
-      className={`relative flex items-center justify-center overflow-hidden rounded-lg border border-dashed border-surface-2 bg-[#080808] ${className}`}
+      className={`relative mx-auto flex items-center justify-center overflow-hidden rounded-lg border border-dashed border-surface-2 bg-[#080808] ${className}`}
       style={{
         width: "100%",
         maxWidth: `${width}px`,
+        height: `${height}px`,
+        maxHeight: `${height}px`,
         minHeight: `${height}px`,
+        contain: "layout size",
       }}
       aria-label={label}
     >
       {hasConfig && (
         <ins
-          className="adsbygoogle"
-          style={{ display: "block", width: "100%", minHeight: `${height}px` }}
+          className="adsbygoogle block overflow-hidden"
+          style={{
+            display: "block",
+            width: fixedSize ? `${width}px` : "100%",
+            height: `${height}px`,
+            maxHeight: `${height}px`,
+            overflow: "hidden",
+          }}
           data-ad-client={ADSENSE_CLIENT}
           data-ad-slot={slot}
           data-ad-format={format}
-          data-full-width-responsive="true"
+          data-full-width-responsive={fixedSize ? "false" : "true"}
         />
       )}
 
@@ -89,7 +123,7 @@ export function AdZone({
       )}
 
       {hasConfig && !adFailed && (
-        <span className="absolute bottom-2 right-2 text-[8px] uppercase tracking-widest text-white/20">
+        <span className="pointer-events-none absolute bottom-2 right-2 text-[8px] uppercase tracking-widest text-white/20">
           Sponsored
         </span>
       )}
