@@ -98,3 +98,13 @@ input[type="range"]::-moz-range-thumb {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* AdSense iframes must not expand the studio shell after load (prod-only ads). */
+.adsbygoogle {
+  overflow: hidden !important;
+  max-height: inherit;
+}
+
+.adsbygoogle iframe {
+  max-height: inherit !important;
+}

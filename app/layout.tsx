@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { RoutePageView } from "@/components/analytics/RoutePageView";
 import { getRootJsonLd } from "@/lib/json-ld";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
+import { ADSENSE_CLIENT, isAdsenseEnabled } from "@/lib/ads-config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -127,10 +128,10 @@ export default function RootLayout({
             gtag('config', 'G-NVCK4NV505');
           `}
         </Script>
-        {process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
+        {isAdsenseEnabled() && ADSENSE_CLIENT && (
           <script
             async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}`}
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
             crossOrigin="anonymous"
           />
         )}
