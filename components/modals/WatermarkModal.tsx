@@ -5,10 +5,10 @@ import { track } from "@/lib/analytics";
 import { useStudioStore } from "@/store/useStudioStore";
 
 const SHARE_TEXT =
-  "Just created a premium browser mockup with KromaStudio - 100% free and client-side.\n\nhttps://kromastudio.in";
+  "Just created a premium browser mockup with KromaStudio - 100% free and client-side.\n\nhttps://www.kromastudio.in";
 const TWITTER_SHARE_URL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}`;
 const LINKEDIN_SHARE_URL = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-  "https://kromastudio.in",
+  "https://www.kromastudio.in",
 )}`;
 
 export function WatermarkModal() {
