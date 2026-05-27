@@ -27,14 +27,6 @@ function MarqueeSegment({ copy }: { copy: "a" | "b" }) {
 export function SeoHero() {
   return (
     <header className="hidden shrink-0 items-center gap-3 border-b border-surface-2 bg-[#080808] px-4 py-2 md:flex">
-      <Image
-        src="/logo.png"
-        alt="KromaStudio Logo"
-        width={24}
-        height={24}
-        className="h-6 w-6 shrink-0 rounded-md object-cover"
-      />
-
       <div
         className="seo-marquee relative min-w-0 flex-1 overflow-hidden"
       >
