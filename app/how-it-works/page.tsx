@@ -1,13 +1,12 @@
 import { LandingShell } from "@/components/layout/LandingShell";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { getHowItWorksJsonLd } from "@/lib/json-ld";
+import { LANDING_PAGE_META } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
 
 export const metadata = createLandingMetadata({
   path: "/how-it-works",
-  title: "How to Make Aesthetic Code Screenshots | KromaStudio",
-  description:
-    "Learn how to create beautiful code screenshots and browser mockups in three steps. Free, client-side, no sign-up. Dracula, One Dark Pro, and more themes.",
+  ...LANDING_PAGE_META.howItWorks,
 });
 
 const STEPS = [

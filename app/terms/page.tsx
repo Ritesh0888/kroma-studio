@@ -1,12 +1,10 @@
 import { LandingShell } from "@/components/layout/LandingShell";
+import { LANDING_PAGE_META, SITE_NAME, SITE_URL } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
-import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const metadata = createLandingMetadata({
   path: "/terms",
-  title: "Terms of Use | KromaStudio",
-  description:
-    "KromaStudio terms of use. Free client-side code screenshot and browser mockup generator.",
+  ...LANDING_PAGE_META.terms,
 });
 
 export default function TermsPage() {

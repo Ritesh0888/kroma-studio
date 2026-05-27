@@ -1,7 +1,7 @@
 {
   "name": "KromaStudio",
   "short_name": "KromaStudio",
-  "description": "Aesthetic code screenshots, browser mockups, and animated video loops. 100% client-side.",
+  "description": "Turn plain code into scroll-stopping visuals. Free code screenshots, browser mockups, and animated .webm loops — 100% client-side.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#080808",

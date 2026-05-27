@@ -1,12 +1,10 @@
 import { LandingShell } from "@/components/layout/LandingShell";
+import { LANDING_PAGE_META, SITE_NAME, SITE_URL } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
-import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const metadata = createLandingMetadata({
   path: "/privacy",
-  title: "Privacy Policy | KromaStudio",
-  description:
-    "KromaStudio privacy policy. Learn how we handle analytics, ads, and your data. 100% client-side processing — your code never leaves your browser.",
+  ...LANDING_PAGE_META.privacy,
 });
 
 export default function PrivacyPage() {

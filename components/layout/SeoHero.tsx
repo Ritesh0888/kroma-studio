@@ -1,8 +1,32 @@
 import Image from "next/image";
+import { STUDIO_MARQUEE_ITEMS } from "@/lib/site";
+
+function MarqueeSegment({ copy }: { copy: "a" | "b" }) {
+  return (
+    <>
+      {STUDIO_MARQUEE_ITEMS.map((item, index) => (
+        <span
+          key={`${copy}-${index}`}
+          className="inline-flex shrink-0 items-center gap-8"
+        >
+          <span className="text-xs font-medium tracking-wide text-text-muted">
+            {item}
+          </span>
+          <span
+            aria-hidden
+            className="bg-linear-to-r from-neon-purple to-neon-pink bg-clip-text text-[10px] text-transparent"
+          >
+            ◆
+          </span>
+        </span>
+      ))}
+    </>
+  );
+}
 
 export function SeoHero() {
   return (
-    <header className="hidden md:flex shrink-0 items-center gap-2 border-b border-surface-2 bg-[#080808] px-3 py-1.5 md:gap-3 md:px-4 md:py-2">
+    <header className="hidden shrink-0 items-center gap-3 border-b border-surface-2 bg-[#080808] px-4 py-2 md:flex">
       <Image
         src="/logo.png"
         alt="KromaStudio Logo"
@@ -10,9 +34,15 @@ export function SeoHero() {
         height={24}
         className="h-6 w-6 shrink-0 rounded-md object-cover"
       />
-      <h1 className="truncate text-[10px] font-medium text-text-muted md:text-xs">
-        Stop Posting Boring Screenshots. Make Code &amp; Mockups Aesthetic.
-      </h1>
+
+      <div
+        className="seo-marquee relative min-w-0 flex-1 overflow-hidden"
+      >
+        <div className="seo-marquee-track flex w-max items-center">
+          <MarqueeSegment copy="a" />
+          <MarqueeSegment copy="b" />
+        </div>
+      </div>
     </header>
   );
 }

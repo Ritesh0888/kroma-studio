@@ -7,6 +7,7 @@ import { MobileHeader } from "@/components/layout/MobileHeader";
 import { MobileControlSheet } from "@/components/layout/MobileControlSheet";
 import { MobileAdFooter } from "@/components/layout/MobileAdFooter";
 import { SeoHero } from "@/components/layout/SeoHero";
+import { STUDIO_HERO_HEADLINE } from "@/lib/site";
 import { WatermarkModal } from "@/components/modals/WatermarkModal";
 
 export default function Home() {
@@ -14,11 +15,9 @@ export default function Home() {
     <div className="fixed inset-0 flex flex-col overflow-hidden bg-black">
       <SeoHero />
       <main className="flex min-h-0 flex-1 basis-0 overflow-hidden flex-col md:flex-row">
-        {/* SEO semantic content — h1 on mobile (SeoHero is desktop-only), h2s for crawlers */}
+        {/* SEO semantic content — single h1 for all viewports */}
         <div className="sr-only" aria-hidden="false">
-          <h1 className="md:hidden">
-            Stop Posting Boring Screenshots. Make Code &amp; Mockups Aesthetic.
-          </h1>
+          <h1>{STUDIO_HERO_HEADLINE}</h1>
           <h2>Premium Browser Frame Mockups</h2>
           <h2>Syntax-Highlighted Code Screenshots</h2>
           <h2>Code Themes: Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night</h2>
