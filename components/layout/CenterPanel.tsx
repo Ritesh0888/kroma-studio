@@ -1,23 +1,23 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useLayoutEffect, useState } from "react";
 import { useStudioStore, ASPECT_RATIO_DIMENSIONS } from "@/store/useStudioStore";
 import { StudioCanvas } from "@/components/canvas/StudioCanvas";
 import { CanvasErrorBoundary } from "@/components/ui/CanvasErrorBoundary";
 import { RenderingOverlay } from "@/components/canvas/RenderingOverlay";
 
+const FLUID_PREVIEW_DIMS = { width: 600, height: 600 } as const;
+
 export function CenterPanel() {
   const aspectRatio = useStudioStore((s) => s.aspectRatio);
-  const dims = ASPECT_RATIO_DIMENSIONS[aspectRatio];
+  const dims = ASPECT_RATIO_DIMENSIONS[aspectRatio] ?? FLUID_PREVIEW_DIMS;
   const viewportRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
 
   // Compute CSS scale so the canvas always fits the viewport without distortion
-  useEffect(() => {
-    if (!dims) { setScale(1); return; }
-
+  useLayoutEffect(() => {
     function compute() {
-      if (!viewportRef.current || !dims) return;
+      if (!viewportRef.current) return;
       const { clientWidth: cw, clientHeight: ch } = viewportRef.current;
       const padding = 24;
       const scaleX = (cw - padding * 2) / dims.width;
@@ -28,7 +28,11 @@ export function CenterPanel() {
     compute();
     const ro = new ResizeObserver(compute);
     if (viewportRef.current) ro.observe(viewportRef.current);
-    return () => ro.disconnect();
+    window.addEventListener("resize", compute);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", compute);
+    };
   }, [dims]);
 
   return (
@@ -40,7 +44,9 @@ export function CenterPanel() {
           <span className="text-xs text-text-muted">Canvas Preview</span>
         </div>
         <span className="text-[10px] font-mono text-[#3a3a3a]">
-          {dims ? `${dims.width} × ${dims.height}` : "Fluid"}
+          {aspectRatio === "free"
+            ? "Fluid"
+            : `${dims.width} × ${dims.height}`}
         </span>
       </div>
 
@@ -53,37 +59,31 @@ export function CenterPanel() {
           backgroundSize: "24px 24px",
         }}
       >
-        {dims ? (
+        <div
+          style={{
+            width: `${dims.width * scale}px`,
+            height: `${dims.height * scale}px`,
+            flexShrink: 0,
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
           <div
             style={{
-              width: `${dims.width * scale}px`,
-              height: `${dims.height * scale}px`,
-              flexShrink: 0,
-              overflow: "hidden",
-              position: "relative",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: `${dims.width}px`,
+              height: `${dims.height}px`,
+              transform: `scale(${scale})`,
+              transformOrigin: "top left",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: `${dims.width}px`,
-                height: `${dims.height}px`,
-                transform: `scale(${scale})`,
-                transformOrigin: "top left",
-              }}
-            >
-              <CanvasErrorBoundary>
-                <StudioCanvas />
-              </CanvasErrorBoundary>
-            </div>
+            <CanvasErrorBoundary>
+              <StudioCanvas />
+            </CanvasErrorBoundary>
           </div>
-        ) : (
-          <CanvasErrorBoundary>
-            <StudioCanvas />
-          </CanvasErrorBoundary>
-        )}
+        </div>
       </div>
 
       {/*
