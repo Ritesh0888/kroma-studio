@@ -23,7 +23,7 @@ export function RightSidebar() {
   const watermarkVisible = useStudioStore((s) => s.watermarkVisible);
   const setWatermarkVisible = useStudioStore((s) => s.setWatermarkVisible);
   const setShowWatermarkModal = useStudioStore((s) => s.setShowWatermarkModal);
-  const { startRecording, isSafari } = useVideoRecorder();
+  const { startRecording, canExportVideo } = useVideoRecorder();
   const adRefreshKeys = useAutoRefreshAds([SIDEBAR_TOP_AD_ID, SIDEBAR_BOTTOM_AD_ID]);
 
   const handleWatermarkClick = () => {
@@ -178,11 +178,11 @@ export function RightSidebar() {
             });
             startRecording();
           }}
-          disabled={isRecording || animationPreset === "none" || isSafari}
+          disabled={isRecording || animationPreset === "none" || !canExportVideo}
           className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all relative overflow-hidden group ${
             isRecording
               ? "bg-[#1a0033] border border-neon-purple/30 text-neon-purple/60 cursor-not-allowed"
-              : isSafari || animationPreset === "none"
+              : !canExportVideo || animationPreset === "none"
               ? "bg-[#0a0a0a] border border-surface-2 text-[#3a3a3a] cursor-not-allowed"
               : "bg-linear-to-r from-neon-purple to-neon-pink text-white hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-neon-purple/20"
           }`}
@@ -205,17 +205,17 @@ export function RightSidebar() {
           )}
         </button>
 
-        {isSafari && (
+        {!canExportVideo && (
           <p className="text-[10px] text-[#3a3a3a] text-center mt-2">
-            ⚠ Safari detected — use Chrome or Firefox for video export
+            ⚠ Video export not supported in this browser — use Chrome or Firefox
           </p>
         )}
-        {!isSafari && animationPreset === "none" && !isRecording && (
+        {canExportVideo && animationPreset === "none" && !isRecording && (
           <p className="text-[10px] text-[#3a3a3a] text-center mt-2">
             Select an animation preset above to enable export
           </p>
         )}
-        {!isSafari && animationPreset !== "none" && !isRecording && (
+        {canExportVideo && animationPreset !== "none" && !isRecording && (
           <p className="text-[10px] text-[#3a3a3a] text-center mt-2">
             {recordDuration}s loop · 60fps · .webm · client-side
           </p>

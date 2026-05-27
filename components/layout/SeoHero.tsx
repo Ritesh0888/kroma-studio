@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function SeoHero() {
   return (
-    <header className="flex shrink-0 items-center gap-2 border-b border-surface-2 bg-[#080808] px-3 py-1.5 md:gap-3 md:px-4 md:py-2">
+    <header className="hidden md:flex shrink-0 items-center gap-2 border-b border-surface-2 bg-[#080808] px-3 py-1.5 md:gap-3 md:px-4 md:py-2">
       <Image
         src="/logo.png"
         alt="KromaStudio Logo"
