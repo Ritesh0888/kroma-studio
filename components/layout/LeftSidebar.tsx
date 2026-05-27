@@ -28,7 +28,7 @@ export function LeftSidebar() {
   const mode = useStudioStore((s) => s.mode);
 
   return (
-    <aside className="w-full h-full flex flex-col bg-[#080808] border-r border-surface-2 shrink-0">
+    <aside className="w-full h-full min-h-0 flex flex-col overflow-hidden bg-[#080808] border-r border-surface-2 shrink-0">
       {/* Logo / Brand */}
       <div className="px-4 py-4 border-b border-surface-2 shrink-0">
         <div className="flex items-center gap-2">
