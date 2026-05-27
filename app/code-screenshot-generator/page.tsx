@@ -1,12 +1,11 @@
 import { LandingShell } from "@/components/layout/LandingShell";
 import { TrackedLink } from "@/components/ui/TrackedLink";
+import { LANDING_PAGE_META } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
 
 export const metadata = createLandingMetadata({
   path: "/code-screenshot-generator",
-  title: "Free Code Screenshot Generator | KromaStudio",
-  description:
-    "Create beautiful syntax-highlighted code screenshots online for free. Dracula, One Dark Pro, GitHub Dark, Night Owl, and Tokyo Night themes. Export HD PNG — 100% client-side.",
+  ...LANDING_PAGE_META.codeScreenshot,
 });
 
 const THEMES = [

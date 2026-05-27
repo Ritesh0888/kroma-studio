@@ -1,12 +1,11 @@
 import { LandingShell } from "@/components/layout/LandingShell";
 import { TrackedLink } from "@/components/ui/TrackedLink";
+import { LANDING_PAGE_META } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
 
 export const metadata = createLandingMetadata({
   path: "/browser-mockup-generator",
-  title: "Free Browser Mockup Generator | KromaStudio",
-  description:
-    "Wrap screenshots in premium browser frames online for free. macOS Dark, macOS Light, Windows, and Minimal styles. Export HD PNG mockups — 100% client-side.",
+  ...LANDING_PAGE_META.browserMockup,
 });
 
 const FRAME_STYLES = [

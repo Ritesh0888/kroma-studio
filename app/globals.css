@@ -108,3 +108,107 @@ input[type="range"]::-moz-range-thumb {
 .adsbygoogle iframe {
   max-height: inherit !important;
 }
+
+/* Landing page — premium mesh background motion */
+@keyframes landing-orb-drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(3%, 2%) scale(1.06);
+  }
+}
+
+@keyframes landing-orb-drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-2%, 3%) scale(1.04);
+  }
+}
+
+@keyframes landing-orb-drift-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(2%, -2%) scale(1.05);
+  }
+}
+
+@keyframes landing-aurora-shift {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: rotate(-12deg) translateX(0);
+  }
+  50% {
+    opacity: 0.55;
+    transform: rotate(-12deg) translateX(2%);
+  }
+}
+
+.landing-orb--a {
+  animation: landing-orb-drift-a 22s ease-in-out infinite;
+}
+
+.landing-orb--b {
+  animation: landing-orb-drift-b 26s ease-in-out infinite;
+}
+
+.landing-orb--c {
+  animation: landing-orb-drift-c 24s ease-in-out infinite;
+}
+
+.landing-aurora {
+  animation: landing-aurora-shift 18s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-orb--a,
+  .landing-orb--b,
+  .landing-orb--c,
+  .landing-aurora {
+    animation: none;
+  }
+
+  .seo-marquee-track {
+    animation: none;
+  }
+}
+
+/* Studio top bar — scrolling value props */
+@keyframes seo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.seo-marquee {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.seo-marquee-track {
+  animation: seo-marquee 45s linear infinite;
+  will-change: transform;
+}

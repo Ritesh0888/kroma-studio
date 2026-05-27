@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { RoutePageView } from "@/components/analytics/RoutePageView";
 import { getRootJsonLd } from "@/lib/json-ld";
-import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
+import { OG_IMAGE, SITE_META, SITE_NAME, SITE_URL } from "@/lib/site";
 import { ADSENSE_CLIENT, isAdsenseEnabled } from "@/lib/ads-config";
 import "./globals.css";
 
@@ -28,9 +28,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "KromaStudio | Aesthetic Code Screenshots & Mockup Generator",
-  description:
-    "Turn your code snippets and screenshots into stunning aesthetic visuals. Syntax-highlighted code screenshots with Dracula, One Dark Pro, GitHub Dark & more. Free browser mockup generator — 100% client-side, zero sign-up.",
+  title: SITE_META.title,
+  description: SITE_META.description,
   keywords: [
     "code mockup generator",
     "aesthetic screenshot editor",
@@ -59,9 +58,8 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.webmanifest",
   openGraph: {
-    title: "KromaStudio | Aesthetic Mockups Instantly",
-    description:
-      "Stop posting boring screenshots. Paste your code — get a stunning syntax-highlighted card with Dracula, One Dark Pro & more themes. Browser mockups too. Free, runs in your browser.",
+    title: SITE_META.ogTitle,
+    description: SITE_META.ogDescription,
     url: SITE_URL,
     siteName: SITE_NAME,
     images: [
@@ -77,9 +75,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "KromaStudio | Aesthetic Code & Mockups",
-    description:
-      "Paste code → get a beautiful syntax-highlighted screenshot. Dracula, One Dark Pro, GitHub Dark & more. Browser mockups too. Free, client-side.",
+    title: SITE_META.twitterTitle,
+    description: SITE_META.twitterDescription,
     images: [OG_IMAGE],
   },
   robots: {

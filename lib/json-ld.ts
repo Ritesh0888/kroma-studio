@@ -1,4 +1,4 @@
-import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
+import { OG_IMAGE, SITE_META, SITE_NAME, SITE_URL } from "@/lib/site";
 
 const FEATURE_LIST = [
   "Browser frame mockups — macOS Dark, macOS Light, Windows, Minimal styles",
@@ -43,8 +43,7 @@ export function getRootJsonLd() {
         operatingSystem: "Browser",
         applicationCategory: "DesignApplication",
         browserRequirements: "Requires HTML5 canvas support",
-        description:
-          "Free online tool to create syntax-highlighted code screenshots and browser mockups. Supports Dracula, One Dark Pro, GitHub Dark, Night Owl, and Tokyo Night themes. Export HD PNG — 100% client-side, no sign-up.",
+        description: SITE_META.description,
         offers: {
           "@type": "Offer",
           price: "0",
