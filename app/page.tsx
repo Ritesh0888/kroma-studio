@@ -39,7 +39,7 @@ export default function Home() {
         <MobileHeader />
 
         {/* ── Desktop-only: left sidebar ── */}
-        <div className="hidden md:flex md:w-[25%] h-full min-h-0 shrink-0">
+        <div className="hidden md:flex md:w-[25%] h-full min-h-0 shrink-0 overflow-hidden">
           <LeftSidebar />
         </div>
 
@@ -47,7 +47,7 @@ export default function Home() {
         <CenterPanel />
 
         {/* ── Desktop-only: right sidebar ── */}
-        <div className="hidden md:flex md:w-[20%] h-full min-h-0 shrink-0">
+        <div className="hidden md:flex md:w-[20%] h-full min-h-0 shrink-0 overflow-hidden">
           <RightSidebar />
         </div>
 

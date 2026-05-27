@@ -38,7 +38,7 @@ export function RightSidebar() {
   };
 
   return (
-    <aside className="w-full h-full flex flex-col bg-[#080808] border-l border-surface-2 shrink-0">
+    <aside className="w-full h-full min-h-0 flex flex-col overflow-hidden bg-[#080808] border-l border-surface-2 shrink-0">
       {/* ── Scrollable content area — min-h-0 prevents flex overflow bug ── */}
       <div className="flex-1 overflow-y-auto min-h-0">
 
