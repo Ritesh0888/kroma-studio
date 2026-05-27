@@ -10,11 +10,15 @@ function isMobileDevice(): boolean {
   return /iPhone|iPad|Android|Mobile/i.test(navigator.userAgent);
 }
 
-// Matches Safari but NOT Chrome/Edge/Brave (all of which include "Safari" in their UA).
-// crios = Chrome iOS, fxios = Firefox iOS.
-function isSafariBrowser(): boolean {
-  if (typeof navigator === "undefined") return false;
-  return /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
+// Feature-detect instead of UA sniffing — Chrome's reduced UA omits "Chrome/"
+// and was falsely matching the old Safari regex.
+function supportsCanvasVideoExport(): boolean {
+  if (typeof document === "undefined") return false;
+  const canvas = document.createElement("canvas");
+  return (
+    typeof canvas.captureStream === "function" &&
+    typeof MediaRecorder !== "undefined"
+  );
 }
 
 function triggerDownload(blob: Blob, filename: string): void {
@@ -34,11 +38,11 @@ export function useVideoRecorder() {
   const setIsRecording = useStudioStore((s) => s.setIsRecording);
   const setRecordingProgress = useStudioStore((s) => s.setRecordingProgress);
 
-  // Evaluated after hydration only — navigator is undefined on the server,
+  // Evaluated after hydration only — document is undefined on the server,
   // so initialising to false ensures SSR and first client render match.
-  const [isSafari, setIsSafari] = useState(false);
+  const [canExportVideo, setCanExportVideo] = useState(false);
   useEffect(() => {
-    setIsSafari(isSafariBrowser());
+    setCanExportVideo(supportsCanvasVideoExport());
   }, []);
   const rafRef = useRef<number | null>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
@@ -50,10 +54,9 @@ export function useVideoRecorder() {
 
     const source = isMobileDevice() ? "mobile" : "desktop";
 
-    // Safari does not support captureStream() on canvas elements — block early.
-    if (isSafari) {
-      track("video_record_error", { error: "Safari not supported", source, mode });
-      alert("Video export requires Chrome, Edge, or Firefox. Safari does not support canvas recording.");
+    if (!canExportVideo) {
+      track("video_record_error", { error: "Browser not supported", source, mode });
+      alert("Video export requires Chrome, Edge, or Firefox. This browser does not support canvas recording.");
       return;
     }
 
@@ -194,7 +197,7 @@ export function useVideoRecorder() {
         mode,
       });
     }
-  }, [recordDuration, animationPreset, mode, isSafari, setIsRecording, setRecordingProgress]);
+  }, [recordDuration, animationPreset, mode, canExportVideo, setIsRecording, setRecordingProgress]);
 
-  return { startRecording, isSafari };
+  return { startRecording, canExportVideo };
 }

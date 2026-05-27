@@ -32,7 +32,7 @@ export function CenterPanel() {
   }, [dims]);
 
   return (
-    <section className="flex-1 min-w-0 flex flex-col bg-[#050505] overflow-hidden min-h-0">
+    <section className="flex-1 min-w-0 h-full min-h-0 flex flex-col bg-[#050505] overflow-hidden">
       {/* Top bar — desktop only */}
       <div className="hidden md:flex items-center justify-between px-5 py-3 border-b border-surface-2 shrink-0">
         <div className="flex items-center gap-2">
@@ -59,10 +59,15 @@ export function CenterPanel() {
               width: `${dims.width * scale}px`,
               height: `${dims.height * scale}px`,
               flexShrink: 0,
+              overflow: "hidden",
+              position: "relative",
             }}
           >
             <div
               style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
                 width: `${dims.width}px`,
                 height: `${dims.height}px`,
                 transform: `scale(${scale})`,

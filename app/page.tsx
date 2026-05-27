@@ -16,9 +16,12 @@ export default function Home() {
       style={{ height: "100dvh", width: "100vw", overflow: "hidden", background: "#000" }}
     >
       <SeoHero />
-      <main className="flex flex-1 min-h-0 flex-col md:flex-row">
-        {/* SEO semantic content — h2s and supporting copy for crawlers */}
+      <main className="flex flex-1 min-h-0 overflow-hidden flex-col md:flex-row">
+        {/* SEO semantic content — h1 on mobile (SeoHero is desktop-only), h2s for crawlers */}
         <div className="sr-only" aria-hidden="false">
+          <h1 className="md:hidden">
+            Stop Posting Boring Screenshots. Make Code &amp; Mockups Aesthetic.
+          </h1>
           <h2>Premium Browser Frame Mockups</h2>
           <h2>Syntax-Highlighted Code Screenshots</h2>
           <h2>Code Themes: Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night</h2>
