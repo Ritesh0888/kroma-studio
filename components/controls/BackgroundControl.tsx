@@ -31,6 +31,7 @@ export function BackgroundControl() {
               key={preset.id}
               onClick={() => { track("background_change", { preset: preset.id, label: preset.label }); setBackgroundId(preset.id); setShowPicker(false); }}
               title={preset.label}
+              aria-label={`${preset.label} gradient background preset`}
               className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${
                 active
                   ? "border-[#a855f7] scale-105 shadow-lg shadow-[#a855f7]/30"

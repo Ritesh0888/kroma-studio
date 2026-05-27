@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "validate:seo": "node scripts/validate-json-ld.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

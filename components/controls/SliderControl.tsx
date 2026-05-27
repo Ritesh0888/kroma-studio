@@ -1,5 +1,7 @@
 "use client";
 
+import { track } from "@/lib/analytics";
+
 interface SliderControlProps {
   label: string;
   value: number;
@@ -8,6 +10,8 @@ interface SliderControlProps {
   step?: number;
   unit?: string;
   onChange: (v: number) => void;
+  trackEvent?: string;
+  trackSource?: "desktop" | "mobile";
 }
 
 export function SliderControl({
@@ -18,7 +22,15 @@ export function SliderControl({
   step = 1,
   unit = "",
   onChange,
+  trackEvent,
+  trackSource,
 }: SliderControlProps) {
+  const handleCommit = (nextValue: number) => {
+    if (trackEvent && trackSource) {
+      track(trackEvent, { value: nextValue, source: trackSource });
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
@@ -37,6 +49,7 @@ export function SliderControl({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
+        onPointerUp={(e) => handleCommit(Number((e.target as HTMLInputElement).value))}
         className="w-full"
       />
     </div>

@@ -10,7 +10,7 @@ const PRESETS: { id: AnimationPreset; label: string; desc: string; icon: string 
   { id: "scroll", label: "Auto Scroll",  desc: "Code pan",    icon: "⇕" },
 ];
 
-export function AnimationControls() {
+export function AnimationControls({ source }: { source: "desktop" | "mobile" }) {
   const preset = useStudioStore((s) => s.animationPreset);
   const recordDuration = useStudioStore((s) => s.recordDuration);
   const scrollSpeed = useStudioStore((s) => s.scrollSpeed);
@@ -25,17 +25,17 @@ export function AnimationControls() {
 
   function handlePresetClick(id: AnimationPreset) {
     setAnimationPreset(id);
-    track("animation_preset_select", { preset: id });
+    track("animation_preset_select", { preset: id, source });
   }
 
   function handleDurationClick(duration: 5 | 10) {
     setRecordDuration(duration);
-    track("record_duration_select", { duration, preset });
+    track("record_duration_select", { duration, preset, source });
   }
 
   function handleScrollSpeedClick(speed: ScrollSpeed) {
     setScrollSpeed(speed);
-    track("scroll_speed_select", { speed });
+    track("scroll_speed_select", { speed, source });
   }
 
   return (

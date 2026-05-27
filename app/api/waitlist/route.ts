@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: "KromaStudio Waitlist <onboarding@resend.dev>",
       to: notifyEmail,
-      subject: `New waitlist signup — ${feature ?? "Animation"}`,
+      subject: `New waitlist signup — ${feature ?? "Content"}`,
       html: `
         <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 24px; background: #0d0d1a; color: #fff; border-radius: 12px;">
           <h2 style="margin: 0 0 8px; font-size: 18px; color: #a855f7;">New Early Access Signup</h2>

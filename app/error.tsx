@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Link from "next/link";
+import { TrackedLink } from "@/components/ui/TrackedLink";
 import { track } from "@/lib/analytics";
 
 export default function Error({
@@ -36,17 +36,19 @@ export default function Error({
           >
             Try again
           </button>
-          <Link
+          <TrackedLink
             href="/"
+            label="Back to Studio"
+            location="error_back_to_studio"
             onClick={() => track("app_error_back_to_studio_click")}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-border text-text-muted text-sm font-medium hover:border-neon-purple/30 hover:text-white transition-all"
           >
             Back to Studio
-          </Link>
+          </TrackedLink>
         </div>
       </div>
       <p className="absolute bottom-6 text-[10px] text-border tracking-widest uppercase">
-        kromastudio.in
+        www.kromastudio.in
       </p>
     </main>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useExport } from "@/hooks/useExport";
 import { useStudioStore } from "@/store/useStudioStore";
 import { ImageExportModal } from "@/components/ui/ImageExportModal";
@@ -8,14 +9,14 @@ import { track } from "@/lib/analytics";
 export function MobileHeader() {
   const { exportPng, exportedImageUrl, clearExportedImage } = useExport();
   const isExporting = useStudioStore((s) => s.isExporting);
+  const mode = useStudioStore((s) => s.mode);
 
   return (
     <>
       <header className="flex md:hidden items-center justify-between px-4 h-12 bg-[#080808] border-b border-[#1a1a1a] shrink-0 z-30">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/logo.png"
             alt="KromaStudio Logo"
             width={32}
@@ -32,7 +33,10 @@ export function MobileHeader() {
 
         {/* Export button */}
         <button
-          onClick={() => { track("export_png_click", { source: "mobile" }); exportPng(); }}
+          onClick={() => {
+            track("export_png_click", { source: "mobile", mode });
+            exportPng("mobile");
+          }}
           disabled={isExporting}
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
             isExporting

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { toPng } from "html-to-image";
 import { useStudioStore } from "@/store/useStudioStore";
+import { track } from "@/lib/analytics";
 
 function isMobileDevice(): boolean {
   if (typeof navigator === "undefined") return false;
@@ -14,11 +15,14 @@ function isIOSDevice(): boolean {
   return /iPhone|iPad/i.test(navigator.userAgent);
 }
 
+export type ExportSource = "desktop" | "mobile";
+
 export function useExport() {
   const setIsExporting = useStudioStore((s) => s.setIsExporting);
+  const mode = useStudioStore((s) => s.mode);
   const [exportedImageUrl, setExportedImageUrl] = useState<string | null>(null);
 
-  async function exportPng() {
+  async function exportPng(source: ExportSource) {
     const node = document.getElementById("studio-canvas");
     if (!node) return;
 
@@ -35,8 +39,9 @@ export function useExport() {
       });
 
       if (ios) {
-        // iOS Safari blocks programmatic downloads — show long-press modal instead
         setExportedImageUrl(dataUrl);
+        track("export_png_success", { source, mode, delivery: "ios_modal" });
+        track("export_modal_open", { source: "ios" });
         return;
       }
 
@@ -44,8 +49,11 @@ export function useExport() {
       link.download = `kromastudio-${Date.now()}.png`;
       link.href = dataUrl;
       link.click();
+      track("export_png_success", { source, mode, delivery: "download" });
     } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error";
       console.error("Export failed:", err);
+      track("export_png_error", { source, mode, error: message });
     } finally {
       setIsExporting(false);
     }

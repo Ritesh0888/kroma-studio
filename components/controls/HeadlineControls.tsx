@@ -1,6 +1,7 @@
 "use client";
 
 import { useStudioStore, type HeadlinePosition } from "@/store/useStudioStore";
+import { track } from "@/lib/analytics";
 
 const FONT_SIZES = [24, 32, 40, 52, 64, 72] as const;
 const EXAMPLE_HEADLINES = [
@@ -27,7 +28,11 @@ export function HeadlineControls() {
       <div className="flex items-center justify-between">
         <span className="text-xs font-medium text-[#a0a0a0]">Add Headline</span>
         <button
-          onClick={() => setHeadlineEnabled(!headlineEnabled)}
+          onClick={() => {
+            const enabled = !headlineEnabled;
+            track("headline_toggle", { enabled });
+            setHeadlineEnabled(enabled);
+          }}
           className={`relative w-9 h-5 rounded-full transition-colors ${
             headlineEnabled ? "bg-neon-purple" : "bg-[#1e1e1e]"
           }`}
@@ -57,10 +62,13 @@ export function HeadlineControls() {
             />
             {/* Quick-fill examples */}
             <div className="flex flex-col gap-1 mt-0.5">
-              {EXAMPLE_HEADLINES.map((ex) => (
+              {EXAMPLE_HEADLINES.map((ex, index) => (
                 <button
                   key={ex}
-                  onClick={() => setHeadlineText(ex)}
+                  onClick={() => {
+                    track("headline_example_select", { index });
+                    setHeadlineText(ex);
+                  }}
                   className="text-left text-[9px] text-[#3a3a3a] hover:text-text-muted truncate transition-colors"
                 >
                   ↳ {ex}
@@ -81,13 +89,21 @@ export function HeadlineControls() {
               step={2}
               value={headlineFontSize}
               onChange={(e) => setHeadlineFontSize(Number(e.target.value))}
+              onPointerUp={(e) =>
+                track("headline_font_size_change", {
+                  size: Number((e.target as HTMLInputElement).value),
+                })
+              }
               className="w-full accent-neon-purple"
             />
             <div className="flex justify-between text-[9px] text-border">
               {FONT_SIZES.map((s) => (
                 <button
                   key={s}
-                  onClick={() => setHeadlineFontSize(s)}
+                  onClick={() => {
+                    track("headline_font_size_change", { size: s });
+                    setHeadlineFontSize(s);
+                  }}
                   className={`hover:text-text-muted transition-colors ${headlineFontSize === s ? "text-neon-purple" : ""}`}
                 >
                   {s}
@@ -105,14 +121,20 @@ export function HeadlineControls() {
               <input
                 type="color"
                 value={headlineColor}
-                onChange={(e) => setHeadlineColor(e.target.value)}
+                onChange={(e) => {
+                  track("headline_color_change", { color: e.target.value });
+                  setHeadlineColor(e.target.value);
+                }}
                 className="w-8 h-8 rounded-lg border border-[#1e1e1e] bg-transparent cursor-pointer"
               />
               <div className="flex gap-1.5 flex-1">
                 {["#ffffff", "#000000", "#a855f7", "#ec4899", "#ffd200"].map((c) => (
                   <button
                     key={c}
-                    onClick={() => setHeadlineColor(c)}
+                    onClick={() => {
+                      track("headline_color_change", { color: c });
+                      setHeadlineColor(c);
+                    }}
                     className={`w-6 h-6 rounded-md border-2 transition-all ${
                       headlineColor === c ? "border-white scale-110" : "border-transparent hover:scale-105"
                     }`}
@@ -133,7 +155,10 @@ export function HeadlineControls() {
               {(["top", "bottom"] as HeadlinePosition[]).map((pos) => (
                 <button
                   key={pos}
-                  onClick={() => setHeadlinePosition(pos)}
+                  onClick={() => {
+                    track("headline_position_change", { position: pos });
+                    setHeadlinePosition(pos);
+                  }}
                   className={`flex-1 py-1.5 rounded-lg border text-[11px] font-medium capitalize transition-all ${
                     headlinePosition === pos
                       ? "border-neon-purple bg-neon-purple/10 text-neon-purple"

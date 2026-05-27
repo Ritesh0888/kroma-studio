@@ -15,6 +15,8 @@ export function BorderRadiusControl() {
       max={32}
       unit="px"
       onChange={setBorderRadius}
+      trackEvent="border_radius_change"
+      trackSource="desktop"
     />
   );
 }

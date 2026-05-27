@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useStudioStore } from "@/store/useStudioStore";
 import { PaddingControl } from "@/components/controls/PaddingControl";
 import { BorderRadiusControl } from "@/components/controls/BorderRadiusControl";
@@ -9,6 +10,7 @@ import { BackgroundControl } from "@/components/controls/BackgroundControl";
 import { ModeSelector } from "@/components/controls/ModeSelector";
 import { CodeControls } from "@/components/controls/CodeControls";
 import { HeadlineControls } from "@/components/controls/HeadlineControls";
+import { SiteFooterLinks } from "@/components/layout/SiteFooterLinks";
 import { ChromeStyleControl } from "@/components/controls/ChromeStyleControl";
 
 function SectionDivider({ label }: { label: string }) {
@@ -30,8 +32,7 @@ export function LeftSidebar() {
       {/* Logo / Brand */}
       <div className="px-4 py-4 border-b border-surface-2 shrink-0">
         <div className="flex items-center gap-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/logo.png"
             alt="KromaStudio Logo"
             width={40}
@@ -94,6 +95,8 @@ export function LeftSidebar() {
         </div>
 
       </div>
+
+      <SiteFooterLinks />
     </aside>
   );
 }

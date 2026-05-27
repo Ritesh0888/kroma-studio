@@ -128,10 +128,10 @@ setWatermarkVisible: (v: boolean) => void
   <p>Share KromaStudio on social media to unlock watermark-free exports.</p>
   
   <div className="flex flex-col gap-3">
-    {/* Twitter / X */}
+    {/* Twitter / X — TBD: add @handle to tweet text when account exists (see phases/SEO-BLUEPRINT.md) */}
     <a
       href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-        'Just created a 🔥 browser mockup with @KromaStudio — 100% free & client-side!\n\nkromastudio.in'
+        'Just created a 🔥 browser mockup with KromaStudio — 100% free & client-side.\n\nhttps://www.kromastudio.in'
       )}`}
       target="_blank"
       rel="noopener noreferrer"
@@ -181,8 +181,7 @@ openGraph: {
 }
 twitter: {
   card: 'summary_large_image',
-  site: '@KromaStudio',
-  creator: '@KromaStudio',
+  // site / creator: deferred until handle exists — see phases/SEO-BLUEPRINT.md "Deferred: Social handles"
 }
 ```
 

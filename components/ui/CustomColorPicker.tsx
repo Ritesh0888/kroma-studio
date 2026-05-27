@@ -1,6 +1,7 @@
 "use client";
 
 import { useStudioStore } from "@/store/useStudioStore";
+import { track } from "@/lib/analytics";
 
 interface Props {
   onClose: () => void;
@@ -78,6 +79,7 @@ export function CustomColorPicker({ onClose }: Props) {
       <div className="flex gap-2">
         <button
           onClick={() => {
+            track("background_custom_swap");
             const tmp = customBgFrom;
             setCustomBgFrom(customBgTo);
             setCustomBgTo(tmp);
@@ -87,7 +89,10 @@ export function CustomColorPicker({ onClose }: Props) {
           ⇄ Swap
         </button>
         <button
-          onClick={onClose}
+          onClick={() => {
+            track("background_custom_done", { from: customBgFrom, to: customBgTo });
+            onClose();
+          }}
           className="flex-1 py-1.5 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#ec4899] text-white text-[10px] font-semibold hover:opacity-90 transition-opacity"
         >
           Done

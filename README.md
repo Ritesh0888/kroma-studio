@@ -23,6 +23,8 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 Create `.env.local` for local development and add the same values to your production hosting environment:
 
 ```env
+NEXT_PUBLIC_SITE_URL=https://www.kromastudio.in
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-7297785010128160
 NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR_TOP=1769954222
 NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR_BOTTOM=8619948978
@@ -32,6 +34,8 @@ NEXT_PUBLIC_ADSENSE_SLOT_RENDERING_OVERLAY=5517627547
 ```
 
 `NEXT_PUBLIC_*` values are intentionally exposed to the browser. Restart the dev server after changing them.
+
+SEO setup and manual GSC steps: see [`docs/seo-runbook.md`](docs/seo-runbook.md). Validate SEO structure locally with `npm run validate:seo`.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
