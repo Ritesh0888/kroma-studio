@@ -19,6 +19,7 @@ export function RightSidebar() {
   const isRecording = useStudioStore((s) => s.isRecording);
   const animationPreset = useStudioStore((s) => s.animationPreset);
   const recordDuration = useStudioStore((s) => s.recordDuration);
+  const mode = useStudioStore((s) => s.mode);
   const watermarkVisible = useStudioStore((s) => s.watermarkVisible);
   const setWatermarkVisible = useStudioStore((s) => s.setWatermarkVisible);
   const setShowWatermarkModal = useStudioStore((s) => s.setShowWatermarkModal);
@@ -49,7 +50,10 @@ export function RightSidebar() {
 
         {/* Primary Export Button */}
         <button
-          onClick={() => { track("export_png_click", { source: "desktop" }); exportPng(); }}
+          onClick={() => {
+            track("export_png_click", { source: "desktop", mode });
+            exportPng("desktop");
+          }}
           disabled={isExporting}
           className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all relative overflow-hidden group ${
             isExporting
@@ -160,13 +164,18 @@ export function RightSidebar() {
 
         {/* Animation preset + duration picker */}
         <div className="mb-3">
-          <AnimationControls />
+          <AnimationControls source="desktop" />
         </div>
 
         {/* Render Video button */}
         <button
           onClick={() => {
-            track("video_record_click", { preset: animationPreset, duration: recordDuration, source: "desktop" });
+            track("video_record_click", {
+              preset: animationPreset,
+              duration: recordDuration,
+              source: "desktop",
+              mode,
+            });
             startRecording();
           }}
           disabled={isRecording || animationPreset === "none" || isSafari}
@@ -247,7 +256,7 @@ export function RightSidebar() {
       {/* Fixed bottom brand — always visible */}
       <div className="px-4 py-3 border-t border-surface-2 shrink-0">
         <p className="text-[10px] text-border text-center">
-          kromastudio.in
+          www.kromastudio.in
         </p>
       </div>
 

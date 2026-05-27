@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
+import { track } from "@/lib/analytics";
+
+type DismissReason = "close_button" | "backdrop" | "escape";
 
 interface Props {
   imageUrl: string;
@@ -8,18 +11,24 @@ interface Props {
 }
 
 export function ImageExportModal({ imageUrl, onClose }: Props) {
+  const dismiss = (reason: DismissReason) => {
+    track("export_modal_dismiss", { reason });
+    onClose();
+  };
+
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") dismiss("escape");
     };
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onClose]);
 
   return (
     <div
       className="fixed inset-0 z-50 flex flex-col bg-black/95 backdrop-blur-sm"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
+      onClick={(e) => e.target === e.currentTarget && dismiss("backdrop")}
     >
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a1a1a] shrink-0">
@@ -28,7 +37,7 @@ export function ImageExportModal({ imageUrl, onClose }: Props) {
           <p className="text-xs text-[#6b6b6b] mt-0.5">Long press the image to save to Camera Roll</p>
         </div>
         <button
-          onClick={onClose}
+          onClick={() => dismiss("close_button")}
           className="w-8 h-8 rounded-full bg-[#1a1a1a] flex items-center justify-center text-[#6b6b6b] hover:text-white transition-colors"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -65,7 +74,7 @@ export function ImageExportModal({ imageUrl, onClose }: Props) {
         </div>
 
         <button
-          onClick={onClose}
+          onClick={() => dismiss("close_button")}
           className="w-full py-2.5 rounded-xl border border-[#2a2a2a] text-sm text-[#6b6b6b] hover:text-white transition-colors"
         >
           Close

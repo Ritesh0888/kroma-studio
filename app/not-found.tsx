@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { TrackedLink } from "@/components/ui/TrackedLink";
 
 export const metadata: Metadata = {
   title: "Page Not Found | KromaStudio",
   description: "This page doesn't exist. Head back to the studio.",
+  robots: { index: false, follow: true },
 };
 
 export default function NotFound() {
@@ -19,15 +20,17 @@ export default function NotFound() {
         <p className="text-sm text-[#4a4a4a] leading-relaxed mb-8">
           Looks like this mockup got lost in the render. Head back to the studio.
         </p>
-        <Link
+        <TrackedLink
           href="/"
+          label="Back to KromaStudio"
+          location="not_found_cta"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-linear-to-r from-neon-purple to-neon-pink text-white text-sm font-semibold hover:opacity-90 transition-opacity"
         >
           Back to KromaStudio
-        </Link>
+        </TrackedLink>
       </div>
       <p className="absolute bottom-6 text-[10px] text-border tracking-widest uppercase">
-        kromastudio.in
+        www.kromastudio.in
       </p>
     </main>
   );

@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { RoutePageView } from "@/components/analytics/RoutePageView";
+import { getRootJsonLd } from "@/lib/json-ld";
+import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,7 +26,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.kromastudio.in"),
+  metadataBase: new URL(SITE_URL),
   title: "KromaStudio | Aesthetic Code Screenshots & Mockup Generator",
   description:
     "Turn your code snippets and screenshots into stunning aesthetic visuals. Syntax-highlighted code screenshots with Dracula, One Dark Pro, GitHub Dark & more. Free browser mockup generator — 100% client-side, zero sign-up.",
@@ -47,22 +50,22 @@ export const metadata: Metadata = {
     "code screenshot mobile",
     "code image generator no signup",
   ],
-  authors: [{ name: "KromaStudio", url: "https://www.kromastudio.in" }],
-  creator: "KromaStudio",
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
   category: "Design Tools",
   alternates: {
-    canonical: "https://www.kromastudio.in",
+    canonical: SITE_URL,
   },
   manifest: "/manifest.webmanifest",
   openGraph: {
     title: "KromaStudio | Aesthetic Mockups Instantly",
     description:
       "Stop posting boring screenshots. Paste your code — get a stunning syntax-highlighted card with Dracula, One Dark Pro & more themes. Browser mockups too. Free, runs in your browser.",
-    url: "https://www.kromastudio.in",
-    siteName: "KromaStudio",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     images: [
       {
-        url: "/og-image.png",
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: "KromaStudio Interface Preview — Aesthetic Code & Browser Mockup Generator",
@@ -76,9 +79,7 @@ export const metadata: Metadata = {
     title: "KromaStudio | Aesthetic Code & Mockups",
     description:
       "Paste code → get a beautiful syntax-highlighted screenshot. Dracula, One Dark Pro, GitHub Dark & more. Browser mockups too. Free, client-side.",
-    images: ["/og-image.png"],
-    site: "@KromaStudio",
-    creator: "@KromaStudio",
+    images: [OG_IMAGE],
   },
   robots: {
     index: true,
@@ -90,37 +91,14 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && {
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    },
+  }),
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "KromaStudio",
-  url: "https://www.kromastudio.in",
-  operatingSystem: "Browser",
-  applicationCategory: "DesignApplication",
-  browserRequirements: "Requires HTML5 canvas support",
-  description:
-    "Free online tool to create syntax-highlighted code screenshots and browser mockups. Supports Dracula, One Dark Pro, GitHub Dark, Night Owl, and Tokyo Night themes. Export HD PNG — 100% client-side, no sign-up.",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
-  featureList: [
-    "Browser frame mockups — macOS Dark, macOS Light, Windows, Minimal styles",
-    "Syntax-highlighted code screenshots",
-    "Code themes: Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night",
-    "Supported languages: JavaScript, TypeScript, Python, HTML, CSS, Go, Rust",
-    "Headline text overlay for social posts",
-    "12 aesthetic gradient background presets",
-    "Line numbers toggle",
-    "HD PNG export at 2× resolution",
-    "Animated video export — Float, 3D Tilt, Auto-Scroll loops as .webm",
-    "Mobile-friendly — native share to Photos on iOS & Android",
-    "100% client-side — no upload, no sign-up",
-  ],
-};
+const jsonLd = getRootJsonLd();
 
 export default function RootLayout({
   children,
@@ -129,6 +107,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full overflow-hidden">
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} h-full overflow-hidden bg-black text-white antialiased`}
       >
@@ -158,6 +140,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+        <RoutePageView />
         <Analytics />
         <SpeedInsights />
       </body>

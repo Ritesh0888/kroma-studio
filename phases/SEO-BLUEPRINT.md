@@ -19,11 +19,11 @@ export const metadata = {
   openGraph: {
     title: "KromaStudio | Aesthetic Mockups Instantly",
     description: "Stop posting boring screenshots. Make them pop with premium backgrounds and layouts.",
-    url: "https://kromastudio.in",
+    url: "https://www.kromastudio.in",
     siteName: "KromaStudio",
     images: [
       {
-        url: "https://kromastudio.in/og-image.png",
+        url: "https://www.kromastudio.in/og-image.png",
         width: 1200,
         height: 630,
         alt: "KromaStudio Interface Preview",
@@ -36,12 +36,24 @@ export const metadata = {
     card: "summary_large_image",
     title: "KromaStudio | Aesthetic Code & Mockups",
     description: "Generate dynamic loops and browser frame mockups for free.",
-    images: ["https://kromastudio.in/og-image.png"],
+    images: ["https://www.kromastudio.in/og-image.png"],
   },
 };
 ```
 
 > **Action Item:** `public/` folder me ek 1200×630 pixel ka dashboard screenshot ya banner design karke `og-image.png` naam se save kar dena. Yeh Twitter/LinkedIn indexation ke liye mandatory hai.
+
+### Deferred: Social handles (add when accounts exist)
+
+No social profile handles are wired in production code until real accounts exist. When ready:
+
+- [ ] Create X/Twitter (and any other) accounts; confirm final handle
+- [ ] Add `TWITTER_HANDLE` in `lib/site.ts`
+- [ ] Wire `twitter.site` / `twitter.creator` in `app/layout.tsx` and `lib/landing-metadata.ts`
+- [ ] Add Organization `sameAs` URL(s) in `lib/json-ld.ts`
+- [ ] Update `app/privacy/page.tsx` Contact section with real contact/handle
+- [ ] Re-enable off-page social item in `docs/seo-runbook.md` with real handle
+- [ ] Optional: add `@handle` to share tweet copy in `phases/PHASE-4.md` / `WatermarkModal` if desired
 
 ---
 
@@ -60,7 +72,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://kromastudio.in/sitemap.xml',
+    sitemap: 'https://www.kromastudio.in/sitemap.xml',
   };
 }
 ```
@@ -73,7 +85,7 @@ import { MetadataRoute } from 'next';
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://kromastudio.in',
+      url: 'https://www.kromastudio.in',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1.0,

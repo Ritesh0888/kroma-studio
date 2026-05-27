@@ -15,6 +15,8 @@ export function ShadowControl() {
       max={100}
       unit="%"
       onChange={setShadowDepth}
+      trackEvent="shadow_depth_change"
+      trackSource="desktop"
     />
   );
 }

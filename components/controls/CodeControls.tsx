@@ -1,6 +1,7 @@
 "use client";
 
 import { useStudioStore, CODE_LANGUAGES, CODE_THEMES } from "@/store/useStudioStore";
+import { track } from "@/lib/analytics";
 
 const FONT_SIZES = [12, 14, 16] as const;
 
@@ -58,7 +59,10 @@ export function CodeControls() {
             Code
           </label>
           <button
-            onClick={() => setCodeContent("")}
+            onClick={() => {
+              track("code_clear_click");
+              setCodeContent("");
+            }}
             className="text-[9px] text-border hover:text-text-muted transition-colors"
           >
             Clear
@@ -78,14 +82,20 @@ export function CodeControls() {
       <SelectRow
         label="Language"
         value={codeLanguage}
-        onChange={setCodeLanguage}
+        onChange={(v) => {
+          track("code_language_change", { language: v });
+          setCodeLanguage(v);
+        }}
         options={CODE_LANGUAGES}
       />
 
       <SelectRow
         label="Theme"
         value={codeTheme}
-        onChange={setCodeTheme}
+        onChange={(v) => {
+          track("code_theme_change", { theme: v });
+          setCodeTheme(v);
+        }}
         options={CODE_THEMES}
       />
 
@@ -98,7 +108,10 @@ export function CodeControls() {
             {FONT_SIZES.map((size) => (
               <button
                 key={size}
-                onClick={() => setCodeFontSize(size)}
+                onClick={() => {
+                  track("code_font_size_change", { size });
+                  setCodeFontSize(size);
+                }}
                 className={`flex-1 py-1.5 rounded-lg border text-[11px] font-medium transition-all ${
                   codeFontSize === size
                     ? "border-neon-purple bg-neon-purple/10 text-neon-purple"
@@ -125,7 +138,11 @@ export function CodeControls() {
             )}
           </div>
           <button
-            onClick={toggleLineNumbers}
+            onClick={() => {
+              const enabled = !showLineNumbers;
+              track("code_line_numbers_toggle", { enabled });
+              toggleLineNumbers();
+            }}
             disabled={codeWrap}
             className={`relative w-9 h-5 rounded-full transition-colors ${
               showLineNumbers && !codeWrap ? "bg-neon-purple" : "bg-[#1e1e1e]"
@@ -145,7 +162,11 @@ export function CodeControls() {
             Wrap Long Lines
           </span>
           <button
-            onClick={toggleCodeWrap}
+            onClick={() => {
+              const enabled = !codeWrap;
+              track("code_wrap_toggle", { enabled });
+              toggleCodeWrap();
+            }}
             className={`relative w-9 h-5 rounded-full transition-colors ${
               codeWrap ? "bg-neon-purple" : "bg-[#1e1e1e]"
             }`}

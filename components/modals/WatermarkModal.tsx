@@ -2,14 +2,12 @@
 
 import { useEffect } from "react";
 import { track } from "@/lib/analytics";
+import { SITE_URL } from "@/lib/site";
 import { useStudioStore } from "@/store/useStudioStore";
 
-const SHARE_TEXT =
-  "Just created a premium browser mockup with KromaStudio - 100% free and client-side.\n\nhttps://www.kromastudio.in";
+const SHARE_TEXT = `Just created a premium browser mockup with KromaStudio - 100% free and client-side.\n\n${SITE_URL}`;
 const TWITTER_SHARE_URL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}`;
-const LINKEDIN_SHARE_URL = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-  "https://www.kromastudio.in",
-)}`;
+const LINKEDIN_SHARE_URL = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SITE_URL)}`;
 
 export function WatermarkModal() {
   const showWatermarkModal = useStudioStore((s) => s.showWatermarkModal);

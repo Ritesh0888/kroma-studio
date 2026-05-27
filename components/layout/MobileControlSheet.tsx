@@ -52,9 +52,12 @@ function BgTab() {
                 setShowPicker(false);
               }}
               title={preset.label}
+              aria-label={`${preset.label} gradient background preset`}
               className="flex flex-col items-center gap-1.5 shrink-0"
             >
               <div
+                role="img"
+                aria-label={`${preset.label} gradient background preset`}
                 className={`w-14 h-14 rounded-full border-[3px] transition-all ${
                   active
                     ? "border-neon-purple scale-110 shadow-lg shadow-neon-purple/30"
@@ -166,9 +169,9 @@ function FrameTab() {
           {watermarkVisible ? "Remove Watermark" : "Turn Watermark Back On"}
         </button>
       </div>
-      <SliderControl label="Padding" value={padding} min={0} max={40} unit="px" onChange={setPadding} />
-      <SliderControl label="Corner Radius" value={borderRadius} min={0} max={32} unit="px" onChange={setBorderRadius} />
-      <SliderControl label="Shadow" value={shadowDepth} min={0} max={100} unit="%" onChange={setShadowDepth} />
+      <SliderControl label="Padding" value={padding} min={0} max={40} unit="px" onChange={setPadding} trackEvent="padding_change" trackSource="mobile" />
+      <SliderControl label="Corner Radius" value={borderRadius} min={0} max={32} unit="px" onChange={setBorderRadius} trackEvent="border_radius_change" trackSource="mobile" />
+      <SliderControl label="Shadow" value={shadowDepth} min={0} max={100} unit="%" onChange={setShadowDepth} trackEvent="shadow_depth_change" trackSource="mobile" />
     </div>
   );
 }
@@ -213,16 +216,22 @@ function AnimateTab() {
   const isRecording = useStudioStore((s) => s.isRecording);
   const animationPreset = useStudioStore((s) => s.animationPreset);
   const recordDuration = useStudioStore((s) => s.recordDuration);
+  const mode = useStudioStore((s) => s.mode);
   const { startRecording, isSafari } = useVideoRecorder();
 
   return (
     <div className="flex flex-col gap-4 px-4">
-      <AnimationControls />
+      <AnimationControls source="mobile" />
 
       {/* Render Video button */}
       <button
         onClick={() => {
-          track("video_record_click", { preset: animationPreset, duration: recordDuration, source: "mobile" });
+          track("video_record_click", {
+            preset: animationPreset,
+            duration: recordDuration,
+            source: "mobile",
+            mode,
+          });
           startRecording();
         }}
         disabled={isRecording || animationPreset === "none" || isSafari}

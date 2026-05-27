@@ -15,6 +15,8 @@ export function PaddingControl() {
       max={120}
       unit="px"
       onChange={setPadding}
+      trackEvent="padding_change"
+      trackSource="desktop"
     />
   );
 }

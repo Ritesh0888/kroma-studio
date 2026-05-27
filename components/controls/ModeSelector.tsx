@@ -55,7 +55,7 @@ const MODES: ModeConfig[] = [
     icon: <TextIcon />,
     soon: true,
     isNew: false,
-    teaser: "Tweet & text content mode is dropping soon! Get notified the moment it goes live.",
+    teaser: "Tweet & text cards for social posts are still in the works. Notify me when Content mode launches — it's free.",
   },
 ];
 
@@ -75,8 +75,13 @@ export function ModeSelector() {
           <div key={m.id} className="relative flex-1">
             <button
               onClick={() => {
-                track("mode_click", { mode: m.id, is_soon: m.soon });
+                track("mode_click", {
+                  mode: m.id,
+                  is_soon: m.soon,
+                  previous_mode: mode,
+                });
                 if (m.soon) {
+                  track("email_capture_open", { feature: "Content" });
                   setPopover({ id: m.id, teaser: m.teaser });
                 } else {
                   setMode(m.id);
@@ -106,9 +111,10 @@ export function ModeSelector() {
               )}
             </button>
 
-            {popover?.id === m.id && (
+            {popover?.id === m.id && m.soon && (
               <EmailCapturePopover
                 teaser={popover.teaser}
+                feature="Content"
                 onClose={() => setPopover(null)}
               />
             )}
