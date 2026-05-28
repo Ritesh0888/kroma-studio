@@ -1,4 +1,5 @@
 import { LandingShell } from "@/components/layout/LandingShell";
+import { StudioCTAButton } from "@/components/ui/StudioCTAButton";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { LANDING_PAGE_META } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
@@ -58,14 +59,14 @@ export default function BrowserMockupGeneratorPage() {
         </section>
 
         <div className="flex flex-col gap-3 sm:flex-row">
-          <TrackedLink
-            href="/"
+          <StudioCTAButton
+            mode="mockup"
             label="Open Browser Mockup Generator"
             location="mockup_landing_primary"
             className="inline-flex items-center justify-center rounded-xl bg-linear-to-r from-neon-purple to-neon-pink px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
           >
             Open Browser Mockup Generator
-          </TrackedLink>
+          </StudioCTAButton>
           <TrackedLink
             href="/code-screenshot-generator"
             label="Code Screenshots"

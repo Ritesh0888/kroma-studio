@@ -6,6 +6,7 @@ import { BACKGROUND_PRESETS } from "@/lib/backgrounds";
 import { SliderControl } from "@/components/controls/SliderControl";
 import { ModeSelector } from "@/components/controls/ModeSelector";
 import { CodeControls } from "@/components/controls/CodeControls";
+import { ContentControls } from "@/components/controls/ContentControls";
 import { HeadlineControls } from "@/components/controls/HeadlineControls";
 import { AnimationControls } from "@/components/controls/AnimationControls";
 import { ChromeStyleControl } from "@/components/controls/ChromeStyleControl";
@@ -13,7 +14,7 @@ import { CustomColorPicker } from "@/components/ui/CustomColorPicker";
 import { useVideoRecorder } from "@/hooks/useVideoRecorder";
 import { track } from "@/lib/analytics";
 
-type Tab = "bg" | "frame" | "size" | "code" | "animate";
+type Tab = "bg" | "frame" | "size" | "mode" | "animate";
 
 const ASPECT_RATIOS: { value: AspectRatio; label: string }[] = [
   { value: "1:1", label: "1:1" },
@@ -179,6 +180,9 @@ function FrameTab() {
 function SizeTab() {
   const aspectRatio = useStudioStore((s) => s.aspectRatio);
   const setAspectRatio = useStudioStore((s) => s.setAspectRatio);
+  const freeCanvasW = useStudioStore((s) => s.freeCanvasW);
+  const freeCanvasH = useStudioStore((s) => s.freeCanvasH);
+  const setFreeCanvasDims = useStudioStore((s) => s.setFreeCanvasDims);
 
   return (
     <div className="flex flex-col gap-4 px-4">
@@ -208,6 +212,33 @@ function SizeTab() {
           })}
         </div>
       </div>
+
+      {aspectRatio === "free" && (
+        <div className="flex flex-col gap-3">
+          <SliderControl
+            label="Width"
+            value={freeCanvasW}
+            min={200}
+            max={2000}
+            step={10}
+            unit="px"
+            onChange={(v) => setFreeCanvasDims(v, freeCanvasH)}
+            trackEvent="free_canvas_width_change"
+            trackSource="mobile"
+          />
+          <SliderControl
+            label="Height"
+            value={freeCanvasH}
+            min={150}
+            max={2000}
+            step={10}
+            unit="px"
+            onChange={(v) => setFreeCanvasDims(freeCanvasW, v)}
+            trackEvent="free_canvas_height_change"
+            trackSource="mobile"
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -218,6 +249,7 @@ function AnimateTab() {
   const recordDuration = useStudioStore((s) => s.recordDuration);
   const mode = useStudioStore((s) => s.mode);
   const { startRecording, canExportVideo } = useVideoRecorder();
+  const requiresPreset = true;
 
   return (
     <div className="flex flex-col gap-4 px-4">
@@ -234,11 +266,11 @@ function AnimateTab() {
           });
           startRecording();
         }}
-        disabled={isRecording || animationPreset === "none" || !canExportVideo}
+        disabled={isRecording || !canExportVideo || (requiresPreset && animationPreset === "none")}
         className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all ${
           isRecording
             ? "bg-[#1a0033] border border-neon-purple/30 text-neon-purple/60 cursor-not-allowed"
-            : !canExportVideo || animationPreset === "none"
+            : !canExportVideo || (requiresPreset && animationPreset === "none")
             ? "bg-[#0a0a0a] border border-surface-2 text-[#3a3a3a] cursor-not-allowed"
             : "bg-linear-to-r from-neon-purple to-neon-pink text-white active:scale-95 shadow-lg shadow-neon-purple/20"
         }`}
@@ -266,7 +298,7 @@ function AnimateTab() {
           ⚠ Video export not supported in this browser — use Chrome or Firefox
         </p>
       )}
-      {canExportVideo && animationPreset === "none" && !isRecording && (
+      {canExportVideo && animationPreset === "none" && !isRecording && requiresPreset && (
         <p className="text-[10px] text-border text-center">
           Select a preset above to enable export
         </p>
@@ -276,11 +308,12 @@ function AnimateTab() {
           {recordDuration}s loop · 60fps · .webm · client-side
         </p>
       )}
+
     </div>
   );
 }
 
-function CodeTab() {
+function ModeTab() {
   const mode = useStudioStore((s) => s.mode);
 
   return (
@@ -294,6 +327,21 @@ function CodeTab() {
               Code Settings
             </p>
             <CodeControls />
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest mb-3">
+              Headline
+            </p>
+            <HeadlineControls />
+          </div>
+        </>
+      ) : mode === "content" ? (
+        <>
+          <div>
+            <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest mb-3">
+              Content Settings
+            </p>
+            <ContentControls source="mobile" />
           </div>
           <div>
             <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest mb-3">
@@ -365,7 +413,7 @@ const TABS: { id: Tab; label: string; icon: React.ReactNode; isNew?: boolean }[]
   { id: "bg", label: "BG", icon: <BgIcon /> },
   { id: "frame", label: "Frame", icon: <FrameIcon /> },
   { id: "size", label: "Size", icon: <SizeIcon /> },
-  { id: "code", label: "Code", icon: <CodeIcon />, isNew: true },
+  { id: "mode", label: "Mode", icon: <CodeIcon />, isNew: true },
   { id: "animate", label: "Animate", icon: <AnimateIcon /> },
 ];
 
@@ -410,7 +458,7 @@ export function MobileControlSheet() {
         {activeTab === "bg" && <BgTab />}
         {activeTab === "frame" && <FrameTab />}
         {activeTab === "size" && <SizeTab />}
-        {activeTab === "code" && <CodeTab />}
+        {activeTab === "mode" && <ModeTab />}
         {activeTab === "animate" && <AnimateTab />}
       </div>
     </div>

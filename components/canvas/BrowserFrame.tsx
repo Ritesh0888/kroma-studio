@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useStudioStore, type ChromeStyle } from "@/store/useStudioStore";
 import { ImageDropzone } from "./ImageDropzone";
+import { ContentDisplay } from "./ContentDisplay";
 
 const CodeDisplay = dynamic(
   () => import("./CodeDisplay").then((m) => ({ default: m.CodeDisplay })),
@@ -126,7 +127,9 @@ export function BrowserFrame() {
     <div className={`flex flex-col w-full h-full ${contentBg} overflow-hidden`}>
       <ChromeBar style={chromeStyle} />
       <div className="flex-1 overflow-hidden">
-        {mode === "code" ? <CodeDisplay /> : <ImageDropzone />}
+        {mode === "code" && <CodeDisplay />}
+        {mode === "mockup" && <ImageDropzone />}
+        {mode === "content" && <ContentDisplay />}
       </div>
     </div>
   );

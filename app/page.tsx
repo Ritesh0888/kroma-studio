@@ -23,12 +23,15 @@ export default function Home() {
           <h2>Code Themes: Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night</h2>
           <h2>12 Aesthetic Gradient Background Presets for Developers &amp; Designers</h2>
           <h2>Headline Text Overlay for Viral Social Posts</h2>
+          <h2>Social Post Templates: LinkedIn, Video, Thread, Carousel, Before-After, Metrics</h2>
           <h2>Export HD PNG Free — No Sign-Up Required</h2>
           <p>
             Free online tool to generate stunning browser mockups and syntax-highlighted code screenshots.
             Supports JavaScript, TypeScript, Python, HTML, CSS, Go, and Rust with themes including Dracula,
             One Dark Pro, GitHub Dark, Night Owl, and Tokyo Night. Add a custom headline text overlay and
-            gradient background to create scroll-stopping social media graphics — 100% client-side, no sign-up required.
+            gradient background to create scroll-stopping social media graphics. Includes content templates for
+            tweet cards, LinkedIn posts, video previews, threads, quote visuals, announcement cards, testimonials, carousel slides,
+            before-after stories, and metrics snapshots — 100% client-side, no sign-up required.
           </p>
         </div>
         {/* ── Mobile-only: fixed top header ── */}

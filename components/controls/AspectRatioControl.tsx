@@ -1,6 +1,7 @@
 "use client";
 
 import { useStudioStore, type AspectRatio } from "@/store/useStudioStore";
+import { SliderControl } from "@/components/controls/SliderControl";
 import { track } from "@/lib/analytics";
 
 const RATIOS: { value: AspectRatio; label: string; sub: string }[] = [
@@ -13,6 +14,9 @@ const RATIOS: { value: AspectRatio; label: string; sub: string }[] = [
 export function AspectRatioControl() {
   const aspectRatio = useStudioStore((s) => s.aspectRatio);
   const setAspectRatio = useStudioStore((s) => s.setAspectRatio);
+  const freeCanvasW = useStudioStore((s) => s.freeCanvasW);
+  const freeCanvasH = useStudioStore((s) => s.freeCanvasH);
+  const setFreeCanvasDims = useStudioStore((s) => s.setFreeCanvasDims);
 
   return (
     <div className="flex flex-col gap-2">
@@ -28,8 +32,8 @@ export function AspectRatioControl() {
               onClick={() => { track("aspect_ratio_change", { ratio: value }); setAspectRatio(value); }}
               className={`flex flex-col items-center py-2.5 px-2 rounded-lg border text-center transition-all ${
                 active
-                  ? "border-[#a855f7] bg-[#a855f7]/10 text-[#a855f7]"
-                  : "border-[#2a2a2a] bg-[#0f0f0f] text-[#6b6b6b] hover:border-[#3a3a3a] hover:text-[#a0a0a0]"
+                  ? "border-neon-purple bg-neon-purple/10 text-neon-purple"
+                  : "border-border bg-surface text-text-muted hover:border-[#3a3a3a] hover:text-[#a0a0a0]"
               }`}
             >
               <span className="text-xs font-semibold leading-none">{label}</span>
@@ -38,6 +42,33 @@ export function AspectRatioControl() {
           );
         })}
       </div>
+
+      {aspectRatio === "free" && (
+        <div className="flex flex-col gap-3 mt-1">
+          <SliderControl
+            label="Width"
+            value={freeCanvasW}
+            min={200}
+            max={2000}
+            step={10}
+            unit="px"
+            onChange={(v) => setFreeCanvasDims(v, freeCanvasH)}
+            trackEvent="free_canvas_width_change"
+            trackSource="desktop"
+          />
+          <SliderControl
+            label="Height"
+            value={freeCanvasH}
+            min={150}
+            max={2000}
+            step={10}
+            unit="px"
+            onChange={(v) => setFreeCanvasDims(freeCanvasW, v)}
+            trackEvent="free_canvas_height_change"
+            trackSource="desktop"
+          />
+        </div>
+      )}
     </div>
   );
 }

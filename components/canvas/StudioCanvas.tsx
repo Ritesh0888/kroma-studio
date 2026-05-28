@@ -26,6 +26,7 @@ export function StudioCanvas() {
       : getPresetById(backgroundId).css;
 
   const dims = ASPECT_RATIO_DIMENSIONS[aspectRatio];
+  const isFree = aspectRatio === "free";
   const shadow = computeShadow(shadowDepth);
 
   // Reserve space for the headline so it doesn't overlap the frame
@@ -41,8 +42,8 @@ export function StudioCanvas() {
       id="studio-canvas"
       className="relative flex items-center justify-center overflow-hidden"
       style={{
-        width: dims ? `${dims.width}px` : "600px",
-        height: dims ? `${dims.height}px` : "600px",
+        width: isFree ? "100%" : `${dims!.width}px`,
+        height: isFree ? "100%" : `${dims!.height}px`,
         background: backgroundCss,
         paddingTop: `${paddingTop}px`,
         paddingBottom: `${paddingBottom}px`,

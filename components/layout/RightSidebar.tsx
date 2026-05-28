@@ -25,6 +25,7 @@ export function RightSidebar() {
   const setShowWatermarkModal = useStudioStore((s) => s.setShowWatermarkModal);
   const { startRecording, canExportVideo } = useVideoRecorder();
   const adRefreshKeys = useAutoRefreshAds([SIDEBAR_TOP_AD_ID, SIDEBAR_BOTTOM_AD_ID]);
+  const requiresPreset = true;
 
   const handleWatermarkClick = () => {
     if (watermarkVisible) {
@@ -178,11 +179,11 @@ export function RightSidebar() {
             });
             startRecording();
           }}
-          disabled={isRecording || animationPreset === "none" || !canExportVideo}
+          disabled={isRecording || !canExportVideo || (requiresPreset && animationPreset === "none")}
           className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all relative overflow-hidden group ${
             isRecording
               ? "bg-[#1a0033] border border-neon-purple/30 text-neon-purple/60 cursor-not-allowed"
-              : !canExportVideo || animationPreset === "none"
+              : !canExportVideo || (requiresPreset && animationPreset === "none")
               ? "bg-[#0a0a0a] border border-surface-2 text-[#3a3a3a] cursor-not-allowed"
               : "bg-linear-to-r from-neon-purple to-neon-pink text-white hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-neon-purple/20"
           }`}
@@ -210,7 +211,7 @@ export function RightSidebar() {
             ⚠ Video export not supported in this browser — use Chrome or Firefox
           </p>
         )}
-        {canExportVideo && animationPreset === "none" && !isRecording && (
+        {canExportVideo && animationPreset === "none" && !isRecording && requiresPreset && (
           <p className="text-[10px] text-[#3a3a3a] text-center mt-2">
             Select an animation preset above to enable export
           </p>
@@ -220,6 +221,7 @@ export function RightSidebar() {
             {recordDuration}s loop · 60fps · .webm · client-side
           </p>
         )}
+
       </div>
 
       {/* Ad zones — desktop only (RightSidebar is hidden on mobile via page.tsx) */}

@@ -49,6 +49,25 @@ export const metadata: Metadata = {
     "animated code screenshot",
     "code screenshot mobile",
     "code image generator no signup",
+    // Competitor alternatives
+    "carbon.now.sh alternative",
+    "ray.so alternative",
+    "snappify alternative",
+    "carbon alternative privacy",
+    // Privacy USP
+    "privacy code screenshot",
+    "100% client side code screenshot",
+    "code screenshot no server upload",
+    "code screenshot client side processing",
+    "secure code screenshot generator",
+    // Unique features
+    "code screenshot animated video",
+    "code screenshot .webm export",
+    "code screenshot with headline overlay",
+    "code screenshot with gradients",
+    // Broad
+    "free code screenshot generator",
+    "code screenshot online tool",
   ],
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,

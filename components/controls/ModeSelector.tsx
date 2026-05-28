@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
 import { useStudioStore, type StudioMode } from "@/store/useStudioStore";
-import { EmailCapturePopover } from "../ui/EmailCapturePopover";
 import { track } from "@/lib/analytics";
 
 interface ModeConfig {
@@ -53,16 +51,15 @@ const MODES: ModeConfig[] = [
     id: "content",
     label: "Content",
     icon: <TextIcon />,
-    soon: true,
-    isNew: false,
-    teaser: "Tweet & text cards for social posts are still in the works. Notify me when Content mode launches — it's free.",
+    soon: false,
+    isNew: true,
+    teaser: "",
   },
 ];
 
 export function ModeSelector() {
   const mode = useStudioStore((s) => s.mode);
   const setMode = useStudioStore((s) => s.setMode);
-  const [popover, setPopover] = useState<{ id: string; teaser: string } | null>(null);
 
   return (
     <div className="flex flex-col gap-2 relative">
@@ -80,13 +77,7 @@ export function ModeSelector() {
                   is_soon: m.soon,
                   previous_mode: mode,
                 });
-                if (m.soon) {
-                  track("email_capture_open", { feature: "Content" });
-                  setPopover({ id: m.id, teaser: m.teaser });
-                } else {
-                  setMode(m.id);
-                  setPopover(null);
-                }
+                setMode(m.id);
               }}
               className={`relative w-full flex flex-col items-center gap-1 py-2.5 px-1 rounded-lg border text-center transition-all ${
                 mode === m.id && !m.soon
@@ -110,14 +101,6 @@ export function ModeSelector() {
                 </span>
               )}
             </button>
-
-            {popover?.id === m.id && m.soon && (
-              <EmailCapturePopover
-                teaser={popover.teaser}
-                feature="Content"
-                onClose={() => setPopover(null)}
-              />
-            )}
           </div>
         ))}
       </div>
