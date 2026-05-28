@@ -31,6 +31,35 @@ A free, client-side visual studio for developers and designers. Paste code, drop
 - **HD PNG export** — 2× pixel ratio on desktop, optimised 1.5× on mobile to prevent OOM crashes
 - **100% client-side** — Your code and images never leave the browser
 
+## 📸 Screenshots & Demos
+
+<div align="center">
+
+### Code Mode
+
+<img src="screenshots/code-mode-light.png" width="48%" alt="KromaStudio Code Mode - Light theme" />
+<img src="screenshots/code-mode-dark.png" width="48%" alt="KromaStudio Code Mode - Dark theme" />
+
+### Mockup Mode
+
+<img src="screenshots/mockup-mode-macos.png" width="48%" alt="KromaStudio Mockup Mode - macOS frame" />
+<img src="screenshots/mockup-mode-windows.png" width="48%" alt="KromaStudio Mockup Mode - Windows frame" />
+
+### Content Mode (Social Posts)
+
+<img src="screenshots/content-mode-tweet.png" width="48%" alt="KromaStudio Content Mode - Tweet template" />
+<img src="screenshots/content-mode-linkedin.png" width="48%" alt="KromaStudio Content Mode - LinkedIn template" />
+
+### Theme Picker
+
+<img src="screenshots/theme-picker.png" width="70%" alt="KromaStudio Theme Picker - 15 syntax themes" />
+
+### Gradient Backgrounds
+
+<img src="screenshots/gradient-backgrounds.png" width="80%" alt="KromaStudio 12 Gradient Backgrounds" />
+
+</div>
+
 ## Studio Modes
 
 | Mode | What it does |
@@ -142,6 +171,150 @@ npm run validate:seo
 ```
 
 See [docs/seo-runbook.md](docs/seo-runbook.md) for the full SEO setup guide and manual Google Search Console steps.
+
+## 🤝 Contributing
+
+We welcome contributions — bug reports, feature requests, and pull requests are all appreciated.
+
+### Contribution flow
+
+```mermaid
+flowchart TD
+    A([💡 Idea or Bug Found]) --> B[Search existing Issues]
+    B --> C{Issue exists?}
+    C -->|Yes| D[Comment on / pick up the issue]
+    C -->|No| E[Open a new Issue]
+    D --> F[Issue confirmed]
+    E --> F
+    F --> G[Fork the repo]
+    G --> H["Create a branch\nfeature/* · fix/* · chore/*"]
+    H --> I[Make your changes]
+    I --> J["Run checks locally\nnpm run lint  ·  npm run build\nnpm run validate:seo"]
+    J --> K{All checks pass?}
+    K -->|No — fix issues| I
+    K -->|Yes| L["Commit using Conventional Commits\nfeat(scope): description"]
+    L --> M[Push branch & open PR]
+    M --> N["Reference the issue\nCloses #NUMBER"]
+    N --> O[Code review by maintainers]
+    O --> P{Approved?}
+    P -->|Changes requested| I
+    P -->|Yes ✅| Q([Merged to main 🎉])
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide — branch naming, commit style, PR template, and code conventions.
+
+### Current Contributors
+
+<div align="center">
+<img src="https://github.com/Ritesh0888.png" width="50" alt="Ritesh" />
+</div>
+
+## 🎯 Real Use Cases
+
+### 1. GitHub README Badges
+
+Turn raw code into a polished visual that makes your project README stand out.
+
+**Before — plain fenced code block:**
+```javascript
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+```
+
+**After — paste the same snippet into KromaStudio → pick a theme → export PNG:**
+
+<img src="screenshots/code-snippet.png" width="80%" alt="Code snippet exported from KromaStudio" />
+
+> A syntax-highlighted screenshot with a gradient background and browser frame, dropped straight into your README as an `<img>` tag. No more walls of monochrome text.
+
+---
+
+### 2. Twitter / X Viral Posts
+
+> **[@yourhandle](https://x.com)**
+>
+> Just shipped `useOptimistic()` in 7 lines of React 19 🔥
+>
+> _(attach KromaStudio PNG — Dracula theme, Cyberpunk Neon gradient)_
+>
+> 🔁 847  ❤️ 4.2k  👁️ 120k
+
+<img src="screenshots/twitter.png" width="70%" alt="Twitter viral code post made with KromaStudio" />
+
+Code screenshots consistently outperform plain text tweets. Export at 2× and attach directly — no cropping needed.
+
+---
+
+### 3. Technical Blog Posts
+
+Use the **Code mode** to produce consistent, on-brand code callouts for every article:
+
+| Blog element | KromaStudio setting |
+|---|---|
+| Inline snippet highlight | Frameless · 8 px radius · transparent BG |
+| Hero banner | Browser frame · gradient BG · headline overlay |
+| Step-by-step diffs | Side-by-side exports, same theme |
+
+<img src="screenshots/blog.png" width="80%" alt="Technical blog post code example made with KromaStudio" />
+
+Drop the exported PNGs into Hashnode, Medium, or your own MDX blog — readers immediately know which part to focus on.
+
+---
+
+### 4. LinkedIn Professional Posts
+
+Compose a **Content mode** card with your insight, avatar, and metrics, then attach the code screenshot as a second image. The combination drives 3–5× more impressions than text-only posts.
+
+<img src="screenshots/linkedin.png" width="70%" alt="LinkedIn professional post made with KromaStudio" />
+
+---
+
+### 5. Tutorial Videos & Course Thumbnails
+
+Export a **Mockup mode** frame with the browser chrome and a bold headline overlay — it becomes a ready-made thumbnail that looks consistent across your whole series.
+
+<img src="screenshots/video.png" width="75%" alt="Tutorial video thumbnail made with KromaStudio" />
+
+Export at 2× → drop into YouTube Studio, Loom, or Notion. Done.
+
+---
+
+## 🚧 Roadmap
+
+<div align="center">
+
+### Coming Soon
+
+```mermaid
+timeline
+    title KromaStudio Roadmap
+    Q2 2026 : 30+ Themes (In Progress)
+    Q3 2026 : VSCode Extension
+            : SVG Export
+    Q4 2026 : iOS App
+            : Android App
+    Q1 2027 : Team Collaboration
+    Q2 2027 : Public API
+    Q3 2027 : AI Theme Suggestions
+```
+
+| Feature | Status | ETA |
+|---------|--------|-----|
+| **VSCode Extension** | 🚧 In Development | Q3 2026 |
+| **iOS App** | 📋 Planned | Q4 2026 |
+| **Android App** | 📋 Planned | Q4 2026 |
+| **30+ Themes** | ✅ In Progress | Now |
+| **SVG Export** | 📋 Planned | Q3 2026 |
+| **Team Collaboration** | 📋 Planned | Q1 2027 |
+| **API** | 📋 Planned | Q2 2027 |
+| **AI Theme Suggestions** | 🧪 Research | Q3 2027 |
+
+### Feature Request
+
+Have an idea? [Open an issue](https://github.com/your-org/kroma-studio/issues) to suggest a feature!
+
+</div>
 
 ## Deployment
 
