@@ -13,30 +13,44 @@ export function WatermarkModal() {
   const showWatermarkModal = useStudioStore((s) => s.showWatermarkModal);
   const setShowWatermarkModal = useStudioStore((s) => s.setShowWatermarkModal);
   const setWatermarkVisible = useStudioStore((s) => s.setWatermarkVisible);
+  const mode = useStudioStore((s) => s.mode);
+  const contentTemplate = useStudioStore((s) => s.contentTemplate);
 
   useEffect(() => {
     if (!showWatermarkModal) return;
 
     const handleKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        track("watermark_modal_dismiss", { reason: "escape" });
+        track("watermark_modal_dismiss", {
+          reason: "escape",
+          mode,
+          ...(mode === "content" ? { content_template: contentTemplate } : {}),
+        });
         setShowWatermarkModal(false);
       }
     };
 
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
-  }, [setShowWatermarkModal, showWatermarkModal]);
+  }, [setShowWatermarkModal, showWatermarkModal, mode, contentTemplate]);
 
   if (!showWatermarkModal) return null;
 
   const dismissWatermarkModal = (reason: "backdrop" | "close_button") => {
-    track("watermark_modal_dismiss", { reason });
+    track("watermark_modal_dismiss", {
+      reason,
+      mode,
+      ...(mode === "content" ? { content_template: contentTemplate } : {}),
+    });
     setShowWatermarkModal(false);
   };
 
   const unlockWatermark = (platform: "twitter" | "linkedin") => {
-    track("share_intent_clicked", { platform });
+    track("share_intent_clicked", {
+      platform,
+      mode,
+      ...(mode === "content" ? { content_template: contentTemplate } : {}),
+    });
     setWatermarkVisible(false);
     setShowWatermarkModal(false);
   };

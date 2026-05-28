@@ -12,7 +12,7 @@ export const metadata = createLandingMetadata({
 const STEPS = [
   {
     title: "Paste your code or upload a screenshot",
-    body: "Open KromaStudio and switch to Code mode to paste a snippet, or stay in Image mode to drop in a screenshot. Supported languages include JavaScript, TypeScript, Python, HTML, CSS, Go, and Rust.",
+    body: "Open KromaStudio and switch to Code mode to paste a snippet, or stay in Image mode to drop in a screenshot. Supports 25 languages including TypeScript, JavaScript, Python, Java, Kotlin, Swift, PHP, Ruby, Go, Rust, and more.",
   },
   {
     title: "Customize the look",
@@ -35,7 +35,7 @@ const FAQ = [
   },
   {
     q: "What code themes are supported?",
-    a: "Dracula, One Dark Pro, GitHub Dark, Night Owl, and Tokyo Night.",
+    a: "15 themes: Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night, Catppuccin Mocha, Catppuccin Latte, Nord, Monokai, Synthwave \u201884, Solarized Dark, Rosé Pine, Material Ocean, Vitesse Dark, and GitHub Light.",
   },
   {
     q: "Can I export animated video loops?",

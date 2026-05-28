@@ -35,14 +35,18 @@ export function useVideoRecorder() {
   const recordDuration = useStudioStore((s) => s.recordDuration);
   const animationPreset = useStudioStore((s) => s.animationPreset);
   const mode = useStudioStore((s) => s.mode);
+  const contentTemplate = useStudioStore((s) => s.contentTemplate);
   const setIsRecording = useStudioStore((s) => s.setIsRecording);
   const setRecordingProgress = useStudioStore((s) => s.setRecordingProgress);
 
-  // Evaluated after hydration only — document is undefined on the server,
-  // so initialising to false ensures SSR and first client render match.
+  // Keep SSR and first client render identical to avoid hydration mismatch.
+  // We compute real support only after mount.
   const [canExportVideo, setCanExportVideo] = useState(false);
   useEffect(() => {
-    setCanExportVideo(supportsCanvasVideoExport());
+    const id = requestAnimationFrame(() => {
+      setCanExportVideo(supportsCanvasVideoExport());
+    });
+    return () => cancelAnimationFrame(id);
   }, []);
   const rafRef = useRef<number | null>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
@@ -55,7 +59,12 @@ export function useVideoRecorder() {
     const source = isMobileDevice() ? "mobile" : "desktop";
 
     if (!canExportVideo) {
-      track("video_record_error", { error: "Browser not supported", source, mode });
+      track("video_record_error", {
+        error: "Browser not supported",
+        source,
+        mode,
+        ...(mode === "content" ? { content_template: contentTemplate } : {}),
+      });
       alert("Video export requires Chrome, Edge, or Firefox. This browser does not support canvas recording.");
       return;
     }
@@ -63,17 +72,33 @@ export function useVideoRecorder() {
     const node = document.getElementById("studio-canvas");
     if (!node) {
       console.error("[VideoRecorder] #studio-canvas not found");
-      track("video_record_error", { error: "Canvas not found", source, mode });
+      track("video_record_error", {
+        error: "Canvas not found",
+        source,
+        mode,
+        ...(mode === "content" ? { content_template: contentTemplate } : {}),
+      });
       return;
     }
 
     if (typeof MediaRecorder === "undefined") {
-      track("video_record_error", { error: "MediaRecorder not supported", source, mode });
+      track("video_record_error", {
+        error: "MediaRecorder not supported",
+        source,
+        mode,
+        ...(mode === "content" ? { content_template: contentTemplate } : {}),
+      });
       alert("Video recording is not supported in this browser. Try Chrome or Edge.");
       return;
     }
 
-    track("video_record_start", { preset: animationPreset, duration: recordDuration, source, mode });
+    track("video_record_start", {
+      preset: animationPreset,
+      duration: recordDuration,
+      source,
+      mode,
+      ...(mode === "content" ? { content_template: contentTemplate } : {}),
+    });
     setIsRecording(true);
     setRecordingProgress(0);
 
@@ -137,6 +162,7 @@ export function useVideoRecorder() {
           source,
           mode,
           sizeKb: Math.round(blob.size / 1024),
+          ...(mode === "content" ? { content_template: contentTemplate } : {}),
         });
       };
 
@@ -145,7 +171,12 @@ export function useVideoRecorder() {
         if (rafRef.current) cancelAnimationFrame(rafRef.current);
         setIsRecording(false);
         setRecordingProgress(0);
-        track("video_record_error", { error: "MediaRecorder error", source, mode });
+        track("video_record_error", {
+          error: "MediaRecorder error",
+          source,
+          mode,
+          ...(mode === "content" ? { content_template: contentTemplate } : {}),
+        });
       };
 
       // rAF loop: snapshot DOM at 2× each frame, update progress, paint offscreen canvas
@@ -195,9 +226,10 @@ export function useVideoRecorder() {
         error: err instanceof Error ? err.message : "unknown",
         source,
         mode,
+        ...(mode === "content" ? { content_template: contentTemplate } : {}),
       });
     }
-  }, [recordDuration, animationPreset, mode, canExportVideo, setIsRecording, setRecordingProgress]);
+  }, [recordDuration, animationPreset, mode, contentTemplate, canExportVideo, setIsRecording, setRecordingProgress]);
 
   return { startRecording, canExportVideo };
 }

@@ -10,6 +10,7 @@ const FOOTER_LINKS = [
   { href: "/", label: "Open Studio" },
   { href: "/code-screenshot-generator", label: "Code Screenshots" },
   { href: "/browser-mockup-generator", label: "Browser Mockups" },
+  { href: "/content-post-generator", label: "Content Posts" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
@@ -61,7 +62,7 @@ export function LandingShell({ children }: LandingShellProps) {
 
       <footer className="relative z-10 shrink-0 border-t border-surface-2 bg-[#080808]/90 backdrop-blur-md">
         <div
-          className={`${SHELL_CONTAINER} flex h-[6.5rem] flex-col justify-center gap-3 pb-[env(safe-area-inset-bottom)]`}
+          className={`${SHELL_CONTAINER} flex h-26 flex-col justify-center gap-3 pb-[env(safe-area-inset-bottom)]`}
         >
           <nav className="hide-scrollbar flex shrink-0 gap-x-4 overflow-x-auto whitespace-nowrap">
             {FOOTER_LINKS.map((link) => (

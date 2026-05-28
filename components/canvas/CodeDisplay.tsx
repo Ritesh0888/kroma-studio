@@ -17,6 +17,16 @@ function getHighlighter(): Promise<Highlighter> {
           "github-dark",
           "night-owl",
           "tokyo-night",
+          "catppuccin-mocha",
+          "catppuccin-latte",
+          "nord",
+          "monokai",
+          "synthwave-84",
+          "solarized-dark",
+          "rose-pine",
+          "material-theme-ocean",
+          "vitesse-dark",
+          "github-light",
         ],
         langs: [
           "typescript",
@@ -26,6 +36,24 @@ function getHighlighter(): Promise<Highlighter> {
           "css",
           "go",
           "rust",
+          "java",
+          "kotlin",
+          "swift",
+          "c",
+          "cpp",
+          "csharp",
+          "php",
+          "ruby",
+          "bash",
+          "sql",
+          "json",
+          "yaml",
+          "jsx",
+          "tsx",
+          "vue",
+          "svelte",
+          "docker",
+          "markdown",
         ],
       })
     );
@@ -81,7 +109,7 @@ export function CodeDisplay() {
   // Must run after html is painted, so we observe the container with ResizeObserver.
   useEffect(() => {
     if (animationPreset !== "scroll") {
-      setScrollDist(0);
+      queueMicrotask(() => setScrollDist(0));
       return;
     }
 

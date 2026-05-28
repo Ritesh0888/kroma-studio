@@ -1,4 +1,5 @@
 import { LandingShell } from "@/components/layout/LandingShell";
+import { StudioCTAButton } from "@/components/ui/StudioCTAButton";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { LANDING_PAGE_META } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
@@ -67,15 +68,25 @@ export default function CodeScreenshotGeneratorPage() {
           </p>
         </section>
 
+        <section className="flex flex-col gap-3">
+          <h2 className="text-lg font-semibold">Looking for an alternative tools?</h2>
+          <p className="text-sm leading-relaxed text-text-muted">
+            KromaStudio is a privacy-first alternative. Unlike those tools, KromaStudio processes everything client-side —
+            your code is never sent to a server. You also get animated .webm export,
+            browser frame mockups, social post templates, and headline overlays all in
+            one free tool with no account required.
+          </p>
+        </section>
+
         <div className="flex flex-col gap-3 sm:flex-row">
-          <TrackedLink
-            href="/"
+          <StudioCTAButton
+            mode="code"
             label="Open Code Screenshot Generator"
             location="code_landing_primary"
             className="inline-flex items-center justify-center rounded-xl bg-linear-to-r from-neon-purple to-neon-pink px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
           >
             Open Code Screenshot Generator
-          </TrackedLink>
+          </StudioCTAButton>
           <TrackedLink
             href="/browser-mockup-generator"
             label="Browser Mockups"

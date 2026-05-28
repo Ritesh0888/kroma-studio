@@ -9,6 +9,7 @@ import { AspectRatioControl } from "@/components/controls/AspectRatioControl";
 import { BackgroundControl } from "@/components/controls/BackgroundControl";
 import { ModeSelector } from "@/components/controls/ModeSelector";
 import { CodeControls } from "@/components/controls/CodeControls";
+import { ContentControls } from "@/components/controls/ContentControls";
 import { HeadlineControls } from "@/components/controls/HeadlineControls";
 import { SiteFooterLinks } from "@/components/layout/SiteFooterLinks";
 import { ChromeStyleControl } from "@/components/controls/ChromeStyleControl";
@@ -65,6 +66,15 @@ export function LeftSidebar() {
             <SectionDivider label="Code" />
             <div className="mt-4">
               <CodeControls />
+            </div>
+          </div>
+        )}
+
+        {mode === "content" && (
+          <div>
+            <SectionDivider label="Content" />
+            <div className="mt-4">
+              <ContentControls source="desktop" />
             </div>
           </div>
         )}

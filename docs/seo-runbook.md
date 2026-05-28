@@ -16,6 +16,12 @@ Manual steps for Google Search Console setup, off-page promotion, and ongoing mo
 7. URL Inspection → test homepage → Request indexing if not already indexed
 8. Repeat URL Inspection for each landing page after deploy
 
+### Launch Add-on: Content Route
+
+- Confirm `https://www.kromastudio.in/content-post-generator` is indexed and returns canonical to itself.
+- Verify page metadata in source (title, description, OG/Twitter tags) matches the content landing intent.
+- Confirm primary CTA opens `/` and Content mode can be selected in studio.
+
 ## Vercel Domain Checklist
 
 - Primary domain: `www.kromastudio.in`
@@ -47,7 +53,21 @@ Track completion and link each post back to `https://www.kromastudio.in`.
 - [ ] Dev.to tutorial: "How to create aesthetic code screenshots"
 - [ ] Social distribution (X/LinkedIn) — see `phases/SEO-BLUEPRINT.md` "Deferred: Social handles"
 - [ ] GitHub README backlink (if repo is public)
-- [ ] Share landing pages: `/code-screenshot-generator`, `/browser-mockup-generator`
+- [ ] Share landing pages: `/code-screenshot-generator`, `/browser-mockup-generator`, `/content-post-generator`
+
+## CLS / Layout Stability Checks
+
+Before each release, verify ad placeholders retain fixed heights and do not shift the main layout when ads initialize:
+
+- Desktop right sidebar ad slots: `300x250` placeholders
+- Desktop footer ad slot: `728x90` placeholder
+- Mobile footer ad slot: `320x50` placeholder
+
+Manual check:
+
+1. Load studio on desktop and mobile widths with throttled network.
+2. Confirm canvas and sidebars do not jump when ad zones mount.
+3. Run Lighthouse and ensure CLS remains stable (target as close to `0.00` as possible).
 
 ## Weekly Monitoring (GSC + Analytics)
 
