@@ -201,7 +201,7 @@ flowchart TD
     P -->|Yes ✅| Q([Merged to main 🎉])
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide — branch naming, commit style, PR template, and code conventions.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide — branch naming, commit style, PR template, and code conventions. Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating.
 
 ### Current Contributors
 
