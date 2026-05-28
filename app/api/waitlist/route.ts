@@ -1,8 +1,6 @@
 import { Resend } from "resend";
 import { NextRequest } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: NextRequest) {
   try {
     const { email, feature } = await request.json();
@@ -11,10 +9,13 @@ export async function POST(request: NextRequest) {
       return Response.json({ error: "Invalid email" }, { status: 400 });
     }
 
+    const apiKey = process.env.RESEND_API_KEY;
     const notifyEmail = process.env.NOTIFICATION_EMAIL;
-    if (!notifyEmail) {
+    if (!apiKey || !notifyEmail) {
       return Response.json({ error: "Server misconfigured" }, { status: 500 });
     }
+
+    const resend = new Resend(apiKey);
 
     await resend.emails.send({
       from: "KromaStudio Waitlist <onboarding@resend.dev>",
