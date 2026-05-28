@@ -203,6 +203,15 @@ flowchart TD
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide — branch naming, commit style, PR template, and code conventions. Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating.
 
+## 🔒 Security
+
+- **Branch Protection**: Main branch is protected with PR requirements
+- **Code Review**: All pull requests require approval before merging
+- **Status Checks**: CI/CD tests must pass before merging
+- **Manual Deployments**: Production deployments are manual only
+- **CODEOWNERS**: All code changes reviewed by repository owners
+- **No Direct Pushes**: Direct pushes to main branch are blocked
+
 ### Current Contributors
 
 <div align="center">
