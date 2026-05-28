@@ -1,52 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <img src="public/logo.png" width="96" alt="KromaStudio logo" />
+
+  # KromaStudio
+
+  *Turn plain code and ideas into scroll-stopping visuals*
+
+  [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org)
+  [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38BDF8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
+
+  [Live site](https://www.kromastudio.in) • [How it works](https://www.kromastudio.in/how-it-works)
+</div>
+
+---
+
+A free, client-side visual studio for developers and designers. Paste code, drop a screenshot, or compose a social card — then export a polished HD PNG or animated `.webm` in seconds. No sign-up, no server uploads, no watermark paywall.
+
+## Features
+
+- **Three creation modes** — Code screenshots, browser mockups, and social post cards from one unified editor
+- **15 syntax themes** — Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night, Catppuccin, Nord, Monokai, Synthwave '84, Rosé Pine, and more
+- **26 supported languages** — TypeScript, JavaScript, Python, Go, Rust, HTML, CSS, SQL, and more
+- **12 gradient backgrounds** — Curated presets (Midnight Purple, Cyberpunk Neon, Aurora Borealis…) plus custom color picker
+- **Browser frame styles** — macOS dark/light, Windows, minimal, and frameless
+- **Headline overlays** — Custom text layered on top of any canvas
+- **Animations** — Float, 3D Tilt, and Auto Scroll presets, exported as 60 fps `.webm` loops
+- **10 social post templates** — Tweet, LinkedIn, Video, Thread, Quote, Announcement, Testimonial, Carousel, Before/After, Metrics
+- **HD PNG export** — 2× pixel ratio on desktop, optimised 1.5× on mobile to prevent OOM crashes
+- **100% client-side** — Your code and images never leave the browser
+
+## Studio Modes
+
+| Mode | What it does |
+|------|-------------|
+| **Mockup** | Wrap any screenshot in a premium browser frame with gradient background and headline overlay |
+| **Code** | Paste code, pick a syntax theme and language, style the frame, export share-ready visuals |
+| **Content** | Compose social post cards from 10 templates with avatar, accent colour, metrics, and verified badge |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- npm (or your preferred package manager)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-org/kroma-studio.git
+cd kroma-studio
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-## Environment Variables
-
-Create `.env.local` for local development and add the same values to your production hosting environment:
+Create `.env.local` from the example below. All values use the `NEXT_PUBLIC_` prefix and are intentionally exposed to the browser.
 
 ```env
 NEXT_PUBLIC_SITE_URL=https://www.kromastudio.in
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
-NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-7297785010128160
-NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR_TOP=1769954222
-NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR_BOTTOM=8619948978
-NEXT_PUBLIC_ADSENSE_SLOT_FOOTER=1397584983
-NEXT_PUBLIC_ADSENSE_SLOT_MOBILE_FOOTER=8947252033
-NEXT_PUBLIC_ADSENSE_SLOT_RENDERING_OVERLAY=5517627547
+
+# Google AdSense
+NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-xxxxxxxxxxxx
+NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR_TOP=
+NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR_BOTTOM=
+NEXT_PUBLIC_ADSENSE_SLOT_FOOTER=
+NEXT_PUBLIC_ADSENSE_SLOT_MOBILE_FOOTER=
+NEXT_PUBLIC_ADSENSE_SLOT_RENDERING_OVERLAY=
+
 # Set to true to load real AdSense slots on localhost (layout testing)
-NEXT_PUBLIC_ADSENSE_DEV=true
+NEXT_PUBLIC_ADSENSE_DEV=false
 ```
 
-`NEXT_PUBLIC_*` values are intentionally exposed to the browser. Restart the dev server after changing them.
+> [!NOTE]
+> Restart the dev server after changing `.env.local` — Next.js bakes `NEXT_PUBLIC_*` values into the client bundle at build time.
 
-SEO setup and manual GSC steps: see [`docs/seo-runbook.md`](docs/seo-runbook.md). Validate SEO structure locally with `npm run validate:seo`.
+### Run locally
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+## Available Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start the development server |
+| `npm run build` | Production build |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint |
+| `npm run validate:seo` | Validate all JSON-LD structured data |
+
+## Project Structure
+
+```
+app/                    # Next.js App Router pages and API routes
+  api/waitlist/         # Waitlist email capture endpoint (Resend)
+  browser-mockup-generator/
+  code-screenshot-generator/
+  content-post-generator/
+components/
+  canvas/               # Studio canvas renderers (code, mockup, content)
+  controls/             # Sidebar controls for each mode
+  layout/               # Shell, sidebars, mobile layout
+  modals/               # Watermark unlock modal
+hooks/
+  useExport.ts          # PNG export (html-to-image)
+  useVideoRecorder.ts   # Animated .webm export (MediaRecorder, 60 fps)
+lib/
+  backgrounds.ts        # Gradient preset definitions
+  site.ts               # Site-wide constants and SEO metadata
+store/
+  useStudioStore.ts     # Zustand global state (canvas, code, content, animation)
+```
+
+## Tech Stack
+
+| Concern | Library |
+|---------|---------|
+| Framework | Next.js 16 (App Router) |
+| UI | React 19 + Tailwind CSS 4 |
+| State | Zustand 5 |
+| Syntax highlighting | Shiki 4 |
+| Animations | Framer Motion 12 |
+| PNG export | html-to-image |
+| Video export | MediaRecorder API + Canvas captureStream |
+| Email | Resend |
+| Analytics | Vercel Analytics + Google Analytics 4 |
+| Ads | Google AdSense with auto-refresh |
+
+## SEO & Structured Data
+
+Each tool page ships with JSON-LD structured data and full Open Graph metadata. Validate the JSON-LD locally before deploying:
+
+```bash
+npm run validate:seo
+```
+
+See [docs/seo-runbook.md](docs/seo-runbook.md) for the full SEO setup guide and manual Google Search Console steps.
+
+## Deployment
+
+The project is optimised for [Vercel](https://vercel.com). Set all `NEXT_PUBLIC_*` environment variables in the Vercel dashboard before deploying.
+
+> [!TIP]
+> The `kromastudio.in` apex domain is permanently redirected to `www.kromastudio.in` via a `next.config.ts` redirect rule — make sure your DNS points the `www` subdomain to Vercel.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
