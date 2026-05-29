@@ -1,3 +1,4 @@
+import { FAQS as RAY_SO_FAQS } from "@/lib/landing/ray-so-alternative";
 import { OG_IMAGE, SITE_META, SITE_NAME, SITE_URL } from "@/lib/site";
 
 const FEATURE_LIST = [
@@ -123,6 +124,21 @@ export function getHowItWorksJsonLd() {
         ],
       },
     ],
+  };
+}
+
+export function getRaySoAlternativeJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: RAY_SO_FAQS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
   };
 }
 

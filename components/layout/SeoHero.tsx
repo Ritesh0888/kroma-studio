@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { STUDIO_MARQUEE_ITEMS } from "@/lib/site";
 
 function MarqueeSegment({ copy }: { copy: "a" | "b" }) {
