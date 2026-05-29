@@ -1,3 +1,11 @@
-# CODEOWNERS file for KromaStudio
-# All code files are owned by the repository owner
+# CODEOWNERS — KromaStudio
+#
+# Merge & approval policy:
+# - Only @Ritesh0888 may approve pull requests (required code-owner review).
+# - Only @Ritesh0888 may merge pull requests into main.
+# - No other collaborator may approve or merge, even if they have repo access.
+#
+# Enforced on GitHub via branch protection: require PR review + code owner review.
+# See CONTRIBUTING.md → "Merge & approval policy".
+
 * @Ritesh0888

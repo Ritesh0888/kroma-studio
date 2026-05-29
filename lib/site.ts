@@ -58,6 +58,11 @@ export const LANDING_PAGE_META = {
     description:
       "Terms for using KromaStudio — the free, client-side code screenshot and browser mockup generator. No account required.",
   },
+  raySoAlternative: {
+    title: "Ray.so Alternative — Free Code Screenshots | KromaStudio",
+    description:
+      "Compare KromaStudio vs Ray.so. Code screenshots, browser mockups, social post cards, and animated .webm export — free, 100% client-side, no sign-up.",
+  },
 } as const;
 
 export const OG_IMAGE = "/og-image.png";
@@ -82,6 +87,7 @@ export const ROUTE_ANALYTICS: Record<
     type: "landing",
   },
   "/how-it-works": { id: "how_it_works", type: "landing" },
+  "/ray-so-alternative": { id: "ray_so_alternative", type: "landing" },
   "/privacy": { id: "privacy", type: "legal" },
   "/terms": { id: "terms", type: "legal" },
 };
@@ -122,6 +128,12 @@ export const PUBLIC_ROUTES = [
     changeFrequency: "monthly" as const,
     priority: 0.8,
     pageFile: "app/how-it-works/page.tsx",
+  },
+  {
+    path: "/ray-so-alternative",
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+    pageFile: "app/ray-so-alternative/page.tsx",
   },
   { path: "/privacy", changeFrequency: "yearly" as const, priority: 0.3, pageFile: "app/privacy/page.tsx" },
   { path: "/terms", changeFrequency: "yearly" as const, priority: 0.3, pageFile: "app/terms/page.tsx" },

@@ -49,6 +49,15 @@ function validateHowItWorks() {
   console.log("✓ app/how-it-works/page.tsx FAQ/HowTo JSON-LD");
 }
 
+function validateRaySoAlternative() {
+  const page = readFileSync("app/ray-so-alternative/page.tsx", "utf8");
+  if (!page.includes("getRaySoAlternativeJsonLd")) {
+    throw new Error("app/ray-so-alternative/page.tsx: must use getRaySoAlternativeJsonLd()");
+  }
+  extractJsonLdBlocks(page, "ray-so-alternative");
+  console.log("✓ app/ray-so-alternative/page.tsx FAQ JSON-LD");
+}
+
 function validateSitemap() {
   const sitemap = readFileSync("app/sitemap.ts", "utf8");
   if (sitemap.includes("new Date()")) {
@@ -73,6 +82,7 @@ try {
   validateJsonLdModule();
   validateLayout();
   validateHowItWorks();
+  validateRaySoAlternative();
   validateSitemap();
   validateRobots();
   console.log("\nAll JSON-LD and SEO structure validations passed.");

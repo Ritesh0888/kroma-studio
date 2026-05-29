@@ -69,13 +69,20 @@ export default function CodeScreenshotGeneratorPage() {
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold">Looking for an alternative tools?</h2>
+          <h2 className="text-lg font-semibold">Looking for a Ray.so alternative?</h2>
           <p className="text-sm leading-relaxed text-text-muted">
-            KromaStudio is a privacy-first alternative. Unlike those tools, KromaStudio processes everything client-side —
-            your code is never sent to a server. You also get animated .webm export,
-            browser frame mockups, social post templates, and headline overlays all in
-            one free tool with no account required.
+            Ray.so is excellent for code cards. KromaStudio covers that workflow and
+            adds browser frame mockups, social post templates, animated .webm export,
+            and headline overlays — all free with no account required.
           </p>
+          <TrackedLink
+            href="/ray-so-alternative"
+            label="KromaStudio vs Ray.so"
+            location="code_landing_ray_so_compare"
+            className="w-fit text-sm text-neon-purple transition-colors hover:text-white"
+          >
+            See full KromaStudio vs Ray.so comparison →
+          </TrackedLink>
         </section>
 
         <div className="flex flex-col gap-3 sm:flex-row">

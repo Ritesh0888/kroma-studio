@@ -203,14 +203,16 @@ flowchart TD
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide — branch naming, commit style, PR template, and code conventions. Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating.
 
-## 🔒 Security
+## 🔒 Security & merge policy
 
-- **Branch Protection**: Main branch is protected with PR requirements
-- **Code Review**: All pull requests require approval before merging
-- **Status Checks**: CI/CD tests must pass before merging
-- **Manual Deployments**: Production deployments are manual only
-- **CODEOWNERS**: All code changes reviewed by repository owners
-- **No Direct Pushes**: Direct pushes to main branch are blocked
+- **Branch protection**: `main` requires a pull request before merge
+- **Approval**: Only [@Ritesh0888](https://github.com/Ritesh0888) may approve PRs (CODEOWNERS + code-owner review)
+- **Merge**: Only [@Ritesh0888](https://github.com/Ritesh0888) may merge into `main` — no other collaborator
+- **Status checks**: CI must pass (`lint`, `build`, `validate:seo`) before merge
+- **Manual deployments**: Production deployments are manual only
+- **No direct pushes**: Direct pushes to `main` are blocked
+
+See [CONTRIBUTING.md → Merge & approval policy](CONTRIBUTING.md#merge--approval-policy) for the full rules.
 
 ### Current Contributors
 

@@ -105,6 +105,29 @@ docs(contributing): add branch naming conventions
 
 ---
 
+## Merge & approval policy
+
+These rules apply to every pull request (PR) into `main`:
+
+| Action | Who |
+|--------|-----|
+| **Approve** a PR | **[@Ritesh0888](https://github.com/Ritesh0888) only** |
+| **Merge** a PR into `main` | **[@Ritesh0888](https://github.com/Ritesh0888) only** |
+| Open a PR | Any contributor (fork or branch) |
+| Request changes / comment | Anyone |
+
+**Rules:**
+
+1. **No self-merge without owner approval** — even the PR author must wait for @Ritesh0888 to approve and merge.
+2. **No merges by other maintainers or collaborators** — only @Ritesh0888 may click merge.
+3. **CODEOWNERS review is required** — all files are owned by @Ritesh0888 (see [`.github/CODEOWNERS`](.github/CODEOWNERS)).
+4. **CI must pass** — `lint`, `build`, and `validate:seo` checks must be green before merge.
+5. **Direct pushes to `main` are blocked** — all changes go through a PR.
+
+> **Note:** GitHub branch protection on `main` must have *Require review from code owners* enabled. Only the repository owner should have write/merge access unless explicitly granted for a specific task — and even then, merge stays with @Ritesh0888.
+
+---
+
 ## Pull Requests
 
 1. **One PR per issue** — keep the scope focused.
@@ -112,6 +135,7 @@ docs(contributing): add branch naming conventions
 3. **Reference the issue** — use `Closes #NUMBER` in the PR description to auto-close it on merge.
 4. **Self-review** — read your own diff before requesting a review.
 5. **Screenshots or recordings** — include visuals for any UI changes.
+6. **Wait for @Ritesh0888** — do not merge your own PR; the owner approves and merges every PR.
 
 ### PR template
 
