@@ -4,7 +4,7 @@ import { ScreenshotFigure } from "@/components/landing/ScreenshotFigure";
 import { SwitchCardIcon } from "@/components/landing/SwitchCardIcon";
 import { StudioCTAButton } from "@/components/ui/StudioCTAButton";
 import { TrackedLink } from "@/components/ui/TrackedLink";
-import { getRaySoAlternativeJsonLd } from "@/lib/json-ld";
+import { getCarbonAlternativeJsonLd } from "@/lib/json-ld";
 import {
   AUDIENCE_SECTIONS,
   COMPARISON_ROWS,
@@ -19,17 +19,17 @@ import {
   TRUST_BUILDERS,
   USE_CASES,
   WHY_SWITCH_POINTS,
-} from "@/lib/landing/ray-so-alternative";
+} from "@/lib/landing/carbon-alternative";
 import { LANDING_PAGE_META } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
 
 export const metadata = createLandingMetadata({
-  path: "/ray-so-alternative",
-  title: LANDING_PAGE_META.raySoAlternative.title,
-  description: LANDING_PAGE_META.raySoAlternative.description,
+  path: "/carbon-alternative",
+  title: LANDING_PAGE_META.carbonAlternative.title,
+  description: LANDING_PAGE_META.carbonAlternative.description,
 });
 
-const jsonLd = getRaySoAlternativeJsonLd();
+const jsonLd = getCarbonAlternativeJsonLd();
 
 const ctaPrimaryClassName =
   "inline-flex items-center justify-center rounded-xl bg-linear-to-r from-neon-purple to-neon-pink px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90";
@@ -37,7 +37,7 @@ const ctaPrimaryClassName =
 const ctaSecondaryClassName =
   "inline-flex items-center justify-center rounded-xl border border-border px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-neon-purple";
 
-export default function RaySoAlternativePage() {
+export default function CarbonAlternativePage() {
   const heroShot = SCREENSHOT_SLOTS.hero;
   const comparisonShot = SCREENSHOT_SLOTS.comparison;
 
@@ -52,46 +52,48 @@ export default function RaySoAlternativePage() {
           {/* Hero — conversion-focused */}
           <div className="flex flex-col gap-5">
             <p className="text-xs font-medium uppercase tracking-widest text-neon-purple">
-              Ray.so alternative · Free · No sign-up
+              Carbon.now.sh alternative · Free · No sign-up
             </p>
             <h1 className="text-3xl font-bold tracking-tight">
-              Ray.so Alternative That Does More Than Code Screenshots
+              Carbon Alternative That Does More Than Code Screenshots
             </h1>
             <p className="text-base leading-relaxed text-text-muted">
-              KromaStudio is a free studio for developers who need more than a code
-              card alone. Create{" "}
+              Carbon nails code cards — and honestly, for a plain snippet image it
+              still holds up. But if you are also making launch mockups, social posts,
+              or short video clips, you end up opening a few extra tabs. KromaStudio
+              keeps{" "}
               <LandingInlineLink
                 href="/code-screenshot-generator"
                 label="Code screenshots"
-                location="ray_so_hero_inline_code"
+                location="carbon_hero_inline_code"
               >
-                syntax-highlighted screenshots
+                code screenshots
               </LandingInlineLink>
               ,{" "}
               <LandingInlineLink
                 href="/browser-mockup-generator"
                 label="Browser mockups"
-                location="ray_so_hero_inline_mockup"
+                location="carbon_hero_inline_mockup"
               >
                 browser mockups
               </LandingInlineLink>
-              ,{" "}
+              , and{" "}
               <LandingInlineLink
                 href="/content-post-generator"
                 label="Social content"
-                location="ray_so_hero_inline_social"
+                location="carbon_hero_inline_social"
               >
-                social media visuals
-              </LandingInlineLink>
-              , and animated .webm exports — all from one{" "}
+                social templates
+              </LandingInlineLink>{" "}
+              in one place. Everything runs{" "}
               <LandingInlineLink
                 href="/privacy"
                 label="Client-side privacy"
-                location="ray_so_hero_inline_privacy"
+                location="carbon_hero_inline_privacy"
               >
                 client-side
-              </LandingInlineLink>{" "}
-              tool, without switching apps or creating an account.
+              </LandingInlineLink>
+              , free, no sign-up.
             </p>
             <div className="flex flex-wrap gap-2">
               {HERO_TRUST_BADGES.map((badge) => (
@@ -107,7 +109,7 @@ export default function RaySoAlternativePage() {
               <StudioCTAButton
                 mode="code"
                 label="Try KromaStudio Free"
-                location="ray_so_hero_cta"
+                location="carbon_hero_cta"
                 className={ctaPrimaryClassName}
               >
                 Try KromaStudio Free
@@ -115,7 +117,7 @@ export default function RaySoAlternativePage() {
               <TrackedLink
                 href="#live-examples"
                 label="See Live Examples"
-                location="ray_so_hero_secondary"
+                location="carbon_hero_secondary"
                 className={ctaSecondaryClassName}
               >
                 See Live Examples
@@ -146,7 +148,7 @@ export default function RaySoAlternativePage() {
                   <LandingInlineLink
                     href={card.href}
                     label={card.linkLabel}
-                    location="ray_so_switch_card_link"
+                    location="carbon_switch_card_link"
                   >
                     {card.linkLabel} →
                   </LandingInlineLink>
@@ -155,29 +157,28 @@ export default function RaySoAlternativePage() {
             </div>
           </section>
 
-          {/* Existing — Why Developers Look for a Ray.so Alternative */}
+          {/* Why Developers Look for a Carbon Alternative */}
           <section className="flex flex-col gap-4">
             <h2 className="text-lg font-semibold">
-              Why Developers Look for Ray.so Alternatives
+              Why Developers Look for Carbon Alternatives
             </h2>
             <p className="text-sm leading-relaxed text-text-muted">
-              Ray.so is a trusted{" "}
+              If you have used Carbon, you know it is good at what it does. People start
+              looking elsewhere when they need{" "}
               <LandingInlineLink
-                href="/code-screenshot-generator"
-                label="Code screenshot tool"
-                location="ray_so_why_switch_inline"
+                href="/browser-mockup-generator"
+                label="Browser mockups"
+                location="carbon_why_switch_inline"
               >
-                code screenshot tool
+                browser mockups
               </LandingInlineLink>
-              . Developers often explore alternatives when they need more customization,
-              different sharing options, animation, or a workflow that goes beyond a
-              single static code card. See{" "}
+              , social layouts, or a bit of motion — not just another code card.{" "}
               <LandingInlineLink
                 href="/how-it-works"
                 label="How it works"
-                location="ray_so_why_switch_how"
+                location="carbon_why_switch_how"
               >
-                how KromaStudio works
+                Here is how KromaStudio handles that
               </LandingInlineLink>
               .
             </p>
@@ -188,34 +189,38 @@ export default function RaySoAlternativePage() {
             </ul>
           </section>
 
-          {/* Existing — What is Ray.so? */}
+          {/* What is Carbon? */}
           <section className="flex flex-col gap-3">
-            <h2 className="text-lg font-semibold">What is Ray.so?</h2>
+            <h2 className="text-lg font-semibold">What is Carbon?</h2>
             <p className="text-sm leading-relaxed text-text-muted">
-              Ray.so is a popular online code beautifier built by the Raycast team. You
-              paste a snippet, choose a theme and background, adjust padding and font size,
-              and export a polished PNG or SVG — including 2× retina output. You can also
-              use URL query parameters for programmatic image generation from shell
-              scripts or editor extensions.
+              Carbon (carbon.now.sh) has been around since 2017 — MIT open source,
+              36k+ GitHub stars, the tool most devs reach for when they need a pretty
+              code image. Paste code, drop a file, or pull in a GitHub gist. Pick a
+              theme, tweak fonts and padding, export PNG or SVG, or grab a share link
+              that previews on Twitter and Slack.
             </p>
             <p className="text-sm leading-relaxed text-text-muted">
-              Developers like Ray.so for its speed, clean defaults, and focused scope. It
-              does one job well: turn raw code into a shareable image. If your needs stop
-              at a syntax-highlighted card, Ray.so remains an excellent choice.
+              What keeps people on Carbon: 150+ themes, carbon-now-cli for terminal
+              workflows, and defaults that just work. If all you need is a sharp code
+              card — maybe with SVG or CLI automation — it is still hard to beat.
+            </p>
+            <p className="text-sm leading-relaxed text-text-muted">
+              KromaStudio is MIT open source too — you can self-host either project.
+              The difference is scope: Carbon stays focused on code cards; KromaStudio
+              adds mockups, social templates, and .webm export in the same codebase.
             </p>
           </section>
 
-          {/* Comparison table + 5 key differences (optimized) */}
+          {/* Comparison table + 5 key differences */}
           <section className="flex flex-col gap-6">
-            <h2 className="text-lg font-semibold">KromaStudio vs Ray.so</h2>
+            <h2 className="text-lg font-semibold">KromaStudio vs Carbon</h2>
             <p className="text-sm leading-relaxed text-text-muted">
-              A side-by-side for developers comparing Ray.so with KromaStudio.
-              Both are free to use; the main difference is workflow breadth. Jump
-              to our{" "}
+              Honest side-by-side below. Both are free, both are MIT open source. The
+              gap is mostly what each tool tries to cover. More detail on our{" "}
               <LandingInlineLink
                 href="/code-screenshot-generator"
                 label="Code screenshot generator"
-                location="ray_so_compare_inline_code"
+                location="carbon_compare_inline_code"
               >
                 code
               </LandingInlineLink>
@@ -223,7 +228,7 @@ export default function RaySoAlternativePage() {
               <LandingInlineLink
                 href="/browser-mockup-generator"
                 label="Browser mockup generator"
-                location="ray_so_compare_inline_mockup"
+                location="carbon_compare_inline_mockup"
               >
                 mockup
               </LandingInlineLink>
@@ -231,7 +236,7 @@ export default function RaySoAlternativePage() {
               <LandingInlineLink
                 href="/content-post-generator"
                 label="Content post generator"
-                location="ray_so_compare_inline_content"
+                location="carbon_compare_inline_content"
               >
                 social content
               </LandingInlineLink>{" "}
@@ -242,7 +247,7 @@ export default function RaySoAlternativePage() {
                 <thead>
                   <tr className="border-b border-border bg-surface">
                     <th className="px-4 py-3 font-semibold text-white">Feature</th>
-                    <th className="px-4 py-3 font-semibold text-white">Ray.so</th>
+                    <th className="px-4 py-3 font-semibold text-white">Carbon</th>
                     <th className="px-4 py-3 font-semibold text-white">KromaStudio</th>
                   </tr>
                 </thead>
@@ -250,7 +255,7 @@ export default function RaySoAlternativePage() {
                   {COMPARISON_ROWS.map((row) => (
                     <tr key={row.feature} className="border-b border-border last:border-0">
                       <td className="px-4 py-3 font-medium text-white">{row.feature}</td>
-                      <td className="px-4 py-3 text-text-muted">{row.raySo}</td>
+                      <td className="px-4 py-3 text-text-muted">{row.carbon}</td>
                       <td className="px-4 py-3 text-text-muted">{row.kromaStudio}</td>
                     </tr>
                   ))}
@@ -262,7 +267,7 @@ export default function RaySoAlternativePage() {
 
             <div className="flex flex-col gap-6">
               <h3 className="text-base font-semibold text-white">
-                5 Key Differences Between Ray.so and KromaStudio
+                5 Key Differences Between Carbon and KromaStudio
               </h3>
               {KEY_DIFFERENCES.map((diff) => (
                 <div key={diff.title} className="flex flex-col gap-2">
@@ -278,7 +283,7 @@ export default function RaySoAlternativePage() {
                   <LandingInlineLink
                     href={diff.href}
                     label={diff.linkLabel}
-                    location="ray_so_key_diff_link"
+                    location="carbon_key_diff_link"
                   >
                     {diff.linkLabel} →
                   </LandingInlineLink>
@@ -289,14 +294,14 @@ export default function RaySoAlternativePage() {
             <StudioCTAButton
               mode="code"
               label="Try KromaStudio Free"
-              location="ray_so_comparison_cta"
+              location="carbon_comparison_cta"
               className={`${ctaPrimaryClassName} w-fit`}
             >
               Try KromaStudio Free
             </StudioCTAButton>
           </section>
 
-          {/* Existing — Features + screenshot slots */}
+          {/* Features + screenshot slots */}
           <section id="live-examples" className="flex scroll-mt-8 flex-col gap-6">
             <h2 className="text-lg font-semibold">
               Features That Make KromaStudio Different
@@ -321,7 +326,7 @@ export default function RaySoAlternativePage() {
                     <TrackedLink
                       href={section.link.href}
                       label={section.link.label}
-                      location="ray_so_feature_link"
+                      location="carbon_feature_link"
                       className="w-fit text-sm text-neon-purple transition-colors hover:text-white"
                     >
                       {section.link.label} →
@@ -332,23 +337,14 @@ export default function RaySoAlternativePage() {
             })}
           </section>
 
-          {/* Existing — Other alternatives */}
+          {/* Other alternatives */}
           <section className="flex flex-col gap-4">
             <h2 className="text-lg font-semibold">
-              Other Ray.so Alternatives to Consider
+              Other Carbon Alternatives to Consider
             </h2>
             <p className="text-sm leading-relaxed text-text-muted">
-              Different tools fit different jobs. These are commonly compared with
-              Ray.so — each excels at something specific. For a detailed Carbon
-              comparison, see our{" "}
-              <LandingInlineLink
-                href="/carbon-alternative"
-                label="KromaStudio vs Carbon"
-                location="ray_so_other_alt_carbon"
-              >
-                KromaStudio vs Carbon
-              </LandingInlineLink>{" "}
-              page:
+              No single tool does everything. These come up a lot when people compare
+              notes with Carbon:
             </p>
             <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-muted">
               {OTHER_ALTERNATIVES.map((item) => (
@@ -359,11 +355,19 @@ export default function RaySoAlternativePage() {
               ))}
             </ul>
             <p className="text-sm leading-relaxed text-text-muted">
-              KromaStudio fits when you want{" "}
+              For a detailed Ray.so comparison, see our{" "}
+              <LandingInlineLink
+                href="/ray-so-alternative"
+                label="KromaStudio vs Ray.so"
+                location="carbon_other_alt_ray_so"
+              >
+                KromaStudio vs Ray.so
+              </LandingInlineLink>{" "}
+              page. KromaStudio fits when you want{" "}
               <LandingInlineLink
                 href="/code-screenshot-generator"
                 label="Code screenshots"
-                location="ray_so_other_alt_inline_code"
+                location="carbon_other_alt_inline_code"
               >
                 code screenshots
               </LandingInlineLink>{" "}
@@ -371,7 +375,7 @@ export default function RaySoAlternativePage() {
               <LandingInlineLink
                 href="/browser-mockup-generator"
                 label="Browser mockups"
-                location="ray_so_other_alt_inline_mockup"
+                location="carbon_other_alt_inline_mockup"
               >
                 product browser mockups
               </LandingInlineLink>
@@ -379,7 +383,7 @@ export default function RaySoAlternativePage() {
               <LandingInlineLink
                 href="/content-post-generator"
                 label="Social post templates"
-                location="ray_so_other_alt_inline_social"
+                location="carbon_other_alt_inline_social"
               >
                 social post templates
               </LandingInlineLink>
@@ -388,7 +392,7 @@ export default function RaySoAlternativePage() {
             </p>
           </section>
 
-          {/* Existing — Audience */}
+          {/* Audience */}
           <section className="flex flex-col gap-6">
             <h2 className="text-lg font-semibold">Who Should Use KromaStudio?</h2>
             {AUDIENCE_SECTIONS.map((section) => (
@@ -399,7 +403,7 @@ export default function RaySoAlternativePage() {
             ))}
           </section>
 
-          {/* Existing — Use cases */}
+          {/* Use cases */}
           <section className="flex flex-col gap-3">
             <h2 className="text-lg font-semibold">Real Use Cases</h2>
             <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-muted">
@@ -409,7 +413,7 @@ export default function RaySoAlternativePage() {
                   <LandingInlineLink
                     href={useCase.href}
                     label={useCase.linkLabel}
-                    location="ray_so_use_case_link"
+                    location="carbon_use_case_link"
                   >
                     {useCase.linkLabel} →
                   </LandingInlineLink>
@@ -445,30 +449,14 @@ export default function RaySoAlternativePage() {
                 Create More Than Code Screenshots
               </h2>
               <p className="text-sm leading-relaxed text-text-muted">
-                Turn code, screenshots, and ideas into beautiful visuals from one free
-                tool —{" "}
-                <LandingInlineLink
-                  href="/browser-mockup-generator"
-                  label="Mockups"
-                  location="ray_so_pre_faq_inline_mockup"
-                >
-                  mockups
-                </LandingInlineLink>
-                ,{" "}
-                <LandingInlineLink
-                  href="/content-post-generator"
-                  label="Social cards"
-                  location="ray_so_pre_faq_inline_social"
-                >
-                  social cards
-                </LandingInlineLink>
-                , and motion exports included.
+                Code, screenshots, mockups, social cards — one free tool. No account
+                needed.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <StudioCTAButton
                   mode="code"
                   label="Start Creating Free"
-                  location="ray_so_pre_faq_cta"
+                  location="carbon_pre_faq_cta"
                   className={ctaPrimaryClassName}
                 >
                   Start Creating Free
@@ -476,7 +464,7 @@ export default function RaySoAlternativePage() {
                 <StudioCTAButton
                   mode="content"
                   label="Explore Templates"
-                  location="ray_so_pre_faq_templates"
+                  location="carbon_pre_faq_templates"
                   className={ctaSecondaryClassName}
                 >
                   Explore Templates
@@ -485,7 +473,7 @@ export default function RaySoAlternativePage() {
             </div>
           </section>
 
-          {/* Existing — FAQ */}
+          {/* FAQ */}
           <section className="flex flex-col gap-4">
             <h2 className="text-lg font-semibold">Frequently Asked Questions</h2>
             <dl className="flex flex-col gap-4">
@@ -500,7 +488,7 @@ export default function RaySoAlternativePage() {
                         <LandingInlineLink
                           href={item.href}
                           label={item.linkLabel}
-                          location="ray_so_faq_link"
+                          location="carbon_faq_link"
                         >
                           {item.linkLabel} →
                         </LandingInlineLink>
@@ -512,21 +500,21 @@ export default function RaySoAlternativePage() {
             </dl>
           </section>
 
-          {/* Existing — Final verdict */}
+          {/* Final verdict */}
           <section className="flex flex-col gap-4">
             <h2 className="text-lg font-semibold">Final Verdict</h2>
             <p className="text-sm leading-relaxed text-text-muted">
-              <strong className="font-semibold text-white">Choose Ray.so</strong> when
-              you need a minimal, fast code card — paste, pick a theme, export PNG or
-              SVG. Ray.so remains a strong choice for that focused workflow.
+              <strong className="font-semibold text-white">Stick with Carbon</strong> if
+              you want 150+ themes, SVG, embed links, or carbon-now-cli in your terminal.
+              For a straight code card, it is still the one to beat.
             </p>
             <p className="text-sm leading-relaxed text-text-muted">
-              <strong className="font-semibold text-white">Choose KromaStudio</strong>{" "}
-              when you also need{" "}
+              <strong className="font-semibold text-white">Try KromaStudio</strong> if
+              you are also making{" "}
               <LandingInlineLink
                 href="/browser-mockup-generator"
                 label="Browser mockups"
-                location="ray_so_verdict_inline_mockup"
+                location="carbon_verdict_inline_mockup"
               >
                 browser mockups
               </LandingInlineLink>
@@ -534,18 +522,18 @@ export default function RaySoAlternativePage() {
               <LandingInlineLink
                 href="/content-post-generator"
                 label="Social post templates"
-                location="ray_so_verdict_inline_social"
+                location="carbon_verdict_inline_social"
               >
-                social post templates
+                social posts
               </LandingInlineLink>
-              , or animated .webm code clips — without switching to a separate mockup
-              or design tool.
+              , or short .webm clips — and you would rather not hop between three apps. Both
+              are MIT open source; KromaStudio just covers more ground in one repo.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <StudioCTAButton
                 mode="code"
                 label="Try KromaStudio Free"
-                location="ray_so_verdict_cta"
+                location="carbon_verdict_cta"
                 className={ctaPrimaryClassName}
               >
                 Try KromaStudio Free
@@ -553,7 +541,7 @@ export default function RaySoAlternativePage() {
               <TrackedLink
                 href="/how-it-works"
                 label="How It Works"
-                location="ray_so_verdict_secondary"
+                location="carbon_verdict_secondary"
                 className={ctaSecondaryClassName}
               >
                 See How It Works
@@ -561,7 +549,7 @@ export default function RaySoAlternativePage() {
             </div>
           </section>
 
-          {/* Existing — Internal links */}
+          {/* Internal links */}
           <section className="flex flex-col gap-3 border-t border-border pt-8">
             <h2 className="text-lg font-semibold">Explore KromaStudio Tools</h2>
             <ul className="flex flex-col gap-2">
@@ -570,7 +558,7 @@ export default function RaySoAlternativePage() {
                   <TrackedLink
                     href={link.href}
                     label={link.label}
-                    location="ray_so_internal_link"
+                    location="carbon_internal_link"
                     className="text-sm text-neon-purple transition-colors hover:text-white"
                   >
                     {link.label} →

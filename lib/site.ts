@@ -3,8 +3,19 @@ export const SITE_URL =
 
 export const SITE_NAME = "KromaStudio";
 
+export const GITHUB_REPO_URL = "https://github.com/Ritesh0888/kroma-studio";
+
+/** Footer copyright line — year updates automatically */
+export const SITE_COPYRIGHT = `© ${new Date().getFullYear()} ${SITE_NAME}`;
+
+/** Shorter or spaced variants for Google Site Name structured data */
+export const SITE_ALTERNATE_NAMES = ["Kroma Studio"] as const;
+
 export const STUDIO_HERO_HEADLINE =
   "Turn Plain Code Into Scroll-Stopping Visuals";
+
+/** Homepage h1 — brand first so Google can associate the site name */
+export const STUDIO_HERO_H1 = `${SITE_NAME} — ${STUDIO_HERO_HEADLINE}`;
 
 export const STUDIO_MARQUEE_ITEMS = [
   "Premium browser mockups & syntax-highlighted screenshots",
@@ -63,6 +74,16 @@ export const LANDING_PAGE_META = {
     description:
       "Compare KromaStudio vs Ray.so. Code screenshots, browser mockups, social post cards, and animated .webm export — free, 100% client-side, no sign-up.",
   },
+  carbonAlternative: {
+    title: "Carbon.now.sh Alternative — Free Code Screenshots | KromaStudio",
+    description:
+      "Compare KromaStudio vs Carbon. Code screenshots, browser mockups, social post cards, and animated .webm export — free, 100% client-side, no sign-up.",
+  },
+  github: {
+    title: "KromaStudio on GitHub — MIT Open Source | KromaStudio",
+    description:
+      "View the KromaStudio source on GitHub. MIT licensed — fork, self-host, or contribute. Code screenshots, browser mockups, and social templates.",
+  },
 } as const;
 
 export const OG_IMAGE = "/og-image.png";
@@ -88,6 +109,8 @@ export const ROUTE_ANALYTICS: Record<
   },
   "/how-it-works": { id: "how_it_works", type: "landing" },
   "/ray-so-alternative": { id: "ray_so_alternative", type: "landing" },
+  "/carbon-alternative": { id: "carbon_alternative", type: "landing" },
+  "/github-kroma-studio": { id: "github_kroma_studio", type: "landing" },
   "/privacy": { id: "privacy", type: "legal" },
   "/terms": { id: "terms", type: "legal" },
 };
@@ -134,6 +157,18 @@ export const PUBLIC_ROUTES = [
     changeFrequency: "monthly" as const,
     priority: 0.85,
     pageFile: "app/ray-so-alternative/page.tsx",
+  },
+  {
+    path: "/carbon-alternative",
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+    pageFile: "app/carbon-alternative/page.tsx",
+  },
+  {
+    path: "/github-kroma-studio",
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
+    pageFile: "app/github-kroma-studio/page.tsx",
   },
   { path: "/privacy", changeFrequency: "yearly" as const, priority: 0.3, pageFile: "app/privacy/page.tsx" },
   { path: "/terms", changeFrequency: "yearly" as const, priority: 0.3, pageFile: "app/terms/page.tsx" },

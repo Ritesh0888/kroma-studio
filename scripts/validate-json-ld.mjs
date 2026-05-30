@@ -58,6 +58,15 @@ function validateRaySoAlternative() {
   console.log("✓ app/ray-so-alternative/page.tsx FAQ JSON-LD");
 }
 
+function validateCarbonAlternative() {
+  const page = readFileSync("app/carbon-alternative/page.tsx", "utf8");
+  if (!page.includes("getCarbonAlternativeJsonLd")) {
+    throw new Error("app/carbon-alternative/page.tsx: must use getCarbonAlternativeJsonLd()");
+  }
+  extractJsonLdBlocks(page, "carbon-alternative");
+  console.log("✓ app/carbon-alternative/page.tsx FAQ JSON-LD");
+}
+
 function validateSitemap() {
   const sitemap = readFileSync("app/sitemap.ts", "utf8");
   if (sitemap.includes("new Date()")) {
@@ -83,6 +92,7 @@ try {
   validateLayout();
   validateHowItWorks();
   validateRaySoAlternative();
+  validateCarbonAlternative();
   validateSitemap();
   validateRobots();
   console.log("\nAll JSON-LD and SEO structure validations passed.");
