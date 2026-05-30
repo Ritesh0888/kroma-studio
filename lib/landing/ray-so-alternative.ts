@@ -281,6 +281,8 @@ export const INTERNAL_LINKS = [
   { href: "/browser-mockup-generator", label: "Browser Mockup Generator" },
   { href: "/content-post-generator", label: "Social Content Post Generator" },
   { href: "/how-it-works", label: "How It Works" },
+  { href: "/carbon-alternative", label: "KromaStudio vs Carbon" },
+  { href: "/github-kroma-studio", label: "Open Source on GitHub" },
   { href: "/privacy", label: "Privacy Policy" },
 ] as const;
 

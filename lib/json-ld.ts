@@ -1,5 +1,12 @@
+import { FAQS as CARBON_FAQS } from "@/lib/landing/carbon-alternative";
 import { FAQS as RAY_SO_FAQS } from "@/lib/landing/ray-so-alternative";
-import { OG_IMAGE, SITE_META, SITE_NAME, SITE_URL } from "@/lib/site";
+import {
+  OG_IMAGE,
+  SITE_ALTERNATE_NAMES,
+  SITE_META,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site";
 
 const FEATURE_LIST = [
   "Browser frame mockups — macOS Dark, macOS Light, Windows, Minimal styles",
@@ -18,18 +25,13 @@ const FEATURE_LIST = [
   "100% client-side — no upload, no sign-up",
 ];
 
+/** Organization + app schema — safe on every page */
 export function getRootJsonLd() {
   const ogImageUrl = `${SITE_URL}${OG_IMAGE}`;
 
   return {
     "@context": "https://schema.org",
     "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": `${SITE_URL}/#website`,
-        name: SITE_NAME,
-        url: SITE_URL,
-      },
       {
         "@type": "Organization",
         "@id": `${SITE_URL}/#organization`,
@@ -56,6 +58,20 @@ export function getRootJsonLd() {
         featureList: FEATURE_LIST,
       },
     ],
+  };
+}
+
+/** WebSite schema — homepage only per Google Site Names guidance */
+export function getHomepageJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: SITE_NAME,
+    alternateName: [...SITE_ALTERNATE_NAMES],
+    url: `${SITE_URL}/`,
+    inLanguage: "en-US",
+    publisher: { "@id": `${SITE_URL}/#organization` },
   };
 }
 
@@ -132,6 +148,21 @@ export function getRaySoAlternativeJsonLd() {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: RAY_SO_FAQS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+}
+
+export function getCarbonAlternativeJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: CARBON_FAQS.map((item) => ({
       "@type": "Question",
       name: item.q,
       acceptedAnswer: {

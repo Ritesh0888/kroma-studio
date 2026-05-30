@@ -1,22 +1,32 @@
 import Image from "next/image";
 import { LandingBackground } from "@/components/layout/LandingBackground";
 import { TrackedLink } from "@/components/ui/TrackedLink";
+import { SITE_COPYRIGHT } from "@/lib/site";
 
 type LandingShellProps = {
   children: React.ReactNode;
 };
 
-const FOOTER_LINKS = [
-  { href: "/", label: "Open Studio" },
-  { href: "/code-screenshot-generator", label: "Code Screenshots" },
-  { href: "/browser-mockup-generator", label: "Browser Mockups" },
-  { href: "/content-post-generator", label: "Content Posts" },
-  { href: "/how-it-works", label: "How It Works" },
-  { href: "/privacy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
-];
+const FOOTER_PRIMARY_LINKS = [
+  { href: "/", label: "Open Studio", location: "landing_footer_open_studio" },
+  { href: "/code-screenshot-generator", label: "Code Screenshots", location: "landing_footer_code" },
+  { href: "/browser-mockup-generator", label: "Browser Mockups", location: "landing_footer_mockup" },
+  { href: "/content-post-generator", label: "Content Posts", location: "landing_footer_content" },
+  { href: "/how-it-works", label: "How It Works", location: "landing_footer_how_it_works" },
+] as const;
+
+const FOOTER_SECONDARY_LINKS = [
+  { href: "/ray-so-alternative", label: "vs Ray.so", location: "landing_footer_vs_ray_so" },
+  { href: "/carbon-alternative", label: "vs Carbon", location: "landing_footer_vs_carbon" },
+  { href: "/privacy", label: "Privacy", location: "landing_footer_privacy" },
+  { href: "/terms", label: "Terms", location: "landing_footer_terms" },
+  { href: "/github-kroma-studio", label: "GitHub", location: "landing_footer_github" },
+] as const;
 
 const SHELL_CONTAINER = "mx-auto w-full max-w-3xl px-6";
+
+const footerLinkClassName =
+  "text-xs text-text-muted transition-colors hover:text-white";
 
 export function LandingShell({ children }: LandingShellProps) {
   return (
@@ -62,23 +72,37 @@ export function LandingShell({ children }: LandingShellProps) {
 
       <footer className="relative z-10 shrink-0 border-t border-surface-2 bg-[#080808]/90 backdrop-blur-md">
         <div
-          className={`${SHELL_CONTAINER} flex h-26 flex-col justify-center gap-3 pb-[env(safe-area-inset-bottom)]`}
+          className={`${SHELL_CONTAINER} flex flex-col gap-2 py-3 pb-[env(safe-area-inset-bottom)]`}
         >
-          <nav className="hide-scrollbar flex shrink-0 gap-x-4 overflow-x-auto whitespace-nowrap">
-            {FOOTER_LINKS.map((link) => (
+          <nav className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+            {FOOTER_PRIMARY_LINKS.map((link) => (
               <TrackedLink
                 key={link.href}
                 href={link.href}
                 label={link.label}
-                location="landing_footer"
-                className="text-xs text-text-muted transition-colors hover:text-white"
+                location={link.location}
+                className={footerLinkClassName}
               >
                 {link.label}
               </TrackedLink>
             ))}
           </nav>
-          <p className="shrink-0 text-center text-[10px] text-border tracking-widest uppercase">
-            www.kromastudio.in
+          <nav className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+            {FOOTER_SECONDARY_LINKS.map((link) => (
+              <TrackedLink
+                key={link.href}
+                href={link.href}
+                label={link.label}
+                location={link.location}
+                className={footerLinkClassName}
+              >
+                {link.label}
+              </TrackedLink>
+            ))}
+          </nav>
+          <p className="text-center text-[10px] text-border">
+            <span>{SITE_COPYRIGHT}</span>
+            <span className="tracking-widest uppercase"> · www.kromastudio.in</span>
           </p>
         </div>
       </footer>

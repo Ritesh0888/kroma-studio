@@ -85,6 +85,23 @@ export default function CodeScreenshotGeneratorPage() {
           </TrackedLink>
         </section>
 
+        <section className="flex flex-col gap-3">
+          <h2 className="text-lg font-semibold">Looking for a Carbon.now.sh alternative?</h2>
+          <p className="text-sm leading-relaxed text-text-muted">
+            Carbon is the classic for code cards — 150+ themes, SVG export, the works.
+            KromaStudio is MIT open source too, and adds mockups, social templates, and
+            .webm export without making you sign up.
+          </p>
+          <TrackedLink
+            href="/carbon-alternative"
+            label="KromaStudio vs Carbon"
+            location="code_landing_carbon_compare"
+            className="w-fit text-sm text-neon-purple transition-colors hover:text-white"
+          >
+            See full KromaStudio vs Carbon comparison →
+          </TrackedLink>
+        </section>
+
         <div className="flex flex-col gap-3 sm:flex-row">
           <StudioCTAButton
             mode="code"
