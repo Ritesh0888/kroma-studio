@@ -59,7 +59,7 @@ export default function CarbonAlternativePage() {
             </h1>
             <p className="text-base leading-relaxed text-text-muted">
               Carbon nails code cards — and honestly, for a plain snippet image it
-              still holds up. But if you're also making launch mockups, social posts,
+              still holds up. But if you are also making launch mockups, social posts,
               or short video clips, you end up opening a few extra tabs. KromaStudio
               keeps{" "}
               <LandingInlineLink
@@ -163,7 +163,7 @@ export default function CarbonAlternativePage() {
               Why Developers Look for Carbon Alternatives
             </h2>
             <p className="text-sm leading-relaxed text-text-muted">
-              If you've used Carbon, you know it's good at what it does. People start
+              If you have used Carbon, you know it is good at what it does. People start
               looking elsewhere when they need{" "}
               <LandingInlineLink
                 href="/browser-mockup-generator"
@@ -178,7 +178,7 @@ export default function CarbonAlternativePage() {
                 label="How it works"
                 location="carbon_why_switch_how"
               >
-                Here's how KromaStudio handles that
+                Here is how KromaStudio handles that
               </LandingInlineLink>
               .
             </p>
@@ -202,7 +202,7 @@ export default function CarbonAlternativePage() {
             <p className="text-sm leading-relaxed text-text-muted">
               What keeps people on Carbon: 150+ themes, carbon-now-cli for terminal
               workflows, and defaults that just work. If all you need is a sharp code
-              card — maybe with SVG or CLI automation — it's still hard to beat.
+              card — maybe with SVG or CLI automation — it is still hard to beat.
             </p>
             <p className="text-sm leading-relaxed text-text-muted">
               KromaStudio is MIT open source too — you can self-host either project.
@@ -506,11 +506,11 @@ export default function CarbonAlternativePage() {
             <p className="text-sm leading-relaxed text-text-muted">
               <strong className="font-semibold text-white">Stick with Carbon</strong> if
               you want 150+ themes, SVG, embed links, or carbon-now-cli in your terminal.
-              For a straight code card, it's still the one to beat.
+              For a straight code card, it is still the one to beat.
             </p>
             <p className="text-sm leading-relaxed text-text-muted">
               <strong className="font-semibold text-white">Try KromaStudio</strong> if
-              you're also making{" "}
+              you are also making{" "}
               <LandingInlineLink
                 href="/browser-mockup-generator"
                 label="Browser mockups"
@@ -526,7 +526,7 @@ export default function CarbonAlternativePage() {
               >
                 social posts
               </LandingInlineLink>
-              , or short .webm clips — and you'd rather not hop between three apps. Both
+              , or short .webm clips — and you would rather not hop between three apps. Both
               are MIT open source; KromaStudio just covers more ground in one repo.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
