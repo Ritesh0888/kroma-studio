@@ -130,6 +130,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
       </head>
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} h-full overflow-hidden bg-black text-white antialiased`}
       >
         {/* Google Analytics GA4 */}
