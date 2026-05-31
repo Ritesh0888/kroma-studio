@@ -101,7 +101,7 @@ export function LandingShell({ children }: LandingShellProps) {
               </TrackedLink>
             ))}
           </nav>
-          <ProductHuntBadge />
+          <ProductHuntBadge location="landing_footer_product_hunt" />
           <p className="text-center text-[10px] text-border">
             <span>{SITE_COPYRIGHT}</span>
             <span className="tracking-widest uppercase"> · www.kromastudio.in</span>

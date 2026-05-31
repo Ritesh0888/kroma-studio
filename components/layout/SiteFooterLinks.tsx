@@ -46,7 +46,7 @@ export function SiteFooterLinks() {
           </TrackedLink>
         ))}
       </nav>
-      <ProductHuntBadge />
+      <ProductHuntBadge location="studio_footer_product_hunt" />
       <p className="pb-3 text-center text-[10px] text-border">{SITE_COPYRIGHT}</p>
     </footer>
   );
