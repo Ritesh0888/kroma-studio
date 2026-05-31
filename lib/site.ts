@@ -5,6 +5,15 @@ export const SITE_NAME = "KromaStudio";
 
 export const GITHUB_REPO_URL = "https://github.com/Ritesh0888/kroma-studio";
 
+export const PRODUCT_HUNT_URL =
+  "https://www.producthunt.com/products/kromastudio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-kromastudio";
+
+export const PRODUCT_HUNT_BADGE_IMG =
+  "https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1159807&theme=dark";
+
+export const PRODUCT_HUNT_BADGE_ALT =
+  "KromaStudio on Product Hunt — Turn code snippets into aesthetic screenshots and mockups";
+
 /** Footer copyright line — year updates automatically */
 export const SITE_COPYRIGHT = `© ${new Date().getFullYear()} ${SITE_NAME}`;
 
