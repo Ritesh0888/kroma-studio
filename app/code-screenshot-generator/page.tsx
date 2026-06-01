@@ -1,6 +1,17 @@
 import { LandingShell } from "@/components/layout/LandingShell";
 import { StudioCTAButton } from "@/components/ui/StudioCTAButton";
 import { TrackedLink } from "@/components/ui/TrackedLink";
+import { getCodeScreenshotJsonLd } from "@/lib/json-ld";
+import {
+  ALL_LANGUAGES,
+  ALL_THEMES,
+  FAQS,
+  HERO_TRUST_BADGES,
+  HOW_TO_STEPS,
+  RELATED_TOOLS,
+  USE_CASES,
+  WHY_KROMA,
+} from "@/lib/landing/code-screenshot-generator";
 import { LANDING_PAGE_META } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
 
@@ -9,118 +20,211 @@ export const metadata = createLandingMetadata({
   ...LANDING_PAGE_META.codeScreenshot,
 });
 
-const THEMES = [
-  "Dracula",
-  "One Dark Pro",
-  "GitHub Dark",
-  "Night Owl",
-  "Tokyo Night",
-];
+const jsonLd = getCodeScreenshotJsonLd();
 
-const LANGUAGES = [
-  "JavaScript",
-  "TypeScript",
-  "Python",
-  "HTML",
-  "CSS",
-  "Go",
-  "Rust",
-];
+const ctaPrimaryClassName =
+  "inline-flex items-center justify-center rounded-xl bg-linear-to-r from-neon-purple to-neon-pink px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90";
+
+const ctaSecondaryClassName =
+  "inline-flex items-center justify-center rounded-xl border border-border px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-neon-purple";
 
 export default function CodeScreenshotGeneratorPage() {
   return (
-    <LandingShell>
-      <article className="flex flex-col gap-8">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Free Code Screenshot Generator
-          </h1>
-          <p className="text-base leading-relaxed text-text-muted">
-            Turn raw code into scroll-stopping social graphics in seconds. KromaStudio
-            is a free online code screenshot maker that runs entirely in your browser —
-            paste a snippet, pick a syntax theme, add a gradient background, and export
-            an HD PNG with no sign-up and no upload.
-          </p>
-        </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <LandingShell>
+        <article className="flex flex-col gap-10">
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold">Why developers use KromaStudio</h2>
-          <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-muted">
-            <li>Syntax highlighting powered by Shiki — crisp, accurate colors</li>
-            <li>12 aesthetic gradient presets designed for dark-mode feeds</li>
-            <li>Optional headline overlay for Twitter and LinkedIn posts</li>
-            <li>Line numbers toggle and 2× resolution PNG export</li>
-            <li>100% client-side — your code never leaves your device</li>
-          </ul>
-        </section>
+          {/* Hero */}
+          <div className="flex flex-col gap-5">
+            <p className="text-xs font-medium uppercase tracking-widest text-neon-purple">
+              {HERO_TRUST_BADGES.join(" · ")}
+            </p>
+            <h1 className="text-3xl font-bold tracking-tight">
+              Free Code Screenshot Generator
+            </h1>
+            <p className="text-base leading-relaxed text-text-muted">
+              Turn raw code snippets into scroll-stopping social graphics in seconds.
+              KromaStudio runs entirely in your browser — paste code, pick a theme like
+              Dracula or One Dark Pro, add a gradient background, and export a sharp PNG
+              at 1×, 2×, 3×, or 4× resolution, or render an animated .webm loop.
+              No sign-up, no server upload, no watermark.
+            </p>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold">Supported code themes</h2>
-          <p className="text-sm leading-relaxed text-text-muted">
-            Pick from popular developer themes: {THEMES.join(", ")}.
-          </p>
-        </section>
+            <div className="flex flex-wrap gap-3">
+              <StudioCTAButton
+                mode="code"
+                label="Open Code Screenshot Generator"
+                location="code_landing_primary"
+                className={ctaPrimaryClassName}
+              >
+                Open Code Screenshot Generator
+              </StudioCTAButton>
+              <TrackedLink
+                href="/browser-mockup-generator"
+                label="Browser Mockups"
+                location="code_landing_secondary"
+                className={ctaSecondaryClassName}
+              >
+                Browser Mockups
+              </TrackedLink>
+            </div>
+          </div>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold">Supported languages</h2>
-          <p className="text-sm leading-relaxed text-text-muted">
-            Paste snippets in {LANGUAGES.join(", ")} and get instant highlighting.
-          </p>
-        </section>
+          {/* How it works */}
+          <section className="flex flex-col gap-5">
+            <h2 className="text-lg font-semibold">How to create a code screenshot</h2>
+            <ol className="flex flex-col gap-6">
+              {HOW_TO_STEPS.map((step, index) => (
+                <li key={step.title} className="flex flex-col gap-2">
+                  <h3 className="text-sm font-semibold text-white">
+                    Step {index + 1}: {step.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-text-muted">{step.body}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold">Looking for a Ray.so alternative?</h2>
-          <p className="text-sm leading-relaxed text-text-muted">
-            Ray.so is excellent for code cards. KromaStudio covers that workflow and
-            adds browser frame mockups, social post templates, animated .webm export,
-            and headline overlays — all free with no account required.
-          </p>
-          <TrackedLink
-            href="/ray-so-alternative"
-            label="KromaStudio vs Ray.so"
-            location="code_landing_ray_so_compare"
-            className="w-fit text-sm text-neon-purple transition-colors hover:text-white"
-          >
-            See full KromaStudio vs Ray.so comparison →
-          </TrackedLink>
-        </section>
+          {/* Themes */}
+          <section className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold">15 syntax themes</h2>
+            <p className="text-sm leading-relaxed text-text-muted">
+              Every theme is powered by Shiki — the same syntax highlighter used by
+              VS Code and the official TypeScript docs. Colors are accurate to the
+              real editor, not approximations.
+            </p>
+            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {ALL_THEMES.map((theme) => (
+                <li
+                  key={theme.name}
+                  className="flex flex-col gap-1 rounded-xl border border-border p-4"
+                >
+                  <span className="text-sm font-semibold text-white">{theme.name}</span>
+                  <span className="text-sm leading-relaxed text-text-muted">
+                    {theme.description}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold">Looking for a Carbon.now.sh alternative?</h2>
-          <p className="text-sm leading-relaxed text-text-muted">
-            Carbon is the classic for code cards — 150+ themes, SVG export, the works.
-            KromaStudio is MIT open source too, and adds mockups, social templates, and
-            .webm export without making you sign up.
-          </p>
-          <TrackedLink
-            href="/carbon-alternative"
-            label="KromaStudio vs Carbon"
-            location="code_landing_carbon_compare"
-            className="w-fit text-sm text-neon-purple transition-colors hover:text-white"
-          >
-            See full KromaStudio vs Carbon comparison →
-          </TrackedLink>
-        </section>
+          {/* Languages */}
+          <section className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold">25 supported programming languages</h2>
+            <div className="flex flex-col gap-4">
+              {ALL_LANGUAGES.map((group) => (
+                <div key={group.group} className="flex flex-col gap-2">
+                  <h3 className="text-sm font-semibold text-white">{group.group}</h3>
+                  <p className="text-sm leading-relaxed text-text-muted">
+                    {group.languages.join(", ")}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
 
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <StudioCTAButton
-            mode="code"
-            label="Open Code Screenshot Generator"
-            location="code_landing_primary"
-            className="inline-flex items-center justify-center rounded-xl bg-linear-to-r from-neon-purple to-neon-pink px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-          >
-            Open Code Screenshot Generator
-          </StudioCTAButton>
-          <TrackedLink
-            href="/browser-mockup-generator"
-            label="Browser Mockups"
-            location="code_landing_secondary"
-            className="inline-flex items-center justify-center rounded-xl border border-border px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-neon-purple"
-          >
-            Browser Mockups
-          </TrackedLink>
-        </div>
-      </article>
-    </LandingShell>
+          {/* Why KromaStudio vs Carbon / Ray.so */}
+          <section className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold">
+              What KromaStudio adds beyond Carbon and Ray.so
+            </h2>
+            <ul className="flex flex-col gap-5">
+              {WHY_KROMA.map((item) => (
+                <li key={item.title} className="flex flex-col gap-1">
+                  <h3 className="text-sm font-semibold text-white">{item.title}</h3>
+                  <p className="text-sm leading-relaxed text-text-muted">{item.body}</p>
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-wrap gap-3 pt-1">
+              <TrackedLink
+                href="/carbon-alternative"
+                label="KromaStudio vs Carbon"
+                location="code_landing_carbon_compare"
+                className="text-sm text-neon-purple transition-colors hover:text-white"
+              >
+                KromaStudio vs Carbon.now.sh →
+              </TrackedLink>
+              <TrackedLink
+                href="/ray-so-alternative"
+                label="KromaStudio vs Ray.so"
+                location="code_landing_ray_so_compare"
+                className="text-sm text-neon-purple transition-colors hover:text-white"
+              >
+                KromaStudio vs Ray.so →
+              </TrackedLink>
+            </div>
+          </section>
+
+          {/* Use cases */}
+          <section className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold">When developers use code screenshots</h2>
+            <ul className="flex flex-col gap-5">
+              {USE_CASES.map((uc) => (
+                <li key={uc.title} className="flex flex-col gap-1">
+                  <h3 className="text-sm font-semibold text-white">{uc.title}</h3>
+                  <p className="text-sm leading-relaxed text-text-muted">{uc.body}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* FAQ */}
+          <section className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold">Frequently asked questions</h2>
+            <dl className="flex flex-col gap-4">
+              {FAQS.map((item) => (
+                <div key={item.q}>
+                  <dt className="text-sm font-semibold text-white">{item.q}</dt>
+                  <dd className="mt-1 text-sm leading-relaxed text-text-muted">
+                    {item.a}
+                    {item.href && item.linkLabel && (
+                      <>
+                        {" "}
+                        <TrackedLink
+                          href={item.href}
+                          label={item.linkLabel}
+                          location="code_landing_faq_link"
+                          className="text-neon-purple transition-colors hover:text-white"
+                        >
+                          {item.linkLabel} →
+                        </TrackedLink>
+                      </>
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+          {/* Related tools */}
+          <section className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold">Explore KromaStudio tools</h2>
+            <ul className="flex flex-col gap-3">
+              {RELATED_TOOLS.map((tool) => (
+                <li key={tool.href}>
+                  <TrackedLink
+                    href={tool.href}
+                    label={tool.label}
+                    location="code_landing_related"
+                    className="group flex flex-col gap-0.5"
+                  >
+                    <span className="text-sm font-semibold text-neon-purple transition-colors group-hover:text-white">
+                      {tool.label} →
+                    </span>
+                    <span className="text-sm text-text-muted">{tool.description}</span>
+                  </TrackedLink>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+        </article>
+      </LandingShell>
+    </>
   );
 }

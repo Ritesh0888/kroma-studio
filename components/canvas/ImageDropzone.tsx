@@ -8,6 +8,11 @@ import { track } from "@/lib/analytics";
 export function ImageDropzone() {
   const uploadedImage = useStudioStore((s) => s.uploadedImage);
   const setUploadedImage = useStudioStore((s) => s.setUploadedImage);
+  const imageFit = useStudioStore((s) => s.imageFit);
+  const imageZoom = useStudioStore((s) => s.imageZoom);
+  const imageOffsetX = useStudioStore((s) => s.imageOffsetX);
+  const imageOffsetY = useStudioStore((s) => s.imageOffsetY);
+  const innerRadius = useStudioStore((s) => s.innerRadius);
 
   const loadFile = useCallback(
     (file: File, method: "drop_or_click" | "paste") => {
@@ -57,12 +62,22 @@ export function ImageDropzone() {
 
   if (uploadedImage) {
     return (
-      <div className="relative w-full h-full group">
+      <div
+        className="relative w-full h-full group overflow-hidden"
+        style={{ borderRadius: innerRadius > 0 ? `${innerRadius}px` : undefined }}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={uploadedImage}
           alt="Uploaded content"
-          className="w-full h-full object-contain"
+          className={`w-full h-full object-${imageFit}`}
+          style={{
+            transform:
+              imageZoom !== 1 || imageOffsetX !== 0 || imageOffsetY !== 0
+                ? `scale(${imageZoom}) translate(${imageOffsetX}%, ${imageOffsetY}%)`
+                : undefined,
+            transformOrigin: "center",
+          }}
           draggable={false}
         />
         <button

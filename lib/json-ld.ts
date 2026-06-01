@@ -1,5 +1,8 @@
 import { FAQS as CARBON_FAQS } from "@/lib/landing/carbon-alternative";
 import { FAQS as RAY_SO_FAQS } from "@/lib/landing/ray-so-alternative";
+import { FAQS as BROWSER_MOCKUP_FAQS, HOW_TO_STEPS as BROWSER_HOW_TO_STEPS } from "@/lib/landing/browser-mockup-generator";
+import { FAQS as CODE_SCREENSHOT_FAQS, HOW_TO_STEPS as CODE_HOW_TO_STEPS } from "@/lib/landing/code-screenshot-generator";
+import { FAQS as CONTENT_POST_FAQS, HOW_TO_STEPS as CONTENT_HOW_TO_STEPS } from "@/lib/landing/content-post-generator";
 import {
   OG_IMAGE,
   SITE_ALTERNATE_NAMES,
@@ -9,15 +12,23 @@ import {
 } from "@/lib/site";
 
 const FEATURE_LIST = [
-  "Browser frame mockups — macOS Dark, macOS Light, Windows, Minimal styles",
+  "Browser frame mockups — Chrome, Safari, Firefox, Arc, macOS Dark, macOS Light, Windows, Minimal styles",
+  "Device frames — iPhone, iPad, MacBook",
+  "Editable URL bar and custom favicon in browser tab",
+  "Transparent PNG export",
   "Syntax-highlighted code screenshots",
   "15 code themes: Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night, Catppuccin Mocha, Catppuccin Latte, Nord, Monokai, Synthwave '84, Solarized Dark, Rosé Pine, Material Ocean, Vitesse Dark, GitHub Light",
   "25 supported languages: TypeScript, JavaScript, Python, HTML, CSS, Go, Rust, Java, Kotlin, Swift, C, C++, C#, PHP, Ruby, Bash, SQL, JSON, YAML, JSX, TSX, Vue, Svelte, Docker, Markdown",
   "Headline text overlay for social posts",
-  "12 aesthetic gradient background presets",
+  "12 aesthetic gradient background presets plus solid colors",
+  "Background image upload with noise overlay",
+  "Image fit modes — contain, cover, fill",
+  "Image zoom and position within frame",
+  "Inner screenshot corner radius control",
   "Line numbers toggle",
-  "HD PNG export at 2× resolution",
+  "Export scale selector — 1×, 2×, 3×, 4× resolution",
   "Animated video export — Float, 3D Tilt, Auto-Scroll loops as .webm",
+  "Preset mockup template gallery",
   "Social content post templates — Tweet, LinkedIn, Video, Thread, Quote, Announcement, Testimonial, Carousel, Before/After, Metrics",
   "Author, handle, avatar controls with initials fallback",
   "Accent color customization per template",
@@ -195,44 +206,174 @@ export function getContentPostJsonLd() {
           price: "0",
           priceCurrency: "USD",
         },
+        datePublished: "2024-01-01",
+        dateModified: "2026-06-01",
         featureList: [
-          "10 social post templates: Tweet, LinkedIn, Video, Thread, Quote, Announcement, Testimonial, Carousel, Before/After, Metrics",
+          "10 social post card templates: Tweet, LinkedIn, Video, Thread, Quote, Announcement, Testimonial, Carousel, Before/After, Metrics",
           "Custom author, handle, and avatar with initials fallback",
           "Accent color and verified badge controls",
           "Editable metrics values (replies, reposts, likes, impressions, CTR, revenue)",
-          "HD PNG export at 2× resolution",
+          "Export scale: 1×, 2×, 3×, 4× resolution",
           "Animated .webm video export",
+          "Visual card designer — not an AI text generator",
           "100% client-side — no upload, no sign-up",
         ],
       },
       {
+        "@type": "HowTo",
+        name: "How to create social post cards with KromaStudio",
+        description:
+          "Pick a template, customize text and author, then export a 2× PNG or animated .webm — all in your browser with no sign-up.",
+        step: CONTENT_HOW_TO_STEPS.map((s, i) => ({
+          "@type": "HowToStep",
+          position: i + 1,
+          name: s.title,
+          text: s.body,
+        })),
+      },
+      {
         "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: "What social post templates are available?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "KromaStudio offers 10 templates: Tweet, LinkedIn, Video, Thread, Quote, Announcement, Testimonial, Carousel, Before/After, and Metrics.",
-            },
+        mainEntity: CONTENT_POST_FAQS.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.a,
           },
-          {
-            "@type": "Question",
-            name: "Can I export social cards as video?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Yes. You can export any content card as an animated .webm loop (Float, 3D Tilt, Auto-Scroll) or as a static HD PNG.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Is the content post generator free?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Yes. KromaStudio is completely free with no sign-up required. Everything runs in your browser.",
-            },
-          },
+        })),
+      },
+    ],
+  };
+}
+
+export function getBrowserMockupJsonLd() {
+  const ogImageUrl = `${SITE_URL}${OG_IMAGE}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": `${SITE_URL}/browser-mockup-generator#app`,
+        name: "KromaStudio Browser Mockup Generator",
+        url: `${SITE_URL}/browser-mockup-generator`,
+        image: ogImageUrl,
+        operatingSystem: "Browser",
+        applicationCategory: "DesignApplication",
+        browserRequirements: "Requires HTML5 canvas support",
+        description:
+          "Wrap any screenshot in Chrome, Safari, Firefox, Arc, macOS, or Windows browser frames. Adjust padding, shadow, corner radius, and aspect ratio. Export a high-resolution PNG — free, no sign-up, 100% client-side.",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        datePublished: "2024-01-01",
+        dateModified: "2026-06-01",
+        featureList: [
+          "Browser frames: Chrome, Safari, Firefox, Arc, macOS Dark, macOS Light, Windows, Minimal",
+          "Device frames: iPhone, iPad, MacBook",
+          "Editable URL bar — enter any domain",
+          "Custom favicon upload for browser tab",
+          "Transparent PNG export — background-free",
+          "Export scale: 1×, 2×, 3×, 4× resolution",
+          "12 gradient background presets plus solid colors",
+          "Background image upload with noise overlay",
+          "Image fit mode — contain, cover, fill",
+          "Image zoom and position within frame",
+          "Inner screenshot corner radius",
+          "Padding, corner radius, and shadow controls",
+          "Aspect ratio presets: 1:1, 16:9, 9:16, Free",
+          "Headline overlay for social posts",
+          "Preset mockup template gallery",
+          "Animated .webm export — Float and 3D Tilt loops",
+          "100% client-side — no upload, no sign-up",
         ],
+      },
+      {
+        "@type": "HowTo",
+        name: "How to create a browser mockup with KromaStudio",
+        description:
+          "Drop a screenshot, pick a browser frame style, customize the look, and export a high-resolution PNG — all in your browser.",
+        step: BROWSER_HOW_TO_STEPS.map((s, i) => ({
+          "@type": "HowToStep",
+          position: i + 1,
+          name: s.title,
+          text: s.body,
+        })),
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: BROWSER_MOCKUP_FAQS.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.a,
+          },
+        })),
+      },
+    ],
+  };
+}
+
+export function getCodeScreenshotJsonLd() {
+  const ogImageUrl = `${SITE_URL}${OG_IMAGE}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": `${SITE_URL}/code-screenshot-generator#app`,
+        name: "KromaStudio Code Screenshot Generator",
+        url: `${SITE_URL}/code-screenshot-generator`,
+        image: ogImageUrl,
+        operatingSystem: "Browser",
+        applicationCategory: "DeveloperApplication",
+        browserRequirements: "Requires HTML5 canvas support",
+        description:
+          "Turn code snippets into beautiful PNG screenshots or animated .webm videos. 15 syntax themes including Dracula and One Dark Pro, 25 languages, headline overlays, gradient backgrounds. 100% client-side, free, no sign-up.",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        datePublished: "2026-05-25",
+        dateModified: "2026-06-01",
+        featureList: [
+          "15 syntax themes: Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night, Catppuccin Mocha, Catppuccin Latte, Nord, Monokai, Synthwave '84, Solarized Dark, Rosé Pine, Material Ocean, Vitesse Dark, GitHub Light",
+          "25 programming languages supported",
+          "Export scale: 1×, 2×, 3×, 4× resolution",
+          "12 gradient background presets plus solid colors",
+          "Headline text overlay for social posts",
+          "Line numbers toggle",
+          "Animated .webm export — Float, 3D Tilt, Auto-Scroll loops",
+          "100% client-side — code never leaves your browser",
+        ],
+      },
+      {
+        "@type": "HowTo",
+        name: "How to create code screenshots with KromaStudio",
+        description:
+          "Paste your code, pick a theme and background, then export an HD PNG or animated .webm — all in your browser with no sign-up.",
+        step: CODE_HOW_TO_STEPS.map((s, i) => ({
+          "@type": "HowToStep",
+          position: i + 1,
+          name: s.title,
+          text: s.body,
+        })),
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: CODE_SCREENSHOT_FAQS.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.a,
+          },
+        })),
       },
     ],
   };

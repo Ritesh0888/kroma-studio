@@ -9,6 +9,55 @@ const CHROME_STYLES: {
   preview: React.ReactNode;
 }[] = [
   {
+    value: "chrome",
+    label: "Chrome",
+    preview: (
+      <div className="w-full h-4 rounded-sm bg-[#dee1e6] flex items-end px-1 pt-0.5">
+        <div className="flex items-center gap-0.5 bg-white rounded-t-sm px-1.5 py-0.5 border-t border-l border-r border-[#c0c3c8]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#ddd]" />
+          <span className="flex-1 h-0.5 bg-[#ddd] rounded w-6" />
+          <span className="text-[4px] text-[#aaa]">✕</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    value: "safari",
+    label: "Safari",
+    preview: (
+      <div className="w-full h-4 rounded-sm bg-[#ececec] flex items-center gap-0.5 px-1">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#ff5f57]" />
+        <span className="w-1.5 h-1.5 rounded-full bg-[#ffbd2e]" />
+        <span className="w-1.5 h-1.5 rounded-full bg-[#28c840]" />
+        <span className="flex-1 mx-0.5 h-1 rounded-sm bg-white border border-[#d8d8d8]" />
+      </div>
+    ),
+  },
+  {
+    value: "firefox",
+    label: "Firefox",
+    preview: (
+      <div className="w-full h-4 rounded-sm bg-[#2b2a33] flex items-end px-1 pt-0.5">
+        <div className="flex items-center gap-0.5 bg-[#42414d] rounded-t-sm px-1.5 py-0.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#666]" />
+          <span className="flex-1 h-0.5 bg-[#555] rounded w-6" />
+        </div>
+      </div>
+    ),
+  },
+  {
+    value: "arc",
+    label: "Arc",
+    preview: (
+      <div className="w-full h-4 rounded-sm bg-[#1c1c28] flex items-center gap-0.5 px-1">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#ff5f57]" />
+        <span className="w-1.5 h-1.5 rounded-full bg-[#ffbd2e]" />
+        <span className="w-1.5 h-1.5 rounded-full bg-[#28c840]" />
+        <span className="flex-1 mx-0.5 h-1 rounded-full bg-[#2a2a3e]" />
+      </div>
+    ),
+  },
+  {
     value: "macos-dark",
     label: "macOS Dark",
     preview: (
@@ -75,9 +124,9 @@ export function ChromeStyleControl() {
   return (
     <div className="flex flex-col gap-2">
       <label className="text-xs font-medium text-[#a0a0a0] uppercase tracking-wider">
-        Header Style
+        Browser Frame
       </label>
-      <div className="grid grid-cols-2 gap-1.5">
+      <div className="grid grid-cols-3 gap-1.5">
         {CHROME_STYLES.map(({ value, label, preview }) => {
           const active = chromeStyle === value;
           return (

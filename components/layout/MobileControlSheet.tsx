@@ -10,11 +10,17 @@ import { ContentControls } from "@/components/controls/ContentControls";
 import { HeadlineControls } from "@/components/controls/HeadlineControls";
 import { AnimationControls } from "@/components/controls/AnimationControls";
 import { ChromeStyleControl } from "@/components/controls/ChromeStyleControl";
+import { UrlBarControl } from "@/components/controls/UrlBarControl";
+import { FaviconControl } from "@/components/controls/FaviconControl";
+import { ImageFitControl } from "@/components/controls/ImageFitControl";
+import { ImageZoomControl } from "@/components/controls/ImageZoomControl";
+import { DeviceFrameControl } from "@/components/controls/DeviceFrameControl";
+import { MockupTemplateGallery } from "@/components/controls/MockupTemplateGallery";
 import { CustomColorPicker } from "@/components/ui/CustomColorPicker";
 import { useVideoRecorder } from "@/hooks/useVideoRecorder";
 import { track } from "@/lib/analytics";
 
-type Tab = "bg" | "frame" | "size" | "mode" | "animate";
+type Tab = "bg" | "templates" | "frame" | "size" | "mode" | "animate";
 
 const ASPECT_RATIOS: { value: AspectRatio; label: string }[] = [
   { value: "1:1", label: "1:1" },
@@ -117,12 +123,15 @@ function BgTab() {
 }
 
 function FrameTab() {
+  const mode = useStudioStore((s) => s.mode);
   const padding = useStudioStore((s) => s.padding);
   const borderRadius = useStudioStore((s) => s.borderRadius);
+  const innerRadius = useStudioStore((s) => s.innerRadius);
   const shadowDepth = useStudioStore((s) => s.shadowDepth);
   const watermarkVisible = useStudioStore((s) => s.watermarkVisible);
   const setPadding = useStudioStore((s) => s.setPadding);
   const setBorderRadius = useStudioStore((s) => s.setBorderRadius);
+  const setInnerRadius = useStudioStore((s) => s.setInnerRadius);
   const setShadowDepth = useStudioStore((s) => s.setShadowDepth);
   const setWatermarkVisible = useStudioStore((s) => s.setWatermarkVisible);
   const setShowWatermarkModal = useStudioStore((s) => s.setShowWatermarkModal);
@@ -140,7 +149,12 @@ function FrameTab() {
 
   return (
     <div className="flex flex-col gap-4 px-4">
+      {mode === "mockup" && <DeviceFrameControl />}
       <ChromeStyleControl />
+      {mode === "mockup" && <UrlBarControl />}
+      {mode === "mockup" && <FaviconControl />}
+      {mode === "mockup" && <ImageFitControl />}
+      {mode === "mockup" && <ImageZoomControl />}
       <div className="rounded-xl border border-surface-2 bg-surface p-3">
         <div className="flex items-center justify-between gap-3">
           <div>
@@ -172,6 +186,9 @@ function FrameTab() {
       </div>
       <SliderControl label="Padding" value={padding} min={0} max={40} unit="px" onChange={setPadding} trackEvent="padding_change" trackSource="mobile" />
       <SliderControl label="Corner Radius" value={borderRadius} min={0} max={32} unit="px" onChange={setBorderRadius} trackEvent="border_radius_change" trackSource="mobile" />
+      {mode === "mockup" && (
+        <SliderControl label="Screenshot Radius" value={innerRadius} min={0} max={32} unit="px" onChange={setInnerRadius} trackEvent="inner_radius_change" trackSource="mobile" />
+      )}
       <SliderControl label="Shadow" value={shadowDepth} min={0} max={100} unit="%" onChange={setShadowDepth} trackEvent="shadow_depth_change" trackSource="mobile" />
     </div>
   );
@@ -409,11 +426,21 @@ const CodeIcon = () => (
 
 /* ── Tab definitions ── */
 
+const TemplatesIcon = () => (
+  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+    <rect x="3" y="3" width="7" height="7" rx="1" />
+    <rect x="14" y="3" width="7" height="7" rx="1" />
+    <rect x="3" y="14" width="7" height="7" rx="1" />
+    <rect x="14" y="14" width="7" height="7" rx="1" />
+  </svg>
+);
+
 const TABS: { id: Tab; label: string; icon: React.ReactNode; isNew?: boolean }[] = [
   { id: "bg", label: "BG", icon: <BgIcon /> },
+  { id: "templates", label: "Templates", icon: <TemplatesIcon />, isNew: true },
   { id: "frame", label: "Frame", icon: <FrameIcon /> },
   { id: "size", label: "Size", icon: <SizeIcon /> },
-  { id: "mode", label: "Mode", icon: <CodeIcon />, isNew: true },
+  { id: "mode", label: "Mode", icon: <CodeIcon /> },
   { id: "animate", label: "Animate", icon: <AnimateIcon /> },
 ];
 
@@ -456,6 +483,11 @@ export function MobileControlSheet() {
       {/* Tab content */}
       <div className="py-4 overflow-y-auto min-h-0" style={{ maxHeight: "40vh" }}>
         {activeTab === "bg" && <BgTab />}
+        {activeTab === "templates" && (
+          <div className="px-4">
+            <MockupTemplateGallery />
+          </div>
+        )}
         {activeTab === "frame" && <FrameTab />}
         {activeTab === "size" && <SizeTab />}
         {activeTab === "mode" && <ModeTab />}
