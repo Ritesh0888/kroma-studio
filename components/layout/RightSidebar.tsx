@@ -1,7 +1,7 @@
 "use client";
 
 import { useExport } from "@/hooks/useExport";
-import { useStudioStore } from "@/store/useStudioStore";
+import { useStudioStore, ExportScale } from "@/store/useStudioStore";
 import { ImageExportModal } from "@/components/ui/ImageExportModal";
 import { AnimationControls } from "@/components/controls/AnimationControls";
 import { useVideoRecorder } from "@/hooks/useVideoRecorder";
@@ -13,13 +13,15 @@ const SIDEBAR_TOP_AD_ID = "ad-right-sidebar-top";
 const SIDEBAR_BOTTOM_AD_ID = "ad-right-sidebar-bottom";
 
 export function RightSidebar() {
-  const { exportPng, exportedImageUrl, clearExportedImage } = useExport();
+  const { exportPng, exportTransparentPng, exportedImageUrl, clearExportedImage } = useExport();
   const isExporting = useStudioStore((s) => s.isExporting);
   const uploadedImage = useStudioStore((s) => s.uploadedImage);
   const isRecording = useStudioStore((s) => s.isRecording);
   const animationPreset = useStudioStore((s) => s.animationPreset);
   const recordDuration = useStudioStore((s) => s.recordDuration);
   const mode = useStudioStore((s) => s.mode);
+  const exportScale = useStudioStore((s) => s.exportScale);
+  const setExportScale = useStudioStore((s) => s.setExportScale);
   const watermarkVisible = useStudioStore((s) => s.watermarkVisible);
   const setWatermarkVisible = useStudioStore((s) => s.setWatermarkVisible);
   const setShowWatermarkModal = useStudioStore((s) => s.setShowWatermarkModal);
@@ -48,6 +50,26 @@ export function RightSidebar() {
         <p className="text-[10px] font-semibold text-[#4a4a4a] uppercase tracking-widest mb-3">
           Export
         </p>
+
+        {/* Export Scale selector */}
+        <div className="mb-3 flex flex-col gap-1.5">
+          <p className="text-[10px] text-[#4a4a4a] uppercase tracking-wider">Export Scale</p>
+          <div className="grid grid-cols-4 gap-1">
+            {([1, 2, 3, 4] as ExportScale[]).map((s) => (
+              <button
+                key={s}
+                onClick={() => setExportScale(s)}
+                className={`py-1.5 text-xs font-semibold rounded-lg border transition-colors ${
+                  exportScale === s
+                    ? "bg-[#a855f7]/20 border-[#a855f7] text-[#a855f7]"
+                    : "bg-[#111] border-[#2a2a2a] text-[#666] hover:border-[#3a3a3a] hover:text-[#e0e0e0]"
+                }`}
+              >
+                {s}×
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* Primary Export Button */}
         <button
@@ -115,7 +137,7 @@ export function RightSidebar() {
         <div className="mt-3 grid grid-cols-2 gap-1.5">
           {[
             ["Format", "PNG"],
-            ["Scale", "2×"],
+            ["Scale", `${exportScale}×`],
             ["Quality", "100%"],
             ["Source", "Client"],
           ].map(([k, v]) => (
@@ -125,6 +147,19 @@ export function RightSidebar() {
             </div>
           ))}
         </div>
+
+        {mode === "mockup" && (
+          <button
+            onClick={() => {
+              track("export_transparent_png_click", { source: "desktop", mode });
+              exportTransparentPng("desktop");
+            }}
+            disabled={isExporting}
+            className="mt-2 w-full py-2.5 px-4 rounded-xl font-semibold text-sm transition-all border border-border text-text-muted hover:border-neon-purple hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            Export Transparent PNG
+          </button>
+        )}
 
         <div className="mt-3 rounded-xl border border-surface-2 bg-surface p-3">
           <div className="flex items-center justify-between gap-3">
