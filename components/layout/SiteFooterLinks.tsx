@@ -1,4 +1,3 @@
-import { ProductHuntBadge } from "@/components/layout/ProductHuntBadge";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { SITE_COPYRIGHT } from "@/lib/site";
 

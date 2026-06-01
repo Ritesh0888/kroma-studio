@@ -84,7 +84,7 @@ export default function ContentPostGeneratorPage() {
           <section className="flex flex-col gap-4">
             <h2 className="text-lg font-semibold">Visual card maker — not an AI text generator</h2>
             <p className="text-sm leading-relaxed text-text-muted">
-              Most tools called "social post generator" use AI to write text captions.
+              Most tools called &ldquo;social post generator&rdquo; use AI to write text captions.
               KromaStudio is different — it&apos;s a visual card designer that turns your
               content into a shareable image. You write the copy; KromaStudio makes it
               look polished and ready to post.
