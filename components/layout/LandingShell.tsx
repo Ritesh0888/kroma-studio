@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { LandingBackground } from "@/components/layout/LandingBackground";
+import { LaunchIgniterBadge } from "@/components/layout/LaunchIgniterBadge";
 import { ProductHuntBadge } from "@/components/layout/ProductHuntBadge";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { SITE_COPYRIGHT } from "@/lib/site";
@@ -101,7 +102,10 @@ export function LandingShell({ children }: LandingShellProps) {
               </TrackedLink>
             ))}
           </nav>
-          <ProductHuntBadge location="landing_footer_product_hunt" />
+          <div className="flex flex-wrap items-center justify-center gap-4 px-4 pb-1 pt-2">
+            <ProductHuntBadge location="landing_footer_product_hunt" />
+            <LaunchIgniterBadge location="landing_footer_launch_igniter" />
+          </div>
           <p className="text-center text-[10px] text-border">
             <span>{SITE_COPYRIGHT}</span>
             <span className="tracking-widest uppercase"> · www.kromastudio.in</span>
