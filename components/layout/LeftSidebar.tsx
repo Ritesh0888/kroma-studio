@@ -13,6 +13,12 @@ import { ContentControls } from "@/components/controls/ContentControls";
 import { HeadlineControls } from "@/components/controls/HeadlineControls";
 import { SiteFooterLinks } from "@/components/layout/SiteFooterLinks";
 import { ChromeStyleControl } from "@/components/controls/ChromeStyleControl";
+import { UrlBarControl } from "@/components/controls/UrlBarControl";
+import { FaviconControl } from "@/components/controls/FaviconControl";
+import { ImageFitControl } from "@/components/controls/ImageFitControl";
+import { ImageZoomControl } from "@/components/controls/ImageZoomControl";
+import { DeviceFrameControl } from "@/components/controls/DeviceFrameControl";
+import { MockupTemplateGallery } from "@/components/controls/MockupTemplateGallery";
 
 function SectionDivider({ label }: { label: string }) {
   return (
@@ -87,10 +93,24 @@ export function LeftSidebar() {
           </div>
         </div>
 
+        {mode === "mockup" && (
+          <div>
+            <SectionDivider label="Templates" />
+            <div className="mt-4">
+              <MockupTemplateGallery />
+            </div>
+          </div>
+        )}
+
         <div>
           <SectionDivider label="Frame" />
           <div className="mt-4 flex flex-col gap-5">
+            {mode === "mockup" && <DeviceFrameControl />}
             <ChromeStyleControl />
+            {mode === "mockup" && <UrlBarControl />}
+            {mode === "mockup" && <FaviconControl />}
+            {mode === "mockup" && <ImageFitControl />}
+            {mode === "mockup" && <ImageZoomControl />}
             <PaddingControl />
             <BorderRadiusControl />
             <ShadowControl />

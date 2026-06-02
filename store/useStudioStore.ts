@@ -18,7 +18,10 @@ export type ContentTemplate =
 export type HeadlinePosition = "top" | "bottom";
 export type AnimationPreset = "none" | "float" | "tilt" | "scroll";
 export type ScrollSpeed = "slow" | "normal" | "fast";
-export type ChromeStyle = "macos-dark" | "macos-light" | "windows" | "minimal" | "none";
+export type ChromeStyle = "macos-dark" | "macos-light" | "windows" | "minimal" | "none" | "chrome" | "safari" | "firefox" | "arc";
+export type ImageFit = "contain" | "cover" | "fill";
+export type ExportScale = 1 | 2 | 3 | 4;
+export type DeviceFrameType = "none" | "pixel3" | "iphone11promax" | "applewatchs3" | "ipad97";
 
 export interface ContentMetrics {
   reply: string;
@@ -122,10 +125,23 @@ interface StudioState {
   backgroundId: string;
   customBgFrom: string;
   customBgTo: string;
+  backgroundImage: string | null;
+  noiseIntensity: number;
+
+  // Device frame
+  deviceFrame: DeviceFrameType;
   uploadedImage: string | null;
   isExporting: boolean;
   watermarkVisible: boolean;
   showWatermarkModal: boolean;
+  exportScale: ExportScale;
+
+  // Mockup image controls
+  imageFit: ImageFit;
+  imageZoom: number;
+  imageOffsetX: number;
+  imageOffsetY: number;
+  innerRadius: number;
 
   // Mode
   mode: StudioMode;
@@ -165,10 +181,22 @@ interface StudioState {
   setBackgroundId: (id: string) => void;
   setCustomBgFrom: (c: string) => void;
   setCustomBgTo: (c: string) => void;
+  setBackgroundImage: (v: string | null) => void;
+  setNoiseIntensity: (v: number) => void;
+  setDeviceFrame: (v: DeviceFrameType) => void;
   setUploadedImage: (url: string | null) => void;
   setIsExporting: (v: boolean) => void;
   setWatermarkVisible: (v: boolean) => void;
   setShowWatermarkModal: (v: boolean) => void;
+  setExportScale: (v: ExportScale) => void;
+
+  // Mockup image setters
+  setImageFit: (v: ImageFit) => void;
+  setImageZoom: (v: number) => void;
+  setImageOffsetX: (v: number) => void;
+  setImageOffsetY: (v: number) => void;
+  setInnerRadius: (v: number) => void;
+  resetImageTransform: () => void;
 
   // Mode setters
   setMode: (m: StudioMode) => void;
@@ -201,7 +229,11 @@ interface StudioState {
 
   // Chrome style
   chromeStyle: ChromeStyle;
+  urlBarText: string;
+  faviconDataUrl: string | null;
   setChromeStyle: (s: ChromeStyle) => void;
+  setUrlBarText: (v: string) => void;
+  setFaviconDataUrl: (v: string | null) => void;
 
   // Animation
   animationPreset: AnimationPreset;
@@ -229,10 +261,21 @@ export const useStudioStore = create<StudioState>((set) => ({
   backgroundId: "midnight",
   customBgFrom: "#a855f7",
   customBgTo: "#ec4899",
+  backgroundImage: null,
+  noiseIntensity: 0,
+  deviceFrame: "none",
   uploadedImage: null,
   isExporting: false,
   watermarkVisible: true,
   showWatermarkModal: false,
+  exportScale: 2,
+
+  // Mockup image defaults
+  imageFit: "contain",
+  imageZoom: 1,
+  imageOffsetX: 0,
+  imageOffsetY: 0,
+  innerRadius: 0,
 
   // Mode default
   mode: "mockup",
@@ -276,7 +319,11 @@ export const useStudioStore = create<StudioState>((set) => ({
 
   // Chrome style default
   chromeStyle: "macos-dark",
+  urlBarText: "yourapp.com",
+  faviconDataUrl: null,
   setChromeStyle: (s) => set({ chromeStyle: s }),
+  setUrlBarText: (v) => set({ urlBarText: v }),
+  setFaviconDataUrl: (v) => set({ faviconDataUrl: v }),
 
   // Animation defaults
   animationPreset: "none",
@@ -294,10 +341,22 @@ export const useStudioStore = create<StudioState>((set) => ({
   setBackgroundId: (id) => set({ backgroundId: id }),
   setCustomBgFrom: (c) => set({ customBgFrom: c }),
   setCustomBgTo: (c) => set({ customBgTo: c }),
+  setBackgroundImage: (v) => set({ backgroundImage: v }),
+  setNoiseIntensity: (v) => set({ noiseIntensity: v }),
+  setDeviceFrame: (v) => set({ deviceFrame: v }),
   setUploadedImage: (url) => set({ uploadedImage: url }),
   setIsExporting: (v) => set({ isExporting: v }),
   setWatermarkVisible: (v) => set({ watermarkVisible: v }),
   setShowWatermarkModal: (v) => set({ showWatermarkModal: v }),
+  setExportScale: (v) => set({ exportScale: v }),
+
+  // Mockup image setters
+  setImageFit: (v) => set({ imageFit: v }),
+  setImageZoom: (v) => set({ imageZoom: v }),
+  setImageOffsetX: (v) => set({ imageOffsetX: v }),
+  setImageOffsetY: (v) => set({ imageOffsetY: v }),
+  setInnerRadius: (v) => set({ innerRadius: v }),
+  resetImageTransform: () => set({ imageZoom: 1, imageOffsetX: 0, imageOffsetY: 0 }),
 
   // Mode setters
   setMode: (m) => set({ mode: m }),

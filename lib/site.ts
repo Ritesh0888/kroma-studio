@@ -57,19 +57,19 @@ export const SITE_META = {
 
 export const LANDING_PAGE_META = {
   codeScreenshot: {
-    title: "Free Code Screenshot Generator — Syntax Themes & HD Export | KromaStudio",
+    title: "Free Code Screenshot Generator — Dracula, One Dark Pro & 15 Themes | KromaStudio",
     description:
-      "Create scroll-stopping syntax-highlighted code images in seconds. Dracula, One Dark Pro, GitHub Dark & more. Gradient backgrounds, headline overlays, 2× PNG export — free, no sign-up, no server upload.",
+      "Turn code into beautiful PNG screenshots or animated .webm — 15 themes including Dracula, One Dark Pro, Catppuccin. 25 languages, headline overlays, gradient backgrounds. 100% client-side, free, no sign-up.",
   },
   browserMockup: {
-    title: "Free Browser Mockup Generator — macOS & Windows Frames | KromaStudio",
+    title: "Free Browser Mockup Generator — Chrome, Safari & macOS Frames | KromaStudio",
     description:
-      "Wrap any screenshot in premium macOS, Windows, or minimal browser frames. Gradient backgrounds, shadows, and HD PNG export. Free online — nothing leaves your browser.",
+      "Wrap screenshots in Chrome, Safari, Firefox, Arc, macOS, or Windows browser frames. Gradient backgrounds, shadows, HD PNG export. Free, no sign-up — runs entirely in your browser.",
   },
   contentPost: {
-    title: "Free Social Post Template Generator - LinkedIn, Video, Thread, Carousel Cards | KromaStudio",
+    title: "Free Social Post Generator — Tweet, LinkedIn, Metrics & 10 Templates | KromaStudio",
     description:
-      "Create tweet, LinkedIn, video, thread, quote, announcement, testimonial, carousel, before-after, and metrics cards. Customize text, author, avatar, accent color, and export HD PNG or .webm.",
+      "Create tweet cards, LinkedIn posts, announcement graphics, metrics snapshots, and more. Customize author, avatar, accent color, export HD PNG or animated .webm. Free, no sign-up, 100% client-side.",
   },
   howItWorks: {
     title: "How to Make Scroll-Stopping Code Screenshots | KromaStudio",
