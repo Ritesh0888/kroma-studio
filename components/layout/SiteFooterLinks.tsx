@@ -1,4 +1,3 @@
-import { ProductHuntBadge } from "@/components/layout/ProductHuntBadge";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { SITE_COPYRIGHT } from "@/lib/site";
 
@@ -46,7 +45,6 @@ export function SiteFooterLinks() {
           </TrackedLink>
         ))}
       </nav>
-      <ProductHuntBadge location="studio_footer_product_hunt" />
       <p className="pb-3 text-center text-[10px] text-border">{SITE_COPYRIGHT}</p>
     </footer>
   );

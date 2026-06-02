@@ -14,14 +14,6 @@ export const PRODUCT_HUNT_BADGE_IMG =
 export const PRODUCT_HUNT_BADGE_ALT =
   "KromaStudio on Product Hunt — Turn code snippets into aesthetic screenshots and mockups";
 
-export const LAUNCH_IGNITER_URL =
-  "https://launchigniter.com/product/kromastudio?ref=badge-kromastudio";
-
-export const LAUNCH_IGNITER_BADGE_IMG =
-  "https://launchigniter.com/api/badge/kromastudio?theme=light";
-
-export const LAUNCH_IGNITER_BADGE_ALT = "Featured on LaunchIgniter";
-
 /** Footer copyright line — year updates automatically */
 export const SITE_COPYRIGHT = `© ${new Date().getFullYear()} ${SITE_NAME}`;
 
