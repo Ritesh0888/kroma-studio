@@ -210,4 +210,14 @@ export const RELATED_TOOLS: RelatedTool[] = [
     label: "How It Works",
     description: "Three-step guide to making scroll-stopping visuals.",
   },
+  {
+    href: "/animated-code-screenshot",
+    label: "Animated Code Screenshots",
+    description: "Export 60fps looping .webm animations.",
+  },
+  {
+    href: "/secure-code-screenshot-generator",
+    label: "Secure Code Screenshots",
+    description: "100% client-side privacy code rendering.",
+  },
 ];

@@ -97,6 +97,42 @@ export default function HowItWorksPage() {
           </dl>
         </section>
 
+        <section className="flex flex-col gap-3 border-t border-border pt-6">
+          <h2 className="text-lg font-semibold">Explore KromaStudio Tools</h2>
+          <ul className="flex flex-col gap-2">
+            <li>
+              <TrackedLink
+                href="/snappify-alternative"
+                label="KromaStudio vs Snappify"
+                location="how_it_works_internal_snappify"
+                className="text-sm text-neon-purple transition-colors hover:text-white"
+              >
+                KromaStudio vs Snappify →
+              </TrackedLink>
+            </li>
+            <li>
+              <TrackedLink
+                href="/secure-code-screenshot-generator"
+                label="Secure Code Screenshot Generator"
+                location="how_it_works_internal_secure"
+                className="text-sm text-neon-purple transition-colors hover:text-white"
+              >
+                Secure Code Screenshot Generator →
+              </TrackedLink>
+            </li>
+            <li>
+              <TrackedLink
+                href="/animated-code-screenshot"
+                label="Animated Code Screenshots"
+                location="how_it_works_internal_animated"
+                className="text-sm text-neon-purple transition-colors hover:text-white"
+              >
+                Animated Code Screenshots →
+              </TrackedLink>
+            </li>
+          </ul>
+        </section>
+
         <TrackedLink
           href="/"
           label="Try KromaStudio Free"
