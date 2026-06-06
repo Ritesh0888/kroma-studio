@@ -19,6 +19,9 @@ const FOOTER_PRIMARY_LINKS = [
 const FOOTER_SECONDARY_LINKS = [
   { href: "/ray-so-alternative", label: "vs Ray.so", location: "landing_footer_vs_ray_so" },
   { href: "/carbon-alternative", label: "vs Carbon", location: "landing_footer_vs_carbon" },
+  { href: "/snappify-alternative", label: "vs Snappify", location: "landing_footer_vs_snappify" },
+  { href: "/secure-code-screenshot-generator", label: "Secure / Client-side", location: "landing_footer_secure" },
+  { href: "/animated-code-screenshot", label: "Animated Video", location: "landing_footer_animated" },
   { href: "/privacy", label: "Privacy", location: "landing_footer_privacy" },
   { href: "/terms", label: "Terms", location: "landing_footer_terms" },
   { href: "/github-kroma-studio", label: "GitHub", location: "landing_footer_github" },

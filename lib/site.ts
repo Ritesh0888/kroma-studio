@@ -14,6 +14,15 @@ export const PRODUCT_HUNT_BADGE_IMG =
 export const PRODUCT_HUNT_BADGE_ALT =
   "KromaStudio on Product Hunt — Turn code snippets into aesthetic screenshots and mockups";
 
+export const SAASHUB_URL =
+  "https://www.saashub.com/kromastudio-in?utm_source=badge&utm_campaign=badge&utm_content=kromastudio-in&badge_variant=dark&badge_kind=approved";
+
+export const SAASHUB_BADGE_IMG =
+  "https://cdn-b.saashub.com/img/badges/approved-dark.png?v=1";
+
+export const SAASHUB_BADGE_ALT =
+  "KromaStudio on SaaSHub";
+
 /** Footer copyright line — year updates automatically */
 export const SITE_COPYRIGHT = `© ${new Date().getFullYear()} ${SITE_NAME}`;
 
@@ -88,6 +97,21 @@ export const LANDING_PAGE_META = {
     description:
       "Compare KromaStudio vs Carbon. Code screenshots, browser mockups, social post cards, and animated .webm export — free, 100% client-side, no sign-up.",
   },
+  snappifyAlternative: {
+    title: "Snappify Alternative — Free Code Screenshots & Video | KromaStudio",
+    description:
+      "Compare KromaStudio vs Snappify. Export beautiful code screenshots and animated .webm videos for free, with no watermarks and no sign-up.",
+  },
+  secureCodeScreenshot: {
+    title: "Secure Code Screenshot Generator — 100% Client-Side | KromaStudio",
+    description:
+      "Generate beautiful code screenshots locally. Your code never leaves your browser. Zero uploads, no server rendering, 100% private. Free, no sign-up.",
+  },
+  animatedCodeScreenshot: {
+    title: "Animated Code Screenshot Generator — Export .webm | KromaStudio",
+    description:
+      "Create beautiful animated code screenshots in seconds. 60fps looping .webm video, 3D Tilt, Float, Auto Scroll presets. 100% free and no watermarks.",
+  },
   github: {
     title: "KromaStudio on GitHub — MIT Open Source | KromaStudio",
     description:
@@ -119,6 +143,9 @@ export const ROUTE_ANALYTICS: Record<
   "/how-it-works": { id: "how_it_works", type: "landing" },
   "/ray-so-alternative": { id: "ray_so_alternative", type: "landing" },
   "/carbon-alternative": { id: "carbon_alternative", type: "landing" },
+  "/snappify-alternative": { id: "snappify_alternative", type: "landing" },
+  "/secure-code-screenshot-generator": { id: "secure_code_screenshot_landing", type: "landing" },
+  "/animated-code-screenshot": { id: "animated_code_screenshot_landing", type: "landing" },
   "/github-kroma-studio": { id: "github_kroma_studio", type: "landing" },
   "/privacy": { id: "privacy", type: "legal" },
   "/terms": { id: "terms", type: "legal" },
@@ -172,6 +199,24 @@ export const PUBLIC_ROUTES = [
     changeFrequency: "monthly" as const,
     priority: 0.85,
     pageFile: "app/carbon-alternative/page.tsx",
+  },
+  {
+    path: "/snappify-alternative",
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+    pageFile: "app/snappify-alternative/page.tsx",
+  },
+  {
+    path: "/secure-code-screenshot-generator",
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+    pageFile: "app/secure-code-screenshot-generator/page.tsx",
+  },
+  {
+    path: "/animated-code-screenshot",
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+    pageFile: "app/animated-code-screenshot/page.tsx",
   },
   {
     path: "/github-kroma-studio",

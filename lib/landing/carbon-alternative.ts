@@ -287,8 +287,11 @@ export const INTERNAL_LINKS = [
   { href: "/code-screenshot-generator", label: "Code Screenshot Generator" },
   { href: "/browser-mockup-generator", label: "Browser Mockup Generator" },
   { href: "/content-post-generator", label: "Social Content Post Generator" },
+  { href: "/animated-code-screenshot", label: "Animated Code Screenshots" },
+  { href: "/secure-code-screenshot-generator", label: "Secure Client-Side Generator" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/ray-so-alternative", label: "KromaStudio vs Ray.so" },
+  { href: "/snappify-alternative", label: "KromaStudio vs Snappify" },
   { href: "/github-kroma-studio", label: "Open Source on GitHub" },
   { href: "/privacy", label: "Privacy Policy" },
 ] as const;

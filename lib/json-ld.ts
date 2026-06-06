@@ -2,6 +2,10 @@ import { FAQS as CARBON_FAQS } from "@/lib/landing/carbon-alternative";
 import { FAQS as RAY_SO_FAQS } from "@/lib/landing/ray-so-alternative";
 import { FAQS as BROWSER_MOCKUP_FAQS, HOW_TO_STEPS as BROWSER_HOW_TO_STEPS } from "@/lib/landing/browser-mockup-generator";
 import { FAQS as CODE_SCREENSHOT_FAQS, HOW_TO_STEPS as CODE_HOW_TO_STEPS } from "@/lib/landing/code-screenshot-generator";
+import { FAQS as GITHUB_FAQS } from "@/lib/landing/github-kroma-studio";
+import { FAQS as SNAPPIFY_FAQS } from "@/lib/landing/snappify-alternative";
+import { FAQS as SECURE_FAQS } from "@/lib/landing/secure-code-screenshot";
+import { FAQS as ANIMATED_FAQS, HOW_TO_STEPS as ANIMATED_HOW_TO_STEPS } from "@/lib/landing/animated-code-screenshot";
 import { FAQS as CONTENT_POST_FAQS, HOW_TO_STEPS as CONTENT_HOW_TO_STEPS } from "@/lib/landing/content-post-generator";
 import {
   OG_IMAGE,
@@ -367,6 +371,81 @@ export function getCodeScreenshotJsonLd() {
       {
         "@type": "FAQPage",
         mainEntity: CODE_SCREENSHOT_FAQS.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.a,
+          },
+        })),
+      },
+    ],
+  };
+}
+
+export function getGithubKromaStudioJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: GITHUB_FAQS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+}
+
+export function getSnappifyAlternativeJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: SNAPPIFY_FAQS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+}
+
+export function getSecureCodeScreenshotJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: SECURE_FAQS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+}
+
+export function getAnimatedCodeScreenshotJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "HowTo",
+        name: "How to create an animated code screenshot with KromaStudio",
+        description: "Paste your snippet, pick an animation preset like Float or 3D Tilt, and export a 60fps .webm video.",
+        step: ANIMATED_HOW_TO_STEPS.map((s, i) => ({
+          "@type": "HowToStep",
+          position: i + 1,
+          name: s.title,
+          text: s.body,
+        })),
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: ANIMATED_FAQS.map((item) => ({
           "@type": "Question",
           name: item.q,
           acceptedAnswer: {

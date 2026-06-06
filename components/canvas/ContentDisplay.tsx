@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
 import { deriveAvatarInitials, useStudioStore } from "@/store/useStudioStore";
 
 function useIsPortrait() {
