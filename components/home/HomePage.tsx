@@ -9,10 +9,12 @@ import { MobileAdFooter } from "@/components/layout/MobileAdFooter";
 import { SeoHero } from "@/components/layout/SeoHero";
 import { STUDIO_HERO_H1 } from "@/lib/site";
 import { WatermarkModal } from "@/components/modals/WatermarkModal";
+import { ExtensionHandoff } from "@/components/studio/ExtensionHandoff";
 
 export function HomePage() {
   return (
     <div className="fixed inset-0 flex flex-col overflow-hidden bg-black">
+      <ExtensionHandoff />
       <SeoHero />
       <main className="flex min-h-0 flex-1 basis-0 overflow-hidden flex-col md:flex-row">
         {/* SEO semantic content — single h1 for all viewports */}

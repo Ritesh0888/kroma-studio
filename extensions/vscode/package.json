@@ -1,0 +1,136 @@
+{
+  "name": "kroma-studio",
+  "displayName": "KromaStudio",
+  "description": "Send selected code from VS Code to KromaStudio for share-ready screenshots.",
+  "version": "0.1.0",
+  "publisher": "KromaStudio",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/riteshdevfrontend/kroma-studio"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other", "Visualization"],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "kromaStudio.captureSelection",
+        "title": "KromaStudio: Capture Selection",
+        "icon": "$(device-camera)"
+      },
+      {
+        "command": "kromaStudio.captureFile",
+        "title": "KromaStudio: Capture Current File",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "kromaStudio.openStudio",
+        "title": "KromaStudio: Open Studio",
+        "icon": "$(link-external)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "kromaStudio.captureSelection",
+          "group": "navigation@50",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "kromaStudio.captureFile",
+          "group": "navigation@51"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "kromaStudio.captureSelection",
+        "key": "ctrl+shift+k",
+        "mac": "cmd+shift+k",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "KromaStudio",
+      "properties": {
+        "kromaStudio.studioUrl": {
+          "type": "string",
+          "default": "https://www.kromastudio.in",
+          "description": "KromaStudio base URL (use http://localhost:3000 for local dev)."
+        },
+        "kromaStudio.defaultTheme": {
+          "type": "string",
+          "default": "dracula",
+          "enum": [
+            "dracula",
+            "one-dark-pro",
+            "github-dark",
+            "night-owl",
+            "tokyo-night",
+            "catppuccin-mocha",
+            "catppuccin-latte",
+            "nord",
+            "monokai",
+            "synthwave-84",
+            "solarized-dark",
+            "rose-pine",
+            "material-theme-ocean",
+            "vitesse-dark",
+            "github-light"
+          ],
+          "description": "Default syntax theme for handoff."
+        },
+        "kromaStudio.defaultBackground": {
+          "type": "string",
+          "default": "midnight",
+          "enum": [
+            "midnight",
+            "cyberpunk",
+            "synthwave",
+            "rose_galaxy",
+            "aurora",
+            "glass",
+            "peach",
+            "matrix",
+            "neon_sunset",
+            "deep_ocean",
+            "golden_hour",
+            "white",
+            "light-gray",
+            "slate",
+            "charcoal",
+            "void"
+          ],
+          "description": "Default canvas background preset for handoff."
+        },
+        "kromaStudio.openMode": {
+          "type": "string",
+          "default": "external",
+          "enum": ["external", "simpleBrowser"],
+          "description": "Open KromaStudio in the system browser or VS Code Simple Browser."
+        },
+        "kromaStudio.modeIntent": {
+          "type": "string",
+          "default": "static",
+          "enum": ["static", "animated"],
+          "description": "Optional studio intent after handoff (animated enables float preset)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npm run compile && vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.1",
+    "typescript": "^5"
+  }
+}
