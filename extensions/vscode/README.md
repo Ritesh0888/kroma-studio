@@ -10,11 +10,11 @@ Free and client-side — a [Carbon.now.sh](https://carbon.now.sh) / [ray.so](htt
 
 **In VS Code** — select code and run Capture Selection (`Cmd+Shift+K` / `Ctrl+Shift+K`)
 
-![Select code in VS Code and capture](images/before-selection.png)
+![Select code in VS Code and capture](https://www.kromastudio.in/screenshots/vscode-before-selection.png)
 
 **In KromaStudio** — customize theme, background, and export
 
-![Styled snippet ready to export in KromaStudio](images/after-kroma-studio.png)
+![Styled snippet ready to export in KromaStudio](https://www.kromastudio.in/screenshots/vscode-after-kroma-studio.png)
 
 1. Select code in the editor (or capture the whole file).
 2. Run **KromaStudio: Capture Selection** from the Command Palette, use the editor context menu, or press the shortcut above.
