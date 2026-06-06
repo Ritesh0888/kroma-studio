@@ -2,7 +2,7 @@
   "name": "kroma-studio",
   "displayName": "KromaStudio",
   "description": "Send selected code from VS Code to KromaStudio for share-ready screenshots.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "KromaStudio",
   "license": "MIT",
   "repository": {
