@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { TrackedExternalLink } from "@/components/ui/TrackedExternalLink";
 import {
   PRODUCT_HUNT_BADGE_ALT,

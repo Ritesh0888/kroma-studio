@@ -161,7 +161,7 @@ export default function SnappifyAlternativePage() {
               Why Developers Look for Snappify Alternatives
             </h2>
             <p className="text-sm leading-relaxed text-text-muted">
-              If you have used Snappify, you know it is incredibly feature-rich. But that complexity comes with a price tag. The free tier adds watermarks and limits your slides. If you don't need a full presentation editor, KromaStudio offers a faster, free path to a polished result.
+              If you have used Snappify, you know it is incredibly feature-rich. But that complexity comes with a price tag. The free tier adds watermarks and limits your slides. If you don&apos;t need a full presentation editor, KromaStudio offers a faster, free path to a polished result.
             </p>
             <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-muted">
               {WHY_SWITCH_POINTS.map((point) => (

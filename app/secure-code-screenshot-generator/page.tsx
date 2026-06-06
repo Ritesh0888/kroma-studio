@@ -56,7 +56,7 @@ export default function SecureCodeScreenshotPage() {
               Secure Code Screenshot Generator
             </h1>
             <p className="text-base leading-relaxed text-text-muted">
-              Most code screenshot tools send your raw source code to a remote server for rendering. If you're working with proprietary logic, internal APIs, or secrets, that's a security risk. KromaStudio processes everything{" "}
+              Most code screenshot tools send your raw source code to a remote server for rendering. If you&apos;re working with proprietary logic, internal APIs, or secrets, that&apos;s a security risk. KromaStudio processes everything{" "}
               <LandingInlineLink
                 href="/privacy"
                 label="locally in your browser"
@@ -120,7 +120,7 @@ export default function SecureCodeScreenshotPage() {
               Why Server-Side Rendering is a Risk
             </h2>
             <p className="text-sm leading-relaxed text-text-muted">
-              Whether you are an Indie Hacker pasting your secret algorithm, or an enterprise developer working with internal company schemas, you shouldn't have to choose between a beautiful presentation and data security. 
+              Whether you are an Indie Hacker pasting your secret algorithm, or an enterprise developer working with internal company schemas, you shouldn&apos;t have to choose between a beautiful presentation and data security. 
             </p>
             <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-muted">
               {WHY_SWITCH_POINTS.map((point) => (
