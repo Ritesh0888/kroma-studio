@@ -41,6 +41,19 @@ const QUERY = {
 /** Max safe URL length before warning (browser limits vary ~2k–8k). */
 const URL_LENGTH_WARN = 6000;
 
+const DEFAULT_STUDIO_URL = "https://www.kromastudio.in";
+
+function normalizeStudioUrl(raw: string): string {
+  const trimmed = raw.trim();
+  if (!trimmed) {
+    return DEFAULT_STUDIO_URL;
+  }
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed;
+  }
+  return `http://${trimmed}`;
+}
+
 function encodeCode(code: string): string {
   const bytes = new TextEncoder().encode(code);
   let binary = "";
@@ -54,7 +67,7 @@ export function buildHandoffUrl(
   payload: HandoffPayload,
   studioUrl: string,
 ): string {
-  const base = studioUrl.replace(/\/$/, "");
+  const base = normalizeStudioUrl(studioUrl).replace(/\/$/, "");
   const params = new URLSearchParams();
   params.set(QUERY.source, "vscode");
   params.set(QUERY.mode, "code");
@@ -73,8 +86,9 @@ export function buildHandoffUrl(
 
 export function getExtensionConfig(): HandoffOptions {
   const config = vscode.workspace.getConfiguration("kromaStudio");
-  const studioUrl =
-    config.get<string>("studioUrl") ?? "https://www.kromastudio.in";
+  const studioUrl = normalizeStudioUrl(
+    config.get<string>("studioUrl") ?? DEFAULT_STUDIO_URL,
+  );
   const theme = config.get<string>("defaultTheme") ?? "dracula";
   const background = config.get<string>("defaultBackground") ?? "midnight";
   const openMode = config.get<OpenMode>("openMode") ?? "external";
@@ -93,13 +107,36 @@ export function getExtensionConfig(): HandoffOptions {
   };
 }
 
+function parseOpenableUri(url: string): vscode.Uri | undefined {
+  try {
+    const uri = vscode.Uri.parse(url);
+    const scheme = uri.scheme.toLowerCase();
+    if (scheme !== "http" && scheme !== "https") {
+      return undefined;
+    }
+    return uri;
+  } catch {
+    return undefined;
+  }
+}
+
 export async function openHandoffUrl(url: string, openMode: OpenMode): Promise<void> {
-  if (openMode === "simpleBrowser") {
-    await vscode.commands.executeCommand("simpleBrowser.show", url);
+  const uri = parseOpenableUri(url);
+  if (!uri) {
+    await vscode.window.showErrorMessage(
+      `Could not open KromaStudio: invalid studio URL. Set kromaStudio.studioUrl to a full URL like ${DEFAULT_STUDIO_URL} or http://localhost:3000.`,
+    );
     return;
   }
 
-  await vscode.env.openExternal(vscode.Uri.parse(url));
+  const openUrl = uri.toString();
+
+  if (openMode === "simpleBrowser") {
+    await vscode.commands.executeCommand("simpleBrowser.show", openUrl);
+    return;
+  }
+
+  await vscode.env.openExternal(uri);
 }
 
 export async function handoffCode(

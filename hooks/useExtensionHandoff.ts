@@ -2,42 +2,80 @@
 
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useStudioStore } from "@/store/useStudioStore";
+
+function decodeBase64Url(encoded: string): string {
+  let base64 = encoded.replace(/-/g, "+").replace(/_/g, "/");
+  const pad = base64.length % 4;
+  if (pad) {
+    base64 += "=".repeat(4 - pad);
+  }
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return new TextDecoder().decode(bytes);
+}
 
 /**
- * Reads VS Code extension handoff params from the URL and redirects to the
- * studio route so the editor is pre-populated with the captured code.
+ * Reads VS Code extension handoff params from the URL and hydrates studio state.
  *
- * Expected params (all optional):
- *   code      – base64-encoded source code
+ * Expected params (from extensions/vscode):
+ *   c / code  – base64url-encoded source code
  *   lang      – language identifier (e.g. "typescript")
  *   theme     – syntax theme preset
  *   bg        – background preset
  *   intent    – "static" | "animated"
- *   filename  – original filename hint
+ *   title     – original filename hint
  */
 export function useExtensionHandoff() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   useEffect(() => {
-    const code = searchParams.get("code");
-    if (!code) return;
+    const encoded = searchParams.get("c") ?? searchParams.get("code");
+    if (!encoded) {
+      return;
+    }
 
-    const params = new URLSearchParams();
-    params.set("code", code);
+    let code: string;
+    try {
+      code = decodeBase64Url(encoded);
+    } catch {
+      return;
+    }
+
+    const {
+      setMode,
+      setCodeContent,
+      setCodeLanguage,
+      setCodeTheme,
+      setBackgroundId,
+      setAnimationPreset,
+    } = useStudioStore.getState();
+
+    setMode("code");
+    setCodeContent(code);
 
     const lang = searchParams.get("lang");
     const theme = searchParams.get("theme");
     const bg = searchParams.get("bg");
     const intent = searchParams.get("intent");
-    const filename = searchParams.get("filename");
 
-    if (lang) params.set("lang", lang);
-    if (theme) params.set("theme", theme);
-    if (bg) params.set("bg", bg);
-    if (intent) params.set("intent", intent);
-    if (filename) params.set("filename", filename);
+    if (lang) {
+      setCodeLanguage(lang);
+    }
+    if (theme) {
+      setCodeTheme(theme);
+    }
+    if (bg) {
+      setBackgroundId(bg);
+    }
+    if (intent === "animated") {
+      setAnimationPreset("float");
+    }
 
-    router.replace(`/studio?${params.toString()}`);
+    router.replace("/", { scroll: false });
   }, [searchParams, router]);
 }
