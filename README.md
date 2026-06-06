@@ -11,7 +11,7 @@
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38BDF8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
   [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 
-  [Live site](https://www.kromastudio.in) • [How it works](https://www.kromastudio.in/how-it-works)
+  [Live site](https://www.kromastudio.in) • [VS Code extension](https://marketplace.visualstudio.com/items?itemName=KromaStudio.kroma-studio) • [How it works](https://www.kromastudio.in/how-it-works)
 </div>
 
 ---
@@ -30,6 +30,7 @@ A free, client-side visual studio for developers and designers. Paste code, drop
 - **10 social post templates** — Tweet, LinkedIn, Video, Thread, Quote, Announcement, Testimonial, Carousel, Before/After, Metrics
 - **HD PNG export** — 2× pixel ratio on desktop, optimised 1.5× on mobile to prevent OOM crashes
 - **100% client-side** — Your code and images never leave the browser
+- **VS Code extension** — Select code → `Cmd+Shift+K` → hand off to KromaStudio ([Install](https://marketplace.visualstudio.com/items?itemName=KromaStudio.kroma-studio))
 
 ## 📸 Screenshots & Demos
 
@@ -301,7 +302,7 @@ Export at 2× → drop into YouTube Studio, Loom, or Notion. Done.
 timeline
     title KromaStudio Roadmap
     Q2 2026 : 30+ Themes (In Progress)
-    Q3 2026 : VSCode Extension
+    Q3 2026 : VSCode Extension (Live)
             : SVG Export
     Q4 2026 : iOS App
             : Android App
@@ -312,7 +313,7 @@ timeline
 
 | Feature | Status | ETA |
 |---------|--------|-----|
-| **VSCode Extension** | 🚧 In Development | Q3 2026 |
+| **VSCode Extension** | ✅ [Live on Marketplace](https://marketplace.visualstudio.com/items?itemName=KromaStudio.kroma-studio) | Now |
 | **iOS App** | 📋 Planned | Q4 2026 |
 | **Android App** | 📋 Planned | Q4 2026 |
 | **30+ Themes** | ✅ In Progress | Now |
