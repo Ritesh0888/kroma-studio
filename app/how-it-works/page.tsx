@@ -1,7 +1,9 @@
 import { LandingShell } from "@/components/layout/LandingShell";
+import { ScreenshotFigure } from "@/components/landing/ScreenshotFigure";
+import { TrackedExternalLink } from "@/components/ui/TrackedExternalLink";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { getHowItWorksJsonLd } from "@/lib/json-ld";
-import { LANDING_PAGE_META } from "@/lib/site";
+import { LANDING_PAGE_META, VSCODE_MARKETPLACE_URL } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
 
 export const metadata = createLandingMetadata({
@@ -12,7 +14,7 @@ export const metadata = createLandingMetadata({
 const STEPS = [
   {
     title: "Paste your code or upload a screenshot",
-    body: "Open KromaStudio and switch to Code mode to paste a snippet, or stay in Image mode to drop in a screenshot. Supports 25 languages including TypeScript, JavaScript, Python, Java, Kotlin, Swift, PHP, Ruby, Go, Rust, and more.",
+    body: "Open KromaStudio and switch to Code mode to paste a snippet, or stay in Image mode to drop in a screenshot. Supports 25 languages including TypeScript, JavaScript, Python, Java, Kotlin, Swift, PHP, Ruby, Go, Rust, and more. Or install the VS Code extension and skip paste entirely — see below.",
   },
   {
     title: "Customize the look",
@@ -42,6 +44,10 @@ const FAQ = [
     a: "Yes. Use the Animate panel to pick Float, 3D Tilt, or Auto Scroll, then render a looping .webm — already live, 100% client-side.",
   },
   {
+    q: "Can I start from VS Code?",
+    a: "Yes. Install the KromaStudio extension from the Visual Studio Marketplace, select code in VS Code or Cursor, and press Cmd+Shift+K (macOS) or Ctrl+Shift+K (Windows/Linux). KromaStudio opens in your browser with the snippet ready to style and export.",
+  },
+  {
     q: "Can I create browser mockups too?",
     a: "Yes. Switch to Image mode to wrap screenshots in macOS, Windows, or minimal browser frames.",
   },
@@ -68,6 +74,36 @@ export default function HowItWorksPage() {
             Photoshop. Everything runs in your browser — no account, no upload.
           </p>
         </div>
+
+        <section className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-5">
+          <h2 className="text-lg font-semibold">Select in VS Code → open in KromaStudio</h2>
+          <p className="text-sm leading-relaxed text-text-muted">
+            Install the free KromaStudio VS Code extension, select a code snippet, and run
+            Capture Selection (Cmd+Shift+K on macOS, Ctrl+Shift+K on Windows/Linux). Your
+            snippet opens in KromaStudio with syntax highlighting, theme, and background already
+            applied — then customize and export.
+          </p>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <ScreenshotFigure
+              src="/screenshots/vscode-before-selection.png"
+              alt="Select code in VS Code and run KromaStudio Capture Selection"
+            />
+            <ScreenshotFigure
+              src="/screenshots/vscode-after-kroma-studio.png"
+              alt="Code snippet opened in KromaStudio with theme and background applied"
+            />
+          </div>
+          <TrackedExternalLink
+            href={VSCODE_MARKETPLACE_URL}
+            label="Install VS Code Extension"
+            location="how_it_works_vscode"
+            className="inline-flex w-fit items-center justify-center rounded-xl border border-border px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-neon-purple"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Install VS Code Extension
+          </TrackedExternalLink>
+        </section>
 
         <section className="flex flex-col gap-6">
           <h2 className="text-lg font-semibold">Three steps</h2>

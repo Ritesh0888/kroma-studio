@@ -3,6 +3,7 @@ import { LandingInlineLink } from "@/components/landing/LandingInlineLink";
 import { ScreenshotFigure } from "@/components/landing/ScreenshotFigure";
 import { SwitchCardIcon } from "@/components/landing/SwitchCardIcon";
 import { StudioCTAButton } from "@/components/ui/StudioCTAButton";
+import { TrackedExternalLink } from "@/components/ui/TrackedExternalLink";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { getRaySoAlternativeJsonLd } from "@/lib/json-ld";
 import {
@@ -20,7 +21,7 @@ import {
   USE_CASES,
   WHY_SWITCH_POINTS,
 } from "@/lib/landing/ray-so-alternative";
-import { LANDING_PAGE_META } from "@/lib/site";
+import { LANDING_PAGE_META, VSCODE_MARKETPLACE_URL } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
 
 export const metadata = createLandingMetadata({
@@ -103,7 +104,7 @@ export default function RaySoAlternativePage() {
                 </span>
               ))}
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <StudioCTAButton
                 mode="code"
                 label="Try KromaStudio Free"
@@ -112,6 +113,16 @@ export default function RaySoAlternativePage() {
               >
                 Try KromaStudio Free
               </StudioCTAButton>
+              <TrackedExternalLink
+                href={VSCODE_MARKETPLACE_URL}
+                label="Install VS Code Extension"
+                location="ray_so_hero_vscode"
+                className={ctaSecondaryClassName}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Install VS Code Extension
+              </TrackedExternalLink>
               <TrackedLink
                 href="#live-examples"
                 label="See Live Examples"

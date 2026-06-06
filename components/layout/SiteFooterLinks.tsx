@@ -1,5 +1,6 @@
+import { TrackedExternalLink } from "@/components/ui/TrackedExternalLink";
 import { TrackedLink } from "@/components/ui/TrackedLink";
-import { SITE_COPYRIGHT } from "@/lib/site";
+import { SITE_COPYRIGHT, VSCODE_MARKETPLACE_URL } from "@/lib/site";
 
 const PRIMARY_LINKS = [
   { href: "/how-it-works", label: "How It Works", location: "studio_footer_how_it_works" },
@@ -33,6 +34,16 @@ export function SiteFooterLinks() {
         ))}
       </nav>
       <nav className="flex flex-wrap justify-center gap-x-3 gap-y-1.5 px-4 pb-2 pt-1">
+        <TrackedExternalLink
+          href={VSCODE_MARKETPLACE_URL}
+          label="Install VS Code Extension"
+          location="studio_footer_vscode"
+          className={linkClassName}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Install VS Code Extension
+        </TrackedExternalLink>
         {SECONDARY_LINKS.map((link) => (
           <TrackedLink
             key={link.href}

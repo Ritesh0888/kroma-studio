@@ -32,6 +32,7 @@ const FEATURE_LIST = [
   "Line numbers toggle",
   "Export scale selector — 1×, 2×, 3×, 4× resolution",
   "Animated video export — Float, 3D Tilt, Auto-Scroll loops as .webm",
+  "VS Code extension — capture selection and hand off to browser",
   "Preset mockup template gallery",
   "Social content post templates — Tweet, LinkedIn, Video, Thread, Quote, Announcement, Testimonial, Carousel, Before/After, Metrics",
   "Author, handle, avatar controls with initials fallback",
@@ -98,8 +99,13 @@ export function getHowItWorksJsonLd() {
         "@type": "HowTo",
         name: "How to create aesthetic code screenshots with KromaStudio",
         description:
-          "Paste your code, pick a theme and gradient background, then export an HD PNG — all in your browser with no sign-up.",
+          "Select code in VS Code or paste in the browser, pick a theme and gradient background, then export an HD PNG — all with no sign-up.",
         step: [
+          {
+            "@type": "HowToStep",
+            name: "Select in VS Code → open in KromaStudio",
+            text: "Install the KromaStudio VS Code extension, select a snippet, and run Capture Selection (Cmd+Shift+K / Ctrl+Shift+K). KromaStudio opens in your browser with language and theme applied.",
+          },
           {
             "@type": "HowToStep",
             name: "Paste your code",
@@ -142,6 +148,14 @@ export function getHowItWorksJsonLd() {
             acceptedAnswer: {
               "@type": "Answer",
               text: "KromaStudio offers 15 themes: Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night, Catppuccin Mocha, Catppuccin Latte, Nord, Monokai, Synthwave '84, Solarized Dark, Rosé Pine, Material Ocean, Vitesse Dark, and GitHub Light.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can I start from VS Code?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. Install the KromaStudio extension from the Visual Studio Marketplace, select code, and press Cmd+Shift+K or Ctrl+Shift+K to open the snippet in KromaStudio.",
             },
           },
           {
@@ -346,6 +360,7 @@ export function getCodeScreenshotJsonLd() {
         datePublished: "2026-05-25",
         dateModified: "2026-06-01",
         featureList: [
+          "VS Code extension — capture selection and hand off to browser",
           "15 syntax themes: Dracula, One Dark Pro, GitHub Dark, Night Owl, Tokyo Night, Catppuccin Mocha, Catppuccin Latte, Nord, Monokai, Synthwave '84, Solarized Dark, Rosé Pine, Material Ocean, Vitesse Dark, GitHub Light",
           "25 programming languages supported",
           "Export scale: 1×, 2×, 3×, 4× resolution",

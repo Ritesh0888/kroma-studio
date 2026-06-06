@@ -1,5 +1,7 @@
 import { LandingShell } from "@/components/layout/LandingShell";
+import { ScreenshotFigure } from "@/components/landing/ScreenshotFigure";
 import { StudioCTAButton } from "@/components/ui/StudioCTAButton";
+import { TrackedExternalLink } from "@/components/ui/TrackedExternalLink";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { getCodeScreenshotJsonLd } from "@/lib/json-ld";
 import {
@@ -12,7 +14,7 @@ import {
   USE_CASES,
   WHY_KROMA,
 } from "@/lib/landing/code-screenshot-generator";
-import { LANDING_PAGE_META } from "@/lib/site";
+import { LANDING_PAGE_META, VSCODE_MARKETPLACE_URL } from "@/lib/site";
 import { createLandingMetadata } from "@/lib/landing-metadata";
 
 export const metadata = createLandingMetadata({
@@ -63,6 +65,16 @@ export default function CodeScreenshotGeneratorPage() {
               >
                 Open Code Screenshot Generator
               </StudioCTAButton>
+              <TrackedExternalLink
+                href={VSCODE_MARKETPLACE_URL}
+                label="Install VS Code Extension"
+                location="code_landing_vscode"
+                className={ctaSecondaryClassName}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Install VS Code Extension
+              </TrackedExternalLink>
               <TrackedLink
                 href="/browser-mockup-generator"
                 label="Browser Mockups"
@@ -83,7 +95,36 @@ export default function CodeScreenshotGeneratorPage() {
                   <h3 className="text-sm font-semibold text-white">
                     Step {index + 1}: {step.title}
                   </h3>
-                  <p className="text-sm leading-relaxed text-text-muted">{step.body}</p>
+                  <p className="text-sm leading-relaxed text-text-muted">
+                    {step.body}
+                    {step.href && step.linkLabel && (
+                      <>
+                        {" "}
+                        <TrackedExternalLink
+                          href={step.href}
+                          label={step.linkLabel}
+                          location="code_landing_step_link"
+                          className="text-neon-purple transition-colors hover:text-white"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {step.linkLabel} →
+                        </TrackedExternalLink>
+                      </>
+                    )}
+                  </p>
+                  {index === 0 && (
+                    <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                      <ScreenshotFigure
+                        src="/screenshots/vscode-before-selection.png"
+                        alt="Select code in VS Code and run KromaStudio Capture Selection"
+                      />
+                      <ScreenshotFigure
+                        src="/screenshots/vscode-after-kroma-studio.png"
+                        alt="Code snippet opened in KromaStudio with theme and background applied"
+                      />
+                    </div>
+                  )}
                 </li>
               ))}
             </ol>
@@ -185,14 +226,27 @@ export default function CodeScreenshotGeneratorPage() {
                     {item.href && item.linkLabel && (
                       <>
                         {" "}
-                        <TrackedLink
-                          href={item.href}
-                          label={item.linkLabel}
-                          location="code_landing_faq_link"
-                          className="text-neon-purple transition-colors hover:text-white"
-                        >
-                          {item.linkLabel} →
-                        </TrackedLink>
+                        {item.href.startsWith("http") ? (
+                          <TrackedExternalLink
+                            href={item.href}
+                            label={item.linkLabel}
+                            location="code_landing_faq_link"
+                            className="text-neon-purple transition-colors hover:text-white"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {item.linkLabel} →
+                          </TrackedExternalLink>
+                        ) : (
+                          <TrackedLink
+                            href={item.href}
+                            label={item.linkLabel}
+                            location="code_landing_faq_link"
+                            className="text-neon-purple transition-colors hover:text-white"
+                          >
+                            {item.linkLabel} →
+                          </TrackedLink>
+                        )}
                       </>
                     )}
                   </dd>

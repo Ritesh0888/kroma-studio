@@ -1,3 +1,5 @@
+import { VSCODE_MARKETPLACE_URL } from "@/lib/site";
+
 export type ComparisonRow = {
   feature: string;
   carbon: string;
@@ -24,6 +26,7 @@ export type FaqItem = {
 };
 
 export const WHY_SWITCH_POINTS = [
+  "You want a VS Code shortcut — select code and open KromaStudio with Cmd+Shift+K instead of pasting into a browser tab.",
   "You need a real browser frame around a product screenshot — not just code styled inside a window.",
   "A single code card isn't cutting it; you want tweet cards, LinkedIn layouts, or a metrics snapshot.",
   "You'd rather export a short looping .webm for Reels or dev Twitter than stop at a static PNG.",
@@ -66,6 +69,13 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
       "Both make good-looking code images. Carbon has been the go-to for years — huge theme library, polished defaults. KromaStudio holds up on quality and adds things Carbon doesn't touch: headline overlays, gradients, mockups, and social templates.",
   },
   {
+    feature: "VS Code Extension",
+    carbon: "No official extension — use carbon-now-cli from the terminal",
+    kromaStudio: "Free extension — select code, Cmd+Shift+K, open in browser",
+    summary:
+      "Carbon's automation story is carbon-now-cli and gist URLs. KromaStudio adds a free VS Code extension: select a snippet in the editor, run Capture Selection, and the browser studio opens with language and theme already set.",
+  },
+  {
     feature: "Browser Mockups",
     carbon: "Code window chrome only — not product screenshot frames",
     kromaStudio: "macOS, Windows, Minimal browser frames for app screenshots",
@@ -96,9 +106,9 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
   {
     feature: "Automation & CLI",
     carbon: "carbon-now-cli, gist URLs, embed URLs, shareable links",
-    kromaStudio: "Interactive browser studio (no public API yet)",
+    kromaStudio: "VS Code extension + browser studio (no CLI yet)",
     summary:
-      "Carbon's ecosystem is hard to beat: carbon-now-cli for terminal workflows, gist URLs, embed links. KromaStudio is browser-only for now — paste, tweak, download. No CLI yet.",
+      "Carbon's ecosystem is hard to beat: carbon-now-cli for terminal workflows, gist URLs, embed links. KromaStudio adds a free VS Code extension for in-editor capture plus a browser studio — no CLI yet, but paste-free handoff from VS Code.",
   },
   {
     feature: "Export Formats",
@@ -138,6 +148,11 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
 ];
 
 export const FEATURE_SECTIONS: FeatureSection[] = [
+  {
+    title: "VS Code Extension",
+    body: "Install KromaStudio from the Visual Studio Marketplace, select code in VS Code or Cursor, and press Cmd+Shift+K (macOS) or Ctrl+Shift+K (Windows/Linux). Your snippet opens in KromaStudio ready to style and export — no copy-paste from the editor.",
+    link: { href: VSCODE_MARKETPLACE_URL, label: "Install VS Code Extension" },
+  },
   {
     title: "Browser Mockup Generator",
     body: "Drop a screenshot into macOS, Windows, or minimal browser chrome. Tweak padding, corners, shadows, and aspect ratio, then export a PNG ready for a launch post or README hero.",
@@ -232,6 +247,12 @@ export const USE_CASES = [
 
 export const FAQS: FaqItem[] = [
   {
+    q: "Does KromaStudio have a VS Code extension?",
+    a: "Yes. Install it from the Visual Studio Marketplace, select code in VS Code or Cursor, and press Cmd+Shift+K or Ctrl+Shift+K to open the snippet in KromaStudio with syntax highlighting already applied.",
+    href: VSCODE_MARKETPLACE_URL,
+    linkLabel: "Install from Marketplace",
+  },
+  {
     q: "What is the best Carbon.now.sh alternative?",
     a: "Depends what you're making. Carbon is still great for pure code cards. Ray.so is fast if you want URL-based PNGs. Chalk.ist and CodeImage are solid open-source picks. Snappify and Hackreels if you need animated code video. KromaStudio fits when you want code shots plus mockups, social templates, and .webm export in one free, open-source studio.",
   },
@@ -298,6 +319,7 @@ export const INTERNAL_LINKS = [
 
 /** CRO — hero trust badges */
 export const HERO_TRUST_BADGES = [
+  "VS Code Extension",
   "15 Syntax Themes",
   "10 Social Templates",
   "MIT Open Source",
@@ -307,6 +329,13 @@ export const HERO_TRUST_BADGES = [
 
 /** CRO — skimmable switch cards (placed after hero) */
 export const SWITCH_CARDS = [
+  {
+    icon: "workflow",
+    title: "VS Code Extension",
+    body: "Carbon's editor workflow is carbon-now-cli from the terminal. KromaStudio ships a free VS Code extension — select code, press Cmd+Shift+K, and open the browser studio without copy-paste.",
+    href: VSCODE_MARKETPLACE_URL,
+    linkLabel: "Install VS Code Extension",
+  },
   {
     icon: "browser",
     title: "Browser Mockups",
@@ -379,7 +408,7 @@ export const KEY_DIFFERENCES = [
     linkLabel: "Code screenshot generator",
     paragraphs: [
       "Carbon has had years to build out 150+ themes, carbon-now-cli, gist URLs, and embed links. Hard to argue with that depth.",
-      "KromaStudio trades theme count for breadth — 15 curated themes, but mockups, social layouts, and .webm from one editor. Pick Carbon for CLI and themes; pick KromaStudio when you want fewer tabs open.",
+      "KromaStudio trades theme count for breadth — 15 curated themes, a free VS Code extension, mockups, social layouts, and .webm from one editor. Pick Carbon for CLI and themes; pick KromaStudio when you want editor capture and fewer tabs open.",
     ],
   },
   {

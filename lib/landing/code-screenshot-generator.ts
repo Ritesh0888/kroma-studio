@@ -1,3 +1,5 @@
+import { VSCODE_MARKETPLACE_URL } from "@/lib/site";
+
 export type FaqItem = {
   q: string;
   a: string;
@@ -8,6 +10,8 @@ export type FaqItem = {
 export type HowToStep = {
   title: string;
   body: string;
+  href?: string;
+  linkLabel?: string;
 };
 
 export type ThemeEntry = {
@@ -84,7 +88,13 @@ export const ALL_LANGUAGES: LanguageGroup[] = [
 
 export const HOW_TO_STEPS: HowToStep[] = [
   {
-    title: "Paste your code",
+    title: "Select in VS Code → open in KromaStudio",
+    body: "Install the KromaStudio VS Code extension, select a snippet in the editor, and run Capture Selection (Cmd+Shift+K on macOS, Ctrl+Shift+K on Windows/Linux). KromaStudio opens in your browser with language, theme, and background already applied.",
+    href: VSCODE_MARKETPLACE_URL,
+    linkLabel: "Install VS Code Extension",
+  },
+  {
+    title: "Or paste your code in the browser",
     body: "Open KromaStudio and switch to Code mode. Paste any snippet — the language is detected automatically, or you can select it manually from 25 supported languages.",
   },
   {
@@ -98,6 +108,10 @@ export const HOW_TO_STEPS: HowToStep[] = [
 ];
 
 export const WHY_KROMA: WhyKroma[] = [
+  {
+    title: "VS Code extension",
+    body: "Select code in VS Code or Cursor and hand off to KromaStudio in one shortcut — no copy-paste, language detection, or theme setup required.",
+  },
   {
     title: "Animated .webm export",
     body: "Carbon and Ray.so export static PNGs only. KromaStudio renders Float, 3D Tilt, and Auto Scroll loops as .webm — ready for Twitter/X, LinkedIn, and Product Hunt openers.",
@@ -136,6 +150,12 @@ export const USE_CASES: UseCase[] = [
 ];
 
 export const FAQS: FaqItem[] = [
+  {
+    q: "Is there a VS Code extension?",
+    a: "Yes. Install KromaStudio from the Visual Studio Marketplace, select code in VS Code or Cursor, and press Cmd+Shift+K (macOS) or Ctrl+Shift+K (Windows/Linux) to open the snippet in KromaStudio with syntax highlighting already applied.",
+    href: VSCODE_MARKETPLACE_URL,
+    linkLabel: "Install from Marketplace",
+  },
   {
     q: "Is KromaStudio free to use?",
     a: "Yes. KromaStudio is completely free — no sign-up, no watermark, no export limits. All features including animated export are free.",

@@ -1,3 +1,5 @@
+import { VSCODE_MARKETPLACE_URL } from "@/lib/site";
+
 export type ComparisonRow = {
   feature: string;
   raySo: string;
@@ -24,6 +26,7 @@ export type FaqItem = {
 };
 
 export const WHY_SWITCH_POINTS = [
+  "VS Code extension — select code in the editor and open KromaStudio with Cmd+Shift+K, no copy-paste.",
   "More customization and sharing options — headline overlays, shadow depth, and aspect ratio controls beyond a standard code card.",
   "Browser mockups — wrap product screenshots in macOS, Windows, or minimal chrome (separate from code-only window styling).",
   "Dedicated social templates — LinkedIn, threads, carousels, and metrics cards instead of code cards alone.",
@@ -65,6 +68,13 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
       "Both tools produce beautiful code screenshots. Ray.so is purpose-built for quick code cards with a minimal interface and polished defaults. KromaStudio matches that quality and adds headline overlays, line-number controls, and multi-mode workflows for mockups and social posts.",
   },
   {
+    feature: "VS Code Extension",
+    raySo: "No official extension — URL params for scripted PNG generation",
+    kromaStudio: "Free extension — select code, Cmd+Shift+K, open in browser",
+    summary:
+      "Ray.so supports URL query parameters for automation from scripts. KromaStudio ships a free VS Code extension: select a snippet, run Capture Selection, and the browser studio opens with language, theme, and background already set — no manual paste step.",
+  },
+  {
     feature: "Browser Mockups",
     raySo: "Code images only — no product screenshot frames",
     kromaStudio: "macOS, Windows, Minimal browser frames",
@@ -95,9 +105,9 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
   {
     feature: "Programmatic Export",
     raySo: "URL query params for scripted PNG generation",
-    kromaStudio: "Interactive browser studio (no public API yet)",
+    kromaStudio: "VS Code extension + interactive browser studio (no public API yet)",
     summary:
-      "Ray.so supports GET URL parameters so you can generate code images from shell scripts or editor extensions. KromaStudio is browser-first today: paste, customize, and export manually. For CI/CD automation, Ray.so or Ray by Tinte may fit better; for visual mockups and animation in one UI, KromaStudio does.",
+      "Ray.so supports GET URL parameters so you can generate code images from shell scripts or editor extensions. KromaStudio adds a free VS Code extension for in-editor capture plus a browser studio for mockups and animation — paste-free handoff from VS Code, though no CLI yet.",
   },
   {
     feature: "Export Formats",
@@ -137,6 +147,11 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
 ];
 
 export const FEATURE_SECTIONS: FeatureSection[] = [
+  {
+    title: "VS Code Extension",
+    body: "Install KromaStudio from the Visual Studio Marketplace, select code in VS Code or Cursor, and press Cmd+Shift+K (macOS) or Ctrl+Shift+K (Windows/Linux). Your snippet opens in KromaStudio with syntax highlighting and theme already applied — then customize and export.",
+    link: { href: VSCODE_MARKETPLACE_URL, label: "Install VS Code Extension" },
+  },
   {
     title: "Browser Mockup Generator",
     body: "Drop any screenshot into macOS Dark, macOS Light, Windows, or Minimal browser chrome. Adjust padding, corner radius, shadow depth, and aspect ratio — then export a portfolio-ready PNG. Ideal for product launch posts and README hero images.",
@@ -231,6 +246,12 @@ export const USE_CASES = [
 
 export const FAQS: FaqItem[] = [
   {
+    q: "Does KromaStudio have a VS Code extension?",
+    a: "Yes. Install it from the Visual Studio Marketplace, select code in VS Code or Cursor, and press Cmd+Shift+K or Ctrl+Shift+K to open the snippet in KromaStudio — language, theme, and background are applied automatically.",
+    href: VSCODE_MARKETPLACE_URL,
+    linkLabel: "Install from Marketplace",
+  },
+  {
     q: "What is the best Ray.so alternative?",
     a: "It depends on your goal. For quick static code cards, Carbon and Chalk.ist are popular free picks. For animated code videos, Snappify and Hackreels are common recommendations. For browser mockups, social post templates, and animated .webm export in one free client-side studio, KromaStudio is a strong fit — especially when your workflow goes beyond a single code snippet image.",
   },
@@ -291,6 +312,7 @@ export const INTERNAL_LINKS = [
 
 /** CRO — hero trust badges */
 export const HERO_TRUST_BADGES = [
+  "VS Code Extension",
   "15 Syntax Themes",
   "10 Social Templates",
   "100% Client-Side",
@@ -299,6 +321,13 @@ export const HERO_TRUST_BADGES = [
 
 /** CRO — skimmable switch cards (placed after hero) */
 export const SWITCH_CARDS = [
+  {
+    icon: "workflow",
+    title: "VS Code Extension",
+    body: "Ray.so has no official editor extension — you paste or use URL params. KromaStudio ships a free VS Code extension: select code, press Cmd+Shift+K, and open the browser studio with syntax highlighting already applied.",
+    href: VSCODE_MARKETPLACE_URL,
+    linkLabel: "Install VS Code Extension",
+  },
   {
     icon: "browser",
     title: "Browser Mockups",
@@ -371,7 +400,7 @@ export const KEY_DIFFERENCES = [
     linkLabel: "Code screenshot generator",
     paragraphs: [
       "Ray.so is quick for a single code card: paste, theme, download. It also supports URL query parameters for scripted PNG generation from shell scripts or editor extensions.",
-      "KromaStudio covers 2× PNG and .webm from the same editor across code, mockups, and social templates. Pick Ray.so for a focused code-card workflow; pick KromaStudio when you want several export types in one place.",
+      "KromaStudio covers 2× PNG and .webm from the same editor across code, mockups, and social templates — plus a free VS Code extension for paste-free handoff. Pick Ray.so for URL-based automation; pick KromaStudio when you want editor capture and several export types in one place.",
     ],
   },
   {

@@ -5,6 +5,9 @@ export const SITE_NAME = "KromaStudio";
 
 export const GITHUB_REPO_URL = "https://github.com/Ritesh0888/kroma-studio";
 
+export const VSCODE_MARKETPLACE_URL =
+  "https://marketplace.visualstudio.com/items?itemName=KromaStudio.kroma-studio";
+
 export const PRODUCT_HUNT_URL =
   "https://www.producthunt.com/products/kromastudio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-kromastudio";
 
@@ -36,6 +39,7 @@ export const STUDIO_HERO_HEADLINE =
 export const STUDIO_HERO_H1 = `${SITE_NAME} — ${STUDIO_HERO_HEADLINE}`;
 
 export const STUDIO_MARQUEE_ITEMS = [
+  "VS Code extension — select code, open in KromaStudio",
   "Premium browser mockups & syntax-highlighted screenshots",
   "15 themes: Dracula · Catppuccin · Nord · Monokai · Tokyo Night · Synthwave '84 · Rosé Pine · and more",
   "12 gradient backgrounds · Headline overlays · HD PNG export",
@@ -90,12 +94,12 @@ export const LANDING_PAGE_META = {
   raySoAlternative: {
     title: "Ray.so Alternative — Free Code Screenshots | KromaStudio",
     description:
-      "Compare KromaStudio vs Ray.so. Code screenshots, browser mockups, social post cards, and animated .webm export — free, 100% client-side, no sign-up.",
+      "Compare KromaStudio vs Ray.so. VS Code extension, code screenshots, browser mockups, social post cards, and animated .webm export — free, 100% client-side, no sign-up.",
   },
   carbonAlternative: {
     title: "Carbon.now.sh Alternative — Free Code Screenshots | KromaStudio",
     description:
-      "Compare KromaStudio vs Carbon. Code screenshots, browser mockups, social post cards, and animated .webm export — free, 100% client-side, no sign-up.",
+      "Compare KromaStudio vs Carbon. VS Code extension, code screenshots, browser mockups, social post cards, and animated .webm export — free, 100% client-side, no sign-up.",
   },
   snappifyAlternative: {
     title: "Snappify Alternative — Free Code Screenshots & Video | KromaStudio",

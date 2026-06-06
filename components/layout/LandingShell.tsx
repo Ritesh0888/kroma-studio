@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { LandingBackground } from "@/components/layout/LandingBackground";
 import { ProductHuntBadge } from "@/components/layout/ProductHuntBadge";
+import { TrackedExternalLink } from "@/components/ui/TrackedExternalLink";
 import { TrackedLink } from "@/components/ui/TrackedLink";
-import { SITE_COPYRIGHT } from "@/lib/site";
+import { SITE_COPYRIGHT, VSCODE_MARKETPLACE_URL } from "@/lib/site";
 
 type LandingShellProps = {
   children: React.ReactNode;
@@ -92,6 +93,16 @@ export function LandingShell({ children }: LandingShellProps) {
             ))}
           </nav>
           <nav className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+            <TrackedExternalLink
+              href={VSCODE_MARKETPLACE_URL}
+              label="Install VS Code Extension"
+              location="landing_footer_vscode"
+              className={footerLinkClassName}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Install VS Code Extension
+            </TrackedExternalLink>
             {FOOTER_SECONDARY_LINKS.map((link) => (
               <TrackedLink
                 key={link.href}
