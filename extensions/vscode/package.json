@@ -2,7 +2,7 @@
   "name": "kroma-studio",
   "displayName": "KromaStudio",
   "description": "📷 Turn selected code into share-ready screenshots in KromaStudio — syntax highlighting, gradients, mockups. Carbon / ray.so alternative. Cmd+Shift+K to capture.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publisher": "KromaStudio",
   "license": "MIT",
   "icon": "icon.png",
