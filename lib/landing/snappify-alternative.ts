@@ -59,7 +59,7 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
     feature: "Pricing & Watermarks",
     snappify: "Free tier has watermarks and strict limits (3 snaps, 5 slides). Paid starts at $5/mo.",
     kromaStudio: "100% Free. No watermarks, no paywall, no limits.",
-    summary: "Snappify is a powerful premium tool that limits the free tier with watermarks and a slide cap. KromaStudio is entirely free, open-source, and never adds watermarks to your exports.",
+    summary: "Snappify is a powerful premium tool that limits the free tier with watermarks and a slide cap. KromaStudio is entirely free, open-source, and lets you convert code to image without watermarks on your beautiful code snippets.",
   },
   {
     feature: "Animated Video Export",
@@ -131,8 +131,8 @@ export const KEY_DIFFERENCES = [
 
 export const FAQS: FaqItem[] = [
   {
-    q: "Is KromaStudio completely free compared to Snappify?",
-    a: "Yes. Snappify has a free tier that includes watermarks and limits your storage. KromaStudio is 100% free, MIT open-source, and never adds watermarks to your exported PNGs or videos.",
+    q: "Is KromaStudio a completely free alternative to Snappify to convert code to image?",
+    a: "Yes. Snappify has a free tier that includes watermarks and limits your storage. KromaStudio is 100% free, MIT open-source, and never adds watermarks to your exported beautiful code snippets or videos.",
   },
   {
     q: "Can I export animated code videos for free?",

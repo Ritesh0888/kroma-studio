@@ -1,0 +1,100 @@
+---
+title: "Code Screenshot Best Practices for Social Media"
+description: "Font sizes, themes, snippet length, accessibility, and export settings that make code images readable on every platform."
+date: "2026-06-07"
+author: "Ritesh Kumar"
+---
+
+A code screenshot is only as good as its readability at thumbnail size. These practices apply whether you post on X, LinkedIn, Instagram, or embed in a README — and they are what separate scroll-stopping visuals from blurry IDE crops.
+
+## The Golden Rules
+
+### 1. Short snippets win
+
+| Context | Ideal length |
+| --- | --- |
+| X / Twitter | 8–15 lines |
+| LinkedIn | 10–15 lines |
+| Instagram | 5–10 lines |
+| README hero | 5–12 lines |
+| Documentation | 15–25 lines (max) |
+
+One function, one pattern, one takeaway. If a line exceeds 80 characters, refactor the example or split into two images.
+
+### 2. Font size and resolution
+
+- **Base font:** 14–18 px depending on line count.
+- **Export scale:** Always **2×** minimum; use 3× or 4× for Product Hunt or print.
+- **Why:** Social platforms compress uploads. Starting sharp is the only defense.
+
+### 3. Theme selection
+
+| Feed background | Recommended themes |
+| --- | --- |
+| Light (LinkedIn, bright X) | Dracula, Tokyo Night, One Dark, Nord |
+| Dark mode users | Same dark themes — they still contrast well |
+| Documentation (light site) | GitHub Light, Solarized Light |
+| Brand consistency | Pick one theme, use it everywhere |
+
+Avoid low-contrast themes where keywords blend into the background. If you cannot read `const` at thumbnail size, change the theme.
+
+### 4. Padding and composition
+
+- **Minimum padding:** 32 px on all sides.
+- **Sweet spot:** 40–60 px for social posts.
+- **Headlines:** Add a takeaway line above or below the code block.
+- **Backgrounds:** Solid colors for minimal look; gradients for brand identity.
+
+### 5. Accessibility
+
+Code images are not copy-pasteable. Always provide:
+
+- **Alt text** describing what the code does.
+- **Full source** in the post caption, a reply, or a GitHub Gist link.
+- **Sufficient contrast** — WCAG AA (4.5:1) for normal text if used in documentation.
+
+## Platform-Specific Quick Tips
+
+**X:** Landscape 16:9, link in reply not main tweet. [Full guide →](/guides/how-to-share-code-on-twitter-x)
+
+**LinkedIn:** Light or high-contrast dark themes, headline overlay, learning framing. [Full guide →](/guides/how-to-share-code-on-linkedin)
+
+**Instagram:** Square format, 5–10 lines, consistent aesthetic grid. [Full guide →](/guides/how-to-share-code-on-instagram)
+
+**GitHub README:** 2× PNG, centered with alt text, stable API examples only. [Full guide →](/guides/how-to-add-code-screenshots-to-github-readme)
+
+**Product Hunt:** Browser mockups at 1270×760, thumbnail-tested heroes. [Full guide →](/guides/how-to-create-browser-mockups-for-product-hunt)
+
+[All image sizes →](/guides/social-media-image-sizes-for-developers-2026)
+
+## Common Mistakes
+
+| Mistake | Fix |
+| --- | --- |
+| Full IDE screenshot with tabs and notifications | Crop to code only; use a code-to-image tool |
+| 40+ line file dump | Split into carousel or show one function |
+| 12 px font at 1× export | Bump to 16 px, export at 2× |
+| Different theme every post | Lock one visual identity |
+| No alt text | Add descriptive alt on every upload |
+| Proprietary code sent to cloud tools | Use [client-side tools](/secure-code-screenshot-generator) |
+
+## Workflow with KromaStudio
+
+1. **Paste** — from clipboard or [VS Code extension](/how-it-works).
+2. **Theme** — pick from 15 syntax themes.
+3. **Background** — gradient, solid, or image with noise overlay.
+4. **Headline** — state the one takeaway.
+5. **Export** — 1× to 4× PNG, or animated .webm for motion.
+
+Everything runs in your browser — your code never uploads to a server. Safe for work code, client projects, and pre-launch snippets.
+
+## Pre-Post Checklist
+
+- [ ] Snippet length appropriate for platform
+- [ ] Readable at thumbnail / squint-test size
+- [ ] 2× or higher export
+- [ ] Alt text written
+- [ ] Full source available for copy-paste
+- [ ] Consistent with your visual brand
+
+[Open the studio](/) and apply these practices to your next post.

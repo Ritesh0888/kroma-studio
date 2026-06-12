@@ -1,0 +1,102 @@
+---
+title: "How to Add Code Screenshots to Your GitHub README"
+description: "Hero images, usage examples, and export settings that make open-source READMEs look polished and get more stars."
+date: "2026-06-10"
+author: "Ritesh Kumar"
+---
+
+Visitors decide in 2–3 seconds whether to star your repo. A styled code screenshot near the top of your README answers *"what does this look like?"* before anyone reads your install instructions.
+
+## When to Use a Code Image vs a Code Block
+
+| Use a code block | Use a code image |
+| --- | --- |
+| Copy-paste reference docs | Hero section / marketing visual |
+| API docs that change often | Stable entry-point examples |
+| Short inline examples | Social preview + README reuse |
+
+For rapidly changing APIs, prefer fenced code blocks or Mermaid diagrams. For your core `quick start` example that rarely changes, a code image sets the tone.
+
+## Ideal README Structure
+
+Place your visual **after the title and one-line tagline**, before Quick Start:
+
+1. Project name + badges
+2. One-line description
+3. **Hero screenshot or code image** ← here
+4. Features list
+5. Quick start (install + first command)
+6. Full documentation links
+
+## Export Settings for GitHub
+
+GitHub renders README images at roughly **820 px** container width on desktop. Optimize for that:
+
+- **Width:** Design for ~800 px display width; export at **2×** for retina.
+- **Height:** Keep snippets **5–15 lines** — tall images push install instructions below the fold.
+- **Format:** PNG for static screenshots (universal compatibility).
+- **Alt text:** Always include descriptive alt text in your Markdown.
+
+### Markdown template
+
+```markdown
+<p align="center">
+  <img
+    src="docs/assets/quickstart-example.png"
+    alt="JavaScript example initializing the client and fetching data"
+    width="800"
+  />
+</p>
+```
+
+Store images in `docs/assets/` or `.github/` and commit them to the repo — do not hotlink external URLs that may break.
+
+## Step-by-Step with KromaStudio
+
+### 1. Pick a stable code example
+
+Choose your most important entry point — the 10 lines that show what your library does. Avoid experimental APIs.
+
+### 2. Create the screenshot
+
+Open the [code screenshot generator](/code-screenshot-generator), paste your snippet, and pick a theme that matches your project's personality. Many OSS projects use Dracula, Nord, or GitHub Dark for consistency with developer tooling aesthetics.
+
+### 3. Export at 2×
+
+Click **Export** at 2× resolution. On retina displays, this keeps syntax colors sharp instead of blurry.
+
+### 4. Commit and reference
+
+Save to `docs/assets/quickstart-example.png`, add the centered Markdown block above, and push.
+
+### 5. Reuse for social preview
+
+The same image works as your repo's social preview (1280×650 is a common OG size). Resize or crop once, use everywhere.
+
+## Browser Mockups for Web Apps
+
+If your project is a web app or CLI with a dashboard, wrap a UI screenshot in a [browser mockup](/browser-mockup-generator) — Chrome or macOS frames make README heroes feel more product-like than raw captures.
+
+For animated demos, consider a short GIF or the [animated code export](/animated-code-screenshot) for README `<video>` tags (keep under 5 MB).
+
+## Maintenance Tips
+
+- Keep a `docs/snippets/` text file with the source for each README image. When your API changes, re-export in 60 seconds.
+- Only image stable APIs — avoid screenshots of beta features.
+- Update images in the same PR as breaking API changes so docs never lie.
+
+## README Visual Checklist
+
+- [ ] Hero image within first two scrolls
+- [ ] Descriptive alt text on every image
+- [ ] 2× PNG export for retina sharpness
+- [ ] Snippet under 15 lines
+- [ ] Source snippet saved in repo for easy updates
+- [ ] Quick start tested on a fresh machine
+
+## Related guides
+
+- [Code Screenshot Best Practices](/guides/code-screenshot-best-practices)
+- [How to Create Browser Mockups for Product Hunt](/guides/how-to-create-browser-mockups-for-product-hunt)
+
+[Generate your README hero image](/code-screenshot-generator) — 100% client-side, safe for proprietary code.

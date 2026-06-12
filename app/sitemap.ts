@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import { MetadataRoute } from "next";
 import { PUBLIC_ROUTES, SITE_URL } from "@/lib/site";
+import { getSortedGuides } from "@/lib/guides";
 
 const FALLBACK_DATE = "2026-05-26T01:58:56+05:30";
 
@@ -17,10 +18,19 @@ function getGitLastModified(pageFile: string): string {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return PUBLIC_ROUTES.map(({ path, changeFrequency, priority, pageFile }) => ({
+  const staticRoutes = PUBLIC_ROUTES.map(({ path, changeFrequency, priority, pageFile }) => ({
     url: path ? `${SITE_URL}${path}` : SITE_URL,
     changeFrequency,
     priority,
     lastModified: getGitLastModified(pageFile),
   }));
+
+  const guideRoutes = getSortedGuides().map((guide) => ({
+    url: `${SITE_URL}/guides/${guide.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+    lastModified: guide.date ? new Date(guide.date).toISOString() : FALLBACK_DATE,
+  }));
+
+  return [...staticRoutes, ...guideRoutes];
 }

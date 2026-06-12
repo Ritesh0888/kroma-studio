@@ -1,4 +1,5 @@
 import { LandingShell } from "@/components/layout/LandingShell";
+import { landingBrandCtaLg, landingCard, landingCtaSecondary, landingH1, landingH2, landingH3, landingProseLink } from "@/lib/landing-ui";
 import { ScreenshotFigure } from "@/components/landing/ScreenshotFigure";
 import { TrackedExternalLink } from "@/components/ui/TrackedExternalLink";
 import { TrackedLink } from "@/components/ui/TrackedLink";
@@ -57,7 +58,7 @@ const jsonLd = getHowItWorksJsonLd();
 
 export default function HowItWorksPage() {
   return (
-    <LandingShell>
+    <LandingShell width="wide">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -65,7 +66,7 @@ export default function HowItWorksPage() {
 
       <article className="flex flex-col gap-10">
         <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-bold tracking-tight">
+          <h1 className={landingH1}>
             How to Make Aesthetic Code Screenshots
           </h1>
           <p className="text-base leading-relaxed text-text-muted">
@@ -75,8 +76,8 @@ export default function HowItWorksPage() {
           </p>
         </div>
 
-        <section className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-5">
-          <h2 className="text-lg font-semibold">Select in VS Code → open in KromaStudio</h2>
+        <section className={`${landingCard} gap-4 !p-5`}>
+          <h2 className={landingH2}>Select in VS Code → open in KromaStudio</h2>
           <p className="text-sm leading-relaxed text-text-muted">
             Install the free KromaStudio VS Code extension, select a code snippet, and run
             Capture Selection (Cmd+Shift+K on macOS, Ctrl+Shift+K on Windows/Linux). Your
@@ -97,7 +98,7 @@ export default function HowItWorksPage() {
             href={VSCODE_MARKETPLACE_URL}
             label="Install VS Code Extension"
             location="how_it_works_vscode"
-            className="inline-flex w-fit items-center justify-center rounded-xl border border-border px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-neon-purple"
+            className={landingCtaSecondary}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -106,11 +107,11 @@ export default function HowItWorksPage() {
         </section>
 
         <section className="flex flex-col gap-6">
-          <h2 className="text-lg font-semibold">Three steps</h2>
+          <h2 className={landingH2}>Three steps</h2>
           <ol className="flex flex-col gap-6">
             {STEPS.map((step, index) => (
               <li key={step.title} className="flex flex-col gap-2">
-                <h3 className="text-sm font-semibold text-white">
+                <h3 className={`${landingH3} text-sm`}>
                   Step {index + 1}: {step.title}
                 </h3>
                 <p className="text-sm leading-relaxed text-text-muted">{step.body}</p>
@@ -120,11 +121,11 @@ export default function HowItWorksPage() {
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="text-lg font-semibold">Frequently asked questions</h2>
+          <h2 className={landingH2}>Frequently asked questions</h2>
           <dl className="flex flex-col gap-4">
             {FAQ.map((item) => (
               <div key={item.q}>
-                <dt className="text-sm font-semibold text-white">{item.q}</dt>
+                <dt className={`${landingH3} text-sm`}>{item.q}</dt>
                 <dd className="mt-1 text-sm leading-relaxed text-text-muted">
                   {item.a}
                 </dd>
@@ -134,14 +135,14 @@ export default function HowItWorksPage() {
         </section>
 
         <section className="flex flex-col gap-3 border-t border-border pt-6">
-          <h2 className="text-lg font-semibold">Explore KromaStudio Tools</h2>
+          <h2 className={landingH2}>Explore KromaStudio Tools</h2>
           <ul className="flex flex-col gap-2">
             <li>
               <TrackedLink
                 href="/snappify-alternative"
                 label="KromaStudio vs Snappify"
                 location="how_it_works_internal_snappify"
-                className="text-sm text-neon-purple transition-colors hover:text-white"
+                className={landingProseLink}
               >
                 KromaStudio vs Snappify →
               </TrackedLink>
@@ -151,7 +152,7 @@ export default function HowItWorksPage() {
                 href="/secure-code-screenshot-generator"
                 label="Secure Code Screenshot Generator"
                 location="how_it_works_internal_secure"
-                className="text-sm text-neon-purple transition-colors hover:text-white"
+                className={landingProseLink}
               >
                 Secure Code Screenshot Generator →
               </TrackedLink>
@@ -161,7 +162,7 @@ export default function HowItWorksPage() {
                 href="/animated-code-screenshot"
                 label="Animated Code Screenshots"
                 location="how_it_works_internal_animated"
-                className="text-sm text-neon-purple transition-colors hover:text-white"
+                className={landingProseLink}
               >
                 Animated Code Screenshots →
               </TrackedLink>
@@ -173,7 +174,7 @@ export default function HowItWorksPage() {
           href="/"
           label="Try KromaStudio Free"
           location="how_it_works_cta"
-          className="inline-flex w-fit items-center justify-center rounded-xl bg-linear-to-r from-neon-purple to-neon-pink px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          className={landingBrandCtaLg}
         >
           Try KromaStudio Free
         </TrackedLink>

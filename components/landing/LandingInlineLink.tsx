@@ -2,6 +2,7 @@
 
 import { TrackedExternalLink } from "@/components/ui/TrackedExternalLink";
 import { TrackedLink } from "@/components/ui/TrackedLink";
+import { landingInlineLink } from "@/lib/landing-ui";
 
 type LandingInlineLinkProps = {
   href: string;
@@ -9,9 +10,6 @@ type LandingInlineLinkProps = {
   location: string;
   children: React.ReactNode;
 };
-
-const linkClassName =
-  "font-medium text-neon-purple underline-offset-2 hover:text-white hover:underline";
 
 export function LandingInlineLink({
   href,
@@ -25,7 +23,7 @@ export function LandingInlineLink({
         href={href}
         label={label}
         location={location}
-        className={linkClassName}
+        className={landingInlineLink}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -35,10 +33,10 @@ export function LandingInlineLink({
   }
 
   return (
-    <TrackedLink href={href} label={label} location={location} className={linkClassName}>
+    <TrackedLink href={href} label={label} location={location} className={landingInlineLink}>
       {children}
     </TrackedLink>
   );
 }
 
-export const inlineLinkClassName = linkClassName;
+export const inlineLinkClassName = landingInlineLink;

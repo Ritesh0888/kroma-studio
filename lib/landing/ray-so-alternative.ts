@@ -63,9 +63,9 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
   {
     feature: "Code Screenshots",
     raySo: "Excellent — fast, polished syntax cards",
-    kromaStudio: "Excellent — Shiki highlighting, 15 themes",
+    kromaStudio: "Excellent — Convert code to image with Shiki highlighting, 15 themes",
     summary:
-      "Both tools produce beautiful code screenshots. Ray.so is purpose-built for quick code cards with a minimal interface and polished defaults. KromaStudio matches that quality and adds headline overlays, line-number controls, and multi-mode workflows for mockups and social posts.",
+      "Both tools produce beautiful code snippets and screenshots. Ray.so is purpose-built for quick code cards with a minimal interface and polished defaults. KromaStudio matches that quality and adds headline overlays, line-number controls, and multi-mode workflows for mockups and social posts.",
   },
   {
     feature: "VS Code Extension",
@@ -252,8 +252,8 @@ export const FAQS: FaqItem[] = [
     linkLabel: "Install from Marketplace",
   },
   {
-    q: "What is the best Ray.so alternative?",
-    a: "It depends on your goal. For quick static code cards, Carbon and Chalk.ist are popular free picks. For animated code videos, Snappify and Hackreels are common recommendations. For browser mockups, social post templates, and animated .webm export in one free client-side studio, KromaStudio is a strong fit — especially when your workflow goes beyond a single code snippet image.",
+    q: "What is the best Ray.so alternative to convert code to image?",
+    a: "It depends on your goal. For quick static code cards, Carbon and Chalk.ist are popular free picks. For animated code videos, Snappify and Hackreels are common recommendations. To create beautiful code snippets, browser mockups, social post templates, and animated .webm exports in one free client-side studio, KromaStudio is a strong fit.",
   },
   {
     q: "Is KromaStudio free?",

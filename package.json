@@ -10,11 +10,14 @@
     "validate:seo": "node scripts/validate-json-ld.mjs"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.20",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "framer-motion": "^12.40.0",
+    "gray-matter": "^4.0.3",
     "html-to-image": "^1.11.13",
     "next": "16.2.6",
+    "next-mdx-remote": "^6.0.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-dropzone": "^15.0.0",

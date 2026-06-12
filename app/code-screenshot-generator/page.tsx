@@ -1,4 +1,5 @@
 import { LandingShell } from "@/components/layout/LandingShell";
+import { landingBadge, landingCard, landingCardLg, landingCtaPrimary, landingCtaSecondary, landingEyebrow, landingH1, landingH2, landingH3, landingProseLink } from "@/lib/landing-ui";
 import { ScreenshotFigure } from "@/components/landing/ScreenshotFigure";
 import { StudioCTAButton } from "@/components/ui/StudioCTAButton";
 import { TrackedExternalLink } from "@/components/ui/TrackedExternalLink";
@@ -24,12 +25,6 @@ export const metadata = createLandingMetadata({
 
 const jsonLd = getCodeScreenshotJsonLd();
 
-const ctaPrimaryClassName =
-  "inline-flex items-center justify-center rounded-xl bg-linear-to-r from-neon-purple to-neon-pink px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90";
-
-const ctaSecondaryClassName =
-  "inline-flex items-center justify-center rounded-xl border border-border px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-neon-purple";
-
 export default function CodeScreenshotGeneratorPage() {
   return (
     <>
@@ -37,15 +32,15 @@ export default function CodeScreenshotGeneratorPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <LandingShell>
+      <LandingShell width="wide">
         <article className="flex flex-col gap-10">
 
           {/* Hero */}
           <div className="flex flex-col gap-5">
-            <p className="text-xs font-medium uppercase tracking-widest text-neon-purple">
+            <p className={landingEyebrow}>
               {HERO_TRUST_BADGES.join(" · ")}
             </p>
-            <h1 className="text-3xl font-bold tracking-tight">
+            <h1 className={landingH1}>
               Free Code Screenshot Generator
             </h1>
             <p className="text-base leading-relaxed text-text-muted">
@@ -61,7 +56,7 @@ export default function CodeScreenshotGeneratorPage() {
                 mode="code"
                 label="Open Code Screenshot Generator"
                 location="code_landing_primary"
-                className={ctaPrimaryClassName}
+                className={landingCtaPrimary}
               >
                 Open Code Screenshot Generator
               </StudioCTAButton>
@@ -69,7 +64,7 @@ export default function CodeScreenshotGeneratorPage() {
                 href={VSCODE_MARKETPLACE_URL}
                 label="Install VS Code Extension"
                 location="code_landing_vscode"
-                className={ctaSecondaryClassName}
+                className={landingCtaSecondary}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -79,7 +74,7 @@ export default function CodeScreenshotGeneratorPage() {
                 href="/browser-mockup-generator"
                 label="Browser Mockups"
                 location="code_landing_secondary"
-                className={ctaSecondaryClassName}
+                className={landingCtaSecondary}
               >
                 Browser Mockups
               </TrackedLink>
@@ -88,11 +83,11 @@ export default function CodeScreenshotGeneratorPage() {
 
           {/* How it works */}
           <section className="flex flex-col gap-5">
-            <h2 className="text-lg font-semibold">How to create a code screenshot</h2>
+            <h2 className={landingH2}>How to create a code screenshot</h2>
             <ol className="flex flex-col gap-6">
               {HOW_TO_STEPS.map((step, index) => (
                 <li key={step.title} className="flex flex-col gap-2">
-                  <h3 className="text-sm font-semibold text-white">
+                  <h3 className={`${landingH3} text-sm`}>
                     Step {index + 1}: {step.title}
                   </h3>
                   <p className="text-sm leading-relaxed text-text-muted">
@@ -104,7 +99,7 @@ export default function CodeScreenshotGeneratorPage() {
                           href={step.href}
                           label={step.linkLabel}
                           location="code_landing_step_link"
-                          className="text-neon-purple transition-colors hover:text-white"
+                          className={landingProseLink}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -132,7 +127,7 @@ export default function CodeScreenshotGeneratorPage() {
 
           {/* Themes */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">15 syntax themes</h2>
+            <h2 className={landingH2}>15 syntax themes</h2>
             <p className="text-sm leading-relaxed text-text-muted">
               Every theme is powered by Shiki — the same syntax highlighter used by
               VS Code and the official TypeScript docs. Colors are accurate to the
@@ -142,9 +137,9 @@ export default function CodeScreenshotGeneratorPage() {
               {ALL_THEMES.map((theme) => (
                 <li
                   key={theme.name}
-                  className="flex flex-col gap-1 rounded-xl border border-border p-4"
+                  className={landingCard}
                 >
-                  <span className="text-sm font-semibold text-white">{theme.name}</span>
+                  <span className={`${landingH3} text-sm`}>{theme.name}</span>
                   <span className="text-sm leading-relaxed text-text-muted">
                     {theme.description}
                   </span>
@@ -155,11 +150,11 @@ export default function CodeScreenshotGeneratorPage() {
 
           {/* Languages */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">25 supported programming languages</h2>
+            <h2 className={landingH2}>25 supported programming languages</h2>
             <div className="flex flex-col gap-4">
               {ALL_LANGUAGES.map((group) => (
                 <div key={group.group} className="flex flex-col gap-2">
-                  <h3 className="text-sm font-semibold text-white">{group.group}</h3>
+                  <h3 className={`${landingH3} text-sm`}>{group.group}</h3>
                   <p className="text-sm leading-relaxed text-text-muted">
                     {group.languages.join(", ")}
                   </p>
@@ -170,13 +165,13 @@ export default function CodeScreenshotGeneratorPage() {
 
           {/* Why KromaStudio vs Carbon / Ray.so */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">
+            <h2 className={landingH2}>
               What KromaStudio adds beyond Carbon and Ray.so
             </h2>
             <ul className="flex flex-col gap-5">
               {WHY_KROMA.map((item) => (
                 <li key={item.title} className="flex flex-col gap-1">
-                  <h3 className="text-sm font-semibold text-white">{item.title}</h3>
+                  <h3 className={`${landingH3} text-sm`}>{item.title}</h3>
                   <p className="text-sm leading-relaxed text-text-muted">{item.body}</p>
                 </li>
               ))}
@@ -186,7 +181,7 @@ export default function CodeScreenshotGeneratorPage() {
                 href="/carbon-alternative"
                 label="KromaStudio vs Carbon"
                 location="code_landing_carbon_compare"
-                className="text-sm text-neon-purple transition-colors hover:text-white"
+                className={landingProseLink}
               >
                 KromaStudio vs Carbon.now.sh →
               </TrackedLink>
@@ -194,7 +189,7 @@ export default function CodeScreenshotGeneratorPage() {
                 href="/ray-so-alternative"
                 label="KromaStudio vs Ray.so"
                 location="code_landing_ray_so_compare"
-                className="text-sm text-neon-purple transition-colors hover:text-white"
+                className={landingProseLink}
               >
                 KromaStudio vs Ray.so →
               </TrackedLink>
@@ -203,11 +198,11 @@ export default function CodeScreenshotGeneratorPage() {
 
           {/* Use cases */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">When developers use code screenshots</h2>
+            <h2 className={landingH2}>When developers use code screenshots</h2>
             <ul className="flex flex-col gap-5">
               {USE_CASES.map((uc) => (
                 <li key={uc.title} className="flex flex-col gap-1">
-                  <h3 className="text-sm font-semibold text-white">{uc.title}</h3>
+                  <h3 className={`${landingH3} text-sm`}>{uc.title}</h3>
                   <p className="text-sm leading-relaxed text-text-muted">{uc.body}</p>
                 </li>
               ))}
@@ -216,11 +211,11 @@ export default function CodeScreenshotGeneratorPage() {
 
           {/* FAQ */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Frequently asked questions</h2>
+            <h2 className={landingH2}>Frequently asked questions</h2>
             <dl className="flex flex-col gap-4">
               {FAQS.map((item) => (
                 <div key={item.q}>
-                  <dt className="text-sm font-semibold text-white">{item.q}</dt>
+                  <dt className={`${landingH3} text-sm`}>{item.q}</dt>
                   <dd className="mt-1 text-sm leading-relaxed text-text-muted">
                     {item.a}
                     {item.href && item.linkLabel && (
@@ -231,7 +226,7 @@ export default function CodeScreenshotGeneratorPage() {
                             href={item.href}
                             label={item.linkLabel}
                             location="code_landing_faq_link"
-                            className="text-neon-purple transition-colors hover:text-white"
+                            className={landingProseLink}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -242,7 +237,7 @@ export default function CodeScreenshotGeneratorPage() {
                             href={item.href}
                             label={item.linkLabel}
                             location="code_landing_faq_link"
-                            className="text-neon-purple transition-colors hover:text-white"
+                            className={landingProseLink}
                           >
                             {item.linkLabel} →
                           </TrackedLink>
@@ -257,7 +252,7 @@ export default function CodeScreenshotGeneratorPage() {
 
           {/* Related tools */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Explore KromaStudio tools</h2>
+            <h2 className={landingH2}>Explore KromaStudio tools</h2>
             <ul className="flex flex-col gap-3">
               {RELATED_TOOLS.map((tool) => (
                 <li key={tool.href}>
@@ -267,7 +262,7 @@ export default function CodeScreenshotGeneratorPage() {
                     location="code_landing_related"
                     className="group flex flex-col gap-0.5"
                   >
-                    <span className="text-sm font-semibold text-neon-purple transition-colors group-hover:text-white">
+                    <span className={`${landingProseLink} font-semibold`}>
                       {tool.label} →
                     </span>
                     <span className="text-sm text-text-muted">{tool.description}</span>

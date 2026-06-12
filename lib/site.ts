@@ -51,30 +51,30 @@ export const STUDIO_MARQUEE_ITEMS = [
 export const SITE_META = {
   title: "KromaStudio — Free Code Screenshot Generator, Mockups & Social Post Cards",
   description:
-    "Turn plain code into viral-ready visuals. Syntax themes, gradient backgrounds, browser frames, social post cards (Tweet, LinkedIn, Metrics & more), HD PNG & animated .webm export. Free, instant, 100% client-side — no sign-up.",
-  ogTitle: "Turn Plain Code & Ideas Into Scroll-Stopping Visuals | KromaStudio",
+    "Turn plain code into viral-ready visuals. Convert code to image with syntax themes, gradient backgrounds, browser frames, and social post cards. Export beautiful code snippets as HD PNG or animated .webm videos. Free, instant, 100% client-side — no sign-up.",
+  ogTitle: "Turn Plain Code Into Beautiful Screenshots & Visuals | KromaStudio",
   ogDescription:
-    "Paste code or drop a screenshot — get a polished, share-ready visual in seconds. Dracula, One Dark Pro, browser mockups, social post cards, HD export. Free & client-side.",
-  twitterTitle: "KromaStudio — Code Screenshots, Mockups & Social Cards",
+    "Convert code to image or paste a screenshot — get a polished, share-ready visual in seconds. Create beautiful code snippets, browser mockups, and animated code exports. Free & 100% client-side.",
+  twitterTitle: "KromaStudio — Code to Image, Mockups & Social Cards",
   twitterDescription:
-    "Free online studio for aesthetic code screenshots, browser mockups, and social post cards. Themes, gradients, HD PNG & .webm loops — no sign-up, runs in your browser.",
+    "Convert code to image and create beautiful code snippets. Free online studio for aesthetic code screenshots, browser mockups, and social post cards. Export HD PNG & .webm loops.",
 } as const;
 
 export const LANDING_PAGE_META = {
   codeScreenshot: {
-    title: "Free Code Screenshot Generator — Dracula, One Dark Pro & 15 Themes | KromaStudio",
+    title: "Convert Code to Image — Free Code Screenshot Generator | KromaStudio",
     description:
-      "Turn code into beautiful PNG screenshots or animated .webm — 15 themes including Dracula, One Dark Pro, Catppuccin. 25 languages, headline overlays, gradient backgrounds. 100% client-side, free, no sign-up.",
+      "Convert code to image and create beautiful code snippets in seconds. Export as PNG or animated .webm videos. 15 themes including Dracula, One Dark Pro. 100% client-side, free.",
   },
   browserMockup: {
-    title: "Free Browser Mockup Generator — Chrome, Safari & macOS Frames | KromaStudio",
+    title: "Free Browser Mockup Generator — Beautiful App Screenshots | KromaStudio",
     description:
-      "Wrap screenshots in Chrome, Safari, Firefox, Arc, macOS, or Windows browser frames. Gradient backgrounds, shadows, HD PNG export. Free, no sign-up — runs entirely in your browser.",
+      "Wrap your images and code in beautiful Chrome, Safari, Firefox, or macOS frames. Add gradient backgrounds, shadows, and export HD PNGs. Free, no sign-up.",
   },
   contentPost: {
-    title: "Free Social Post Generator — Tweet, LinkedIn, Metrics & 10 Templates | KromaStudio",
+    title: "Code Snippets for Social Media — Free Post Generator | KromaStudio",
     description:
-      "Create tweet cards, LinkedIn posts, announcement graphics, metrics snapshots, and more. Customize author, avatar, accent color, export HD PNG or animated .webm. Free, no sign-up, 100% client-side.",
+      "Create beautiful code blocks for social media. Export Tweet cards, LinkedIn posts, and metrics snapshots as HD PNG or animated .webm. Free, 100% client-side.",
   },
   howItWorks: {
     title: "How to Make Scroll-Stopping Code Screenshots | KromaStudio",
@@ -121,6 +121,15 @@ export const LANDING_PAGE_META = {
     description:
       "View the KromaStudio source on GitHub. MIT licensed — fork, self-host, or contribute. Code screenshots, browser mockups, and social templates.",
   },
+  guides: {
+    title: "Developer Guides & Tutorials | KromaStudio",
+    description: "Learn how to create beautiful code snippets, browser mockups, and social media content for your developer brand.",
+  },
+  home: {
+    title: "KromaStudio — Free Code Screenshot Generator, Mockups & Social Post Cards",
+    description:
+      "Built for developers who ship scroll-stopping code visuals. Code screenshots, browser mockups, social post cards, and animated .webm export — free, client-side, no sign-up.",
+  },
 } as const;
 
 export const OG_IMAGE = "/og-image.png";
@@ -132,6 +141,7 @@ export const ROUTE_ANALYTICS: Record<
   { id: string; type: RouteAnalyticsType }
 > = {
   "/": { id: "studio", type: "studio" },
+  "/home": { id: "home_landing", type: "landing" },
   "/code-screenshot-generator": {
     id: "code_screenshot_landing",
     type: "landing",
@@ -151,6 +161,7 @@ export const ROUTE_ANALYTICS: Record<
   "/secure-code-screenshot-generator": { id: "secure_code_screenshot_landing", type: "landing" },
   "/animated-code-screenshot": { id: "animated_code_screenshot_landing", type: "landing" },
   "/github-kroma-studio": { id: "github_kroma_studio", type: "landing" },
+  "/guides": { id: "guides_index", type: "landing" },
   "/privacy": { id: "privacy", type: "legal" },
   "/terms": { id: "terms", type: "legal" },
 };
@@ -168,6 +179,12 @@ export function getDestinationRouteId(href: string) {
 
 export const PUBLIC_ROUTES = [
   { path: "", changeFrequency: "weekly" as const, priority: 1.0, pageFile: "app/page.tsx" },
+  {
+    path: "/home",
+    changeFrequency: "weekly" as const,
+    priority: 0.95,
+    pageFile: "app/home/page.tsx",
+  },
   {
     path: "/code-screenshot-generator",
     changeFrequency: "monthly" as const,
@@ -227,6 +244,12 @@ export const PUBLIC_ROUTES = [
     changeFrequency: "monthly" as const,
     priority: 0.5,
     pageFile: "app/github-kroma-studio/page.tsx",
+  },
+  {
+    path: "/guides",
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+    pageFile: "app/guides/page.tsx",
   },
   { path: "/privacy", changeFrequency: "yearly" as const, priority: 0.3, pageFile: "app/privacy/page.tsx" },
   { path: "/terms", changeFrequency: "yearly" as const, priority: 0.3, pageFile: "app/terms/page.tsx" },

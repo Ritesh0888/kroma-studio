@@ -64,9 +64,9 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
   {
     feature: "Code Screenshots",
     carbon: "Excellent — 150+ themes, mature defaults, broad language support",
-    kromaStudio: "Excellent — Shiki highlighting, 15 themes, headline overlays",
+    kromaStudio: "Excellent — Convert code to image with Shiki highlighting, 15 themes, headline overlays",
     summary:
-      "Both make good-looking code images. Carbon has been the go-to for years — huge theme library, polished defaults. KromaStudio holds up on quality and adds things Carbon doesn't touch: headline overlays, gradients, mockups, and social templates.",
+      "Both make beautiful code snippets. Carbon has been the go-to for years — huge theme library, polished defaults. KromaStudio holds up on quality and adds things Carbon doesn't touch: headline overlays, gradients, mockups, and social templates.",
   },
   {
     feature: "VS Code Extension",
@@ -262,7 +262,7 @@ export const FAQS: FaqItem[] = [
   },
   {
     q: "Is Carbon better than KromaStudio for code screenshots?",
-    a: "For raw code cards, Carbon has the edge: 150+ themes, SVG, embed links, and carbon-now-cli. KromaStudio makes more sense when you also need mockups, social layouts, headlines, or a .webm clip — and you'd rather not juggle three apps.",
+    a: "For raw code cards and to convert code to image, Carbon has the edge: 150+ themes, SVG, embed links, and carbon-now-cli. KromaStudio makes more sense when you want to create beautiful code snippets and also need mockups, social layouts, headlines, or a .webm clip — and you'd rather not juggle three apps.",
   },
   {
     q: "Can I create browser mockups?",

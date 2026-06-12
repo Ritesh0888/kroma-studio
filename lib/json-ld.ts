@@ -8,12 +8,14 @@ import { FAQS as SECURE_FAQS } from "@/lib/landing/secure-code-screenshot";
 import { FAQS as ANIMATED_FAQS, HOW_TO_STEPS as ANIMATED_HOW_TO_STEPS } from "@/lib/landing/animated-code-screenshot";
 import { FAQS as CONTENT_POST_FAQS, HOW_TO_STEPS as CONTENT_HOW_TO_STEPS } from "@/lib/landing/content-post-generator";
 import {
+  LANDING_PAGE_META,
   OG_IMAGE,
   SITE_ALTERNATE_NAMES,
   SITE_META,
   SITE_NAME,
   SITE_URL,
 } from "@/lib/site";
+import type { GuideMetadata } from "@/lib/guides";
 
 const FEATURE_LIST = [
   "Browser frame mockups — Chrome, Safari, Firefox, Arc, macOS Dark, macOS Light, Windows, Minimal styles",
@@ -88,6 +90,25 @@ export function getHomepageJsonLd() {
     url: `${SITE_URL}/`,
     inLanguage: "en-US",
     publisher: { "@id": `${SITE_URL}/#organization` },
+  };
+}
+
+/** Marketing landing page at /home */
+export function getHomeLandingJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/home#webpage`,
+        url: `${SITE_URL}/home`,
+        name: LANDING_PAGE_META.home.title,
+        description: LANDING_PAGE_META.home.description,
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        about: { "@id": `${SITE_URL}/#app` },
+        inLanguage: "en-US",
+      },
+    ],
   };
 }
 
@@ -470,5 +491,39 @@ export function getAnimatedCodeScreenshotJsonLd() {
         })),
       },
     ],
+  };
+}
+
+export function getArticleJsonLd(guide: import("@/lib/guides").GuideMetadata) {
+  const url = `${SITE_URL}/guides/${guide.slug}`;
+  const imageUrl = guide.ogImage ? `${SITE_URL}${guide.ogImage}` : `${SITE_URL}${OG_IMAGE}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: guide.title,
+    description: guide.description,
+    image: [imageUrl],
+    datePublished: guide.date,
+    dateModified: guide.date,
+    author: [
+      {
+        "@type": "Person",
+        name: guide.author || SITE_NAME,
+        url: SITE_URL,
+      },
+    ],
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
   };
 }

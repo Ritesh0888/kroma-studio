@@ -1,0 +1,97 @@
+---
+title: "How to Share Code on Twitter/X"
+description: "Turn syntax-highlighted snippets into scroll-stopping images for X — with the right dimensions, themes, and posting strategy for 2026."
+date: "2026-06-12"
+author: "Ritesh Kumar"
+---
+
+Raw code blocks on X look messy. GitHub Gist links get ignored. A polished code screenshot — dark theme, clean padding, readable font — gets saves, reposts, and replies that plain text rarely earns.
+
+This guide covers how to create code images that perform on X in 2026, including what changed with link visibility and how to size your exports correctly.
+
+## Why Post Code as an Image?
+
+X compresses and crops media aggressively. Text-only code loses indentation, wraps awkwardly, and disappears in the feed. A code-to-image export solves three problems at once:
+
+1. **Readability** — Syntax highlighting survives every platform resize.
+2. **Feed presence** — Images take more vertical space on mobile than monospace text.
+3. **Algorithm fit** — Native visual posts tend to outperform posts that lead with external links.
+
+> **2026 tip:** Free X accounts often see reduced reach when the main post contains an external URL. Post your code image as the primary tweet and put the repo link in the first reply.
+
+## Recommended Image Specs for X
+
+| Format | Size | Aspect ratio | Best for |
+| --- | --- | --- | --- |
+| In-stream image | 1200×675 px | 16:9 | Code screenshots, landscape snippets |
+| Square image | 1200×1200 px | 1:1 | Short functions, carousel posts |
+| Card preview | 1200×628 px | ~1.91:1 | Link cards (use sparingly on free accounts) |
+
+Landscape (16:9) is the safest default for code. Portrait images get cropped in the timeline before users tap to expand.
+
+### Snippet length
+
+Keep it **8–15 lines**. One well-named function beats a 40-line file. Readers decide in under two seconds whether to tap — your thumbnail has to communicate the idea instantly.
+
+### Font and theme
+
+- **Font size:** 16–18 px at export; export at **2×** so text stays sharp after X compression.
+- **Theme:** High-contrast dark themes (Dracula, Tokyo Night, One Dark) pop against X's light feed. Test in dark mode too — many developers browse with it on.
+- **Padding:** At least 32 px on all sides so the snippet does not feel cramped.
+
+## Step-by-Step with KromaStudio
+
+### 1. Paste and highlight
+
+Open the [code screenshot generator](/code-screenshot-generator) and paste your snippet. Language detection applies syntax highlighting automatically.
+
+```typescript
+// Example: a hook worth sharing
+export function useDebounce<T>(value: T, delay = 300) {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const id = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(id);
+  }, [value, delay]);
+  return debounced;
+}
+```
+
+### 2. Pick a feed-friendly theme
+
+Choose a vivid dark theme. Add a gradient background if you want a recognizable visual identity across your posts — consistency builds a personal brand on dev Twitter.
+
+### 3. Add a headline overlay
+
+Use the headline feature to state the takeaway on the image itself: *"Debounce any value in 6 lines"*. This helps when the timeline crops your post.
+
+### 4. Export at 2× and post
+
+Export a **2× PNG** (roughly 16:9 for wider snippets). Upload directly to the compose box — do not attach a link in the same tweet if you care about reach.
+
+**Alt text:** Describe what the code does, e.g. *"React useDebounce hook that delays state updates by 300ms."* Screen readers and search both benefit.
+
+### 5. Put the link in a reply
+
+Reply to your own tweet with the GitHub repo or blog post. Your image post keeps normal distribution; readers who want the full source still get it one tap away.
+
+## Content Post Cards for Threads
+
+For launch announcements or tip threads, the [content post generator](/content-post-generator) includes X/Twitter-sized templates — tweet cards with your handle, metrics snapshots, and announcement layouts sized for the platform.
+
+## Quick Checklist
+
+- [ ] Snippet under 15 lines
+- [ ] 16:9 or square layout, exported at 2×
+- [ ] High-contrast theme tested at thumbnail size
+- [ ] Descriptive alt text added
+- [ ] Repo link in reply, not the main tweet
+- [ ] Headline on image states the one takeaway
+
+## Related guides
+
+- [How to Share Code on LinkedIn](/guides/how-to-share-code-on-linkedin)
+- [Social Media Image Sizes for Developers (2026)](/guides/social-media-image-sizes-for-developers-2026)
+- [Code Screenshot Best Practices](/guides/code-screenshot-best-practices)
+
+Ready to ship your first dev tweet visual? [Open the studio](/) and export in under a minute.

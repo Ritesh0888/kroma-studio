@@ -1,69 +1,112 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+const GRID_CELL = 48;
+const SPOTLIGHT_RADIUS = 220;
+
+function buildSpotlightMask(x: number, y: number) {
+  return `radial-gradient(circle ${SPOTLIGHT_RADIUS}px at ${x}px ${y}px, black 0%, transparent 100%), radial-gradient(ellipse 90% 80% at 50% 30%, black 15%, transparent 100%)`;
+}
+
+const baseGridStyle = {
+  backgroundImage:
+    "linear-gradient(rgba(60,64,67,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(60,64,67,0.06) 1px, transparent 1px)",
+  backgroundSize: `${GRID_CELL}px ${GRID_CELL}px`,
+  maskImage: "radial-gradient(ellipse 90% 80% at 50% 30%, black 15%, transparent 100%)",
+  WebkitMaskImage:
+    "radial-gradient(ellipse 90% 80% at 50% 30%, black 15%, transparent 100%)",
+} as const;
+
 export function LandingBackground() {
+  const mouseRef = useRef({ x: -9999, y: -9999 });
+  const rafRef = useRef<number | undefined>(undefined);
+  const [spotlight, setSpotlight] = useState<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const scheduleUpdate = () => {
+      if (rafRef.current !== undefined) {
+        return;
+      }
+
+      rafRef.current = window.requestAnimationFrame(() => {
+        rafRef.current = undefined;
+        setSpotlight({ x: mouseRef.current.x, y: mouseRef.current.y });
+      });
+    };
+
+    const onMouseMove = (event: MouseEvent) => {
+      mouseRef.current = { x: event.clientX, y: event.clientY };
+      scheduleUpdate();
+    };
+
+    const onMouseLeave = () => {
+      mouseRef.current = { x: -9999, y: -9999 };
+      scheduleUpdate();
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.documentElement.addEventListener("mouseleave", onMouseLeave);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      document.documentElement.removeEventListener("mouseleave", onMouseLeave);
+      if (rafRef.current !== undefined) {
+        window.cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden bg-[#030008]">
-      {/* Rich base mesh */}
+    <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden bg-[#f8f9fb]">
+      {/* Soft ambient mesh — Antigravity-style light atmosphere */}
       <div
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(ellipse 90% 55% at 50% -15%, rgba(168, 85, 247, 0.22), transparent 55%),
-            radial-gradient(ellipse 70% 45% at 95% 35%, rgba(236, 72, 153, 0.14), transparent 50%),
-            radial-gradient(ellipse 55% 50% at 5% 85%, rgba(124, 58, 237, 0.18), transparent 55%),
-            radial-gradient(ellipse 40% 35% at 55% 55%, rgba(190, 24, 93, 0.06), transparent 60%),
-            linear-gradient(165deg, #05020f 0%, #0c0620 28%, #06040c 52%, #100818 78%, #030008 100%)
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(66, 133, 244, 0.14), transparent 60%),
+            radial-gradient(ellipse 60% 40% at 100% 20%, rgba(155, 114, 203, 0.1), transparent 55%),
+            radial-gradient(ellipse 50% 45% at 0% 80%, rgba(52, 168, 83, 0.08), transparent 55%),
+            radial-gradient(ellipse 45% 35% at 70% 60%, rgba(251, 188, 5, 0.06), transparent 50%),
+            linear-gradient(180deg, #f8f9fb 0%, #f1f3f8 45%, #eef1f6 100%)
           `,
         }}
       />
 
-      {/* Slow-drifting glow orbs */}
-      <div className="landing-orb landing-orb--a absolute left-[-12%] top-[-18%] h-[min(70vw,520px)] w-[min(70vw,520px)] rounded-full bg-[radial-gradient(circle,rgba(168,85,247,0.45)_0%,rgba(124,58,237,0.15)_45%,transparent_70%)] blur-[80px]" />
-      <div className="landing-orb landing-orb--b absolute right-[-8%] top-[22%] h-[min(55vw,420px)] w-[min(55vw,420px)] rounded-full bg-[radial-gradient(circle,rgba(236,72,153,0.35)_0%,rgba(190,24,93,0.12)_50%,transparent_72%)] blur-[70px]" />
-      <div className="landing-orb landing-orb--c absolute bottom-[-15%] left-[18%] h-[min(60vw,460px)] w-[min(60vw,460px)] rounded-full bg-[radial-gradient(circle,rgba(139,92,246,0.28)_0%,rgba(88,28,135,0.1)_48%,transparent_70%)] blur-[90px]" />
+      {/* Gentle floating shapes */}
+      <div className="landing-orb landing-orb--a absolute -left-[10%] -top-[15%] h-[min(65vw,480px)] w-[min(65vw,480px)] rounded-full bg-[radial-gradient(circle,rgba(66,133,244,0.18)_0%,transparent_70%)] blur-[90px]" />
+      <div className="landing-orb landing-orb--b absolute -right-[5%] top-[15%] h-[min(50vw,380px)] w-[min(50vw,380px)] rounded-full bg-[radial-gradient(circle,rgba(155,114,203,0.14)_0%,transparent_72%)] blur-[80px]" />
+      <div className="landing-orb landing-orb--c absolute bottom-[-10%] left-[20%] h-[min(55vw,420px)] w-[min(55vw,420px)] rounded-full bg-[radial-gradient(circle,rgba(52,168,83,0.1)_0%,transparent_70%)] blur-[85px]" />
 
-      {/* Diagonal aurora streak */}
+      {/* Subtle grid */}
+      <div className="absolute inset-0 opacity-[0.35]" style={baseGridStyle} />
+
+      {/* Bold grid spotlight — follows cursor */}
+      {spotlight ? (
+        <div
+          className="landing-grid-spotlight absolute inset-0 opacity-90"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(60,64,67,0.22) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(60,64,67,0.22) 1.5px, transparent 1.5px)",
+            backgroundSize: `${GRID_CELL}px ${GRID_CELL}px`,
+            maskImage: buildSpotlightMask(spotlight.x, spotlight.y),
+            WebkitMaskImage: buildSpotlightMask(spotlight.x, spotlight.y),
+          }}
+        />
+      ) : null}
+
+      {/* Top glow */}
       <div
-        className="landing-aurora absolute left-[-20%] top-[18%] h-[140%] w-[55%] opacity-50 mix-blend-screen"
+        className="absolute left-1/2 top-0 h-[50vh] w-[min(100%,900px)] -translate-x-1/2"
         style={{
           background:
-            "linear-gradient(115deg, transparent 0%, rgba(168, 85, 247, 0.08) 35%, rgba(236, 72, 153, 0.12) 50%, rgba(168, 85, 247, 0.06) 65%, transparent 100%)",
-          transform: "rotate(-12deg)",
+            "radial-gradient(ellipse at center top, rgba(255,255,255,0.9) 0%, transparent 70%)",
         }}
       />
-
-      {/* Center spotlight — draws eye to content */}
-      <div
-        className="absolute left-1/2 top-[12%] h-[70vh] w-[min(100%,720px)] -translate-x-1/2 opacity-60"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(168, 85, 247, 0.07) 0%, transparent 68%)",
-        }}
-      />
-
-      {/* Subtle dot grid, fades at edges */}
-      <div
-        className="absolute inset-0 opacity-[0.22]"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(168, 85, 247, 0.35) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-          maskImage:
-            "radial-gradient(ellipse 85% 75% at 50% 40%, black 20%, transparent 100%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 85% 75% at 50% 40%, black 20%, transparent 100%)",
-        }}
-      />
-
-      {/* Film grain */}
-      <div
-        className="absolute inset-0 opacity-[0.04] mix-blend-overlay"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          backgroundSize: "128px 128px",
-        }}
-      />
-
-      {/* Edge vignette for readability */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_80%_at_50%_45%,transparent_30%,rgba(0,0,0,0.55)_100%)]" />
-      <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/70" />
     </div>
   );
 }

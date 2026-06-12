@@ -1,4 +1,5 @@
 import { LandingShell } from "@/components/layout/LandingShell";
+import { landingBadge, landingCard, landingCardLg, landingCtaPrimary, landingCtaSecondary, landingEyebrow, landingH1, landingH2, landingH3, landingProseLink } from "@/lib/landing-ui";
 import { StudioCTAButton } from "@/components/ui/StudioCTAButton";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { getBrowserMockupJsonLd } from "@/lib/json-ld";
@@ -22,12 +23,6 @@ export const metadata = createLandingMetadata({
 
 const jsonLd = getBrowserMockupJsonLd();
 
-const ctaPrimaryClassName =
-  "inline-flex items-center justify-center rounded-xl bg-linear-to-r from-neon-purple to-neon-pink px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90";
-
-const ctaSecondaryClassName =
-  "inline-flex items-center justify-center rounded-xl border border-border px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-neon-purple";
-
 export default function BrowserMockupGeneratorPage() {
   return (
     <>
@@ -35,15 +30,15 @@ export default function BrowserMockupGeneratorPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <LandingShell>
+      <LandingShell width="wide">
         <article className="flex flex-col gap-10">
 
           {/* Hero */}
           <div className="flex flex-col gap-5">
-            <p className="text-xs font-medium uppercase tracking-widest text-neon-purple">
+            <p className={landingEyebrow}>
               {HERO_TRUST_BADGES.join(" · ")}
             </p>
-            <h1 className="text-3xl font-bold tracking-tight">
+            <h1 className={landingH1}>
               Free Browser Mockup Generator
             </h1>
             <p className="text-base leading-relaxed text-text-muted">
@@ -59,7 +54,7 @@ export default function BrowserMockupGeneratorPage() {
                 mode="mockup"
                 label="Open Browser Mockup Generator"
                 location="mockup_landing_primary"
-                className={ctaPrimaryClassName}
+                className={landingCtaPrimary}
               >
                 Open Browser Mockup Generator
               </StudioCTAButton>
@@ -67,7 +62,7 @@ export default function BrowserMockupGeneratorPage() {
                 href="/code-screenshot-generator"
                 label="Code Screenshots"
                 location="mockup_landing_secondary"
-                className={ctaSecondaryClassName}
+                className={landingCtaSecondary}
               >
                 Code Screenshots
               </TrackedLink>
@@ -76,7 +71,7 @@ export default function BrowserMockupGeneratorPage() {
 
           {/* Browser frame styles */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Available browser frame styles</h2>
+            <h2 className={landingH2}>Available browser frame styles</h2>
             <p className="text-sm leading-relaxed text-text-muted">
               Choose the frame that matches your product and audience. Each style renders at 2× resolution for crisp exports.
             </p>
@@ -84,9 +79,9 @@ export default function BrowserMockupGeneratorPage() {
               {BROWSER_FRAMES.map((frame) => (
                 <li
                   key={frame.name}
-                  className="flex flex-col gap-1 rounded-xl border border-border p-4"
+                  className={landingCard}
                 >
-                  <span className="text-sm font-semibold text-white">{frame.name}</span>
+                  <span className={`${landingH3} text-sm`}>{frame.name}</span>
                   <span className="text-sm leading-relaxed text-text-muted">
                     {frame.description}
                   </span>
@@ -97,11 +92,11 @@ export default function BrowserMockupGeneratorPage() {
 
           {/* How it works */}
           <section className="flex flex-col gap-5">
-            <h2 className="text-lg font-semibold">How to create a browser mockup</h2>
+            <h2 className={landingH2}>How to create a browser mockup</h2>
             <ol className="flex flex-col gap-6">
               {HOW_TO_STEPS.map((step, index) => (
                 <li key={step.title} className="flex flex-col gap-2">
-                  <h3 className="text-sm font-semibold text-white">
+                  <h3 className={`${landingH3} text-sm`}>
                     Step {index + 1}: {step.title}
                   </h3>
                   <p className="text-sm leading-relaxed text-text-muted">{step.body}</p>
@@ -112,14 +107,14 @@ export default function BrowserMockupGeneratorPage() {
 
           {/* Why use browser frames */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Why add a browser frame?</h2>
+            <h2 className={landingH2}>Why add a browser frame?</h2>
             <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {WHY_USE_FRAMES.map((item) => (
                 <li
                   key={item.title}
-                  className="flex flex-col gap-1 rounded-xl border border-border p-4"
+                  className={landingCard}
                 >
-                  <span className="text-sm font-semibold text-white">{item.title}</span>
+                  <span className={`${landingH3} text-sm`}>{item.title}</span>
                   <span className="text-sm leading-relaxed text-text-muted">{item.body}</span>
                 </li>
               ))}
@@ -128,7 +123,7 @@ export default function BrowserMockupGeneratorPage() {
 
           {/* Frame choice guide */}
           <section className="flex flex-col gap-5">
-            <h2 className="text-lg font-semibold">
+            <h2 className={landingH2}>
               Chrome vs Safari vs macOS — which frame to pick
             </h2>
             <p className="text-sm leading-relaxed text-text-muted">
@@ -137,7 +132,7 @@ export default function BrowserMockupGeneratorPage() {
             <div className="flex flex-col gap-5">
               {FRAME_CHOICE_GUIDE.sections.map((s) => (
                 <div key={s.heading} className="flex flex-col gap-2">
-                  <h3 className="text-sm font-semibold text-white">{s.heading}</h3>
+                  <h3 className={`${landingH3} text-sm`}>{s.heading}</h3>
                   <p className="text-sm leading-relaxed text-text-muted">{s.body}</p>
                 </div>
               ))}
@@ -146,7 +141,7 @@ export default function BrowserMockupGeneratorPage() {
 
           {/* Device frames */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Device frames — iPhone, iPad & MacBook</h2>
+            <h2 className={landingH2}>Device frames — iPhone, iPad & MacBook</h2>
             <p className="text-sm leading-relaxed text-text-muted">
               Beyond browser frames, KromaStudio includes realistic device bezels for iPhone,
               iPad, and MacBook. Switch between browser and device mode in the sidebar —
@@ -158,8 +153,8 @@ export default function BrowserMockupGeneratorPage() {
                 { name: "iPad", body: "Ideal for tablet UI showcases, productivity app demos, and portfolio case studies." },
                 { name: "MacBook", body: "Great for desktop web apps, developer tool screenshots, and landing page heroes." },
               ].map((d) => (
-                <li key={d.name} className="flex flex-col gap-1 rounded-xl border border-border p-4">
-                  <span className="text-sm font-semibold text-white">{d.name}</span>
+                <li key={d.name} className={landingCard}>
+                  <span className={`${landingH3} text-sm`}>{d.name}</span>
                   <span className="text-sm leading-relaxed text-text-muted">{d.body}</span>
                 </li>
               ))}
@@ -168,7 +163,7 @@ export default function BrowserMockupGeneratorPage() {
 
           {/* Export features */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Export options — transparent PNG, 4× resolution, animated .webm</h2>
+            <h2 className={landingH2}>Export options — transparent PNG, 4× resolution, animated .webm</h2>
             <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {[
                 {
@@ -188,8 +183,8 @@ export default function BrowserMockupGeneratorPage() {
                   body: "Drop any image as the canvas background — your own photo, a gradient texture, or a brand asset. Combine with noise overlay for depth.",
                 },
               ].map((item) => (
-                <li key={item.name} className="flex flex-col gap-1 rounded-xl border border-border p-4">
-                  <span className="text-sm font-semibold text-white">{item.name}</span>
+                <li key={item.name} className={landingCard}>
+                  <span className={`${landingH3} text-sm`}>{item.name}</span>
                   <span className="text-sm leading-relaxed text-text-muted">{item.body}</span>
                 </li>
               ))}
@@ -198,11 +193,11 @@ export default function BrowserMockupGeneratorPage() {
 
           {/* Use cases */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Who uses KromaStudio browser mockups</h2>
+            <h2 className={landingH2}>Who uses KromaStudio browser mockups</h2>
             <ul className="flex flex-col gap-5">
               {USE_CASES.map((uc) => (
                 <li key={uc.title} className="flex flex-col gap-1">
-                  <h3 className="text-sm font-semibold text-white">{uc.title}</h3>
+                  <h3 className={`${landingH3} text-sm`}>{uc.title}</h3>
                   <p className="text-sm leading-relaxed text-text-muted">{uc.body}</p>
                 </li>
               ))}
@@ -211,11 +206,11 @@ export default function BrowserMockupGeneratorPage() {
 
           {/* FAQ */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Frequently asked questions</h2>
+            <h2 className={landingH2}>Frequently asked questions</h2>
             <dl className="flex flex-col gap-4">
               {FAQS.map((item) => (
                 <div key={item.q}>
-                  <dt className="text-sm font-semibold text-white">{item.q}</dt>
+                  <dt className={`${landingH3} text-sm`}>{item.q}</dt>
                   <dd className="mt-1 text-sm leading-relaxed text-text-muted">
                     {item.a}
                     {item.href && item.linkLabel && (
@@ -225,7 +220,7 @@ export default function BrowserMockupGeneratorPage() {
                           href={item.href}
                           label={item.linkLabel}
                           location="mockup_landing_faq_link"
-                          className="text-neon-purple transition-colors hover:text-white"
+                          className={landingProseLink}
                         >
                           {item.linkLabel} →
                         </TrackedLink>
@@ -239,7 +234,7 @@ export default function BrowserMockupGeneratorPage() {
 
           {/* Related tools */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Explore KromaStudio tools</h2>
+            <h2 className={landingH2}>Explore KromaStudio tools</h2>
             <ul className="flex flex-col gap-3">
               {RELATED_TOOLS.map((tool) => (
                 <li key={tool.href}>
@@ -249,7 +244,7 @@ export default function BrowserMockupGeneratorPage() {
                     location="mockup_landing_related"
                     className="group flex flex-col gap-0.5"
                   >
-                    <span className="text-sm font-semibold text-neon-purple transition-colors group-hover:text-white">
+                    <span className={`${landingProseLink} font-semibold`}>
                       {tool.label} →
                     </span>
                     <span className="text-sm text-text-muted">{tool.description}</span>

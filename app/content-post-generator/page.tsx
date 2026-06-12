@@ -1,4 +1,5 @@
 import { LandingShell } from "@/components/layout/LandingShell";
+import { landingBadge, landingCard, landingCardLg, landingCtaPrimary, landingCtaSecondary, landingEyebrow, landingH1, landingH2, landingH3, landingProseLink } from "@/lib/landing-ui";
 import { StudioCTAButton } from "@/components/ui/StudioCTAButton";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { getContentPostJsonLd } from "@/lib/json-ld";
@@ -20,12 +21,6 @@ export const metadata = createLandingMetadata({
   ...LANDING_PAGE_META.contentPost,
 });
 
-const ctaPrimaryClassName =
-  "inline-flex items-center justify-center rounded-xl bg-linear-to-r from-neon-purple to-neon-pink px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90";
-
-const ctaSecondaryClassName =
-  "inline-flex items-center justify-center rounded-xl border border-border px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-neon-purple";
-
 export default function ContentPostGeneratorPage() {
   return (
     <>
@@ -33,15 +28,15 @@ export default function ContentPostGeneratorPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <LandingShell>
+      <LandingShell width="wide">
         <article className="flex flex-col gap-10">
 
           {/* Hero */}
           <div className="flex flex-col gap-5">
-            <p className="text-xs font-medium uppercase tracking-widest text-neon-purple">
+            <p className={landingEyebrow}>
               {HERO_TRUST_BADGES.join(" · ")}
             </p>
-            <h1 className="text-3xl font-bold tracking-tight">
+            <h1 className={landingH1}>
               Free Social Post Card Maker for Developers and Founders
             </h1>
             <p className="text-base leading-relaxed text-text-muted">
@@ -57,7 +52,7 @@ export default function ContentPostGeneratorPage() {
                 mode="content"
                 label="Open Content Post Generator"
                 location="content_landing_primary"
-                className={ctaPrimaryClassName}
+                className={landingCtaPrimary}
               >
                 Open Content Post Generator
               </StudioCTAButton>
@@ -65,7 +60,7 @@ export default function ContentPostGeneratorPage() {
                 href="/code-screenshot-generator"
                 label="Code Screenshots"
                 location="content_landing_secondary_code"
-                className={ctaSecondaryClassName}
+                className={landingCtaSecondary}
               >
                 Code Screenshots
               </TrackedLink>
@@ -73,7 +68,7 @@ export default function ContentPostGeneratorPage() {
                 href="/browser-mockup-generator"
                 label="Browser Mockups"
                 location="content_landing_secondary_mockup"
-                className={ctaSecondaryClassName}
+                className={landingCtaSecondary}
               >
                 Browser Mockups
               </TrackedLink>
@@ -82,7 +77,7 @@ export default function ContentPostGeneratorPage() {
 
           {/* Differentiation from AI text generators */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Visual card maker — not an AI text generator</h2>
+            <h2 className={landingH2}>Visual card maker — not an AI text generator</h2>
             <p className="text-sm leading-relaxed text-text-muted">
               Most tools called &ldquo;social post generator&rdquo; use AI to write text captions.
               KromaStudio is different — it&apos;s a visual card designer that turns your
@@ -108,8 +103,8 @@ export default function ContentPostGeneratorPage() {
                   body: "Set your avatar, handle, accent color once and every card exports in the same style — builds recognizable brand presence over time.",
                 },
               ].map((item) => (
-                <li key={item.name} className="flex flex-col gap-1 rounded-xl border border-border p-4">
-                  <span className="text-sm font-semibold text-white">{item.name}</span>
+                <li key={item.name} className={landingCard}>
+                  <span className={`${landingH3} text-sm`}>{item.name}</span>
                   <span className="text-sm leading-relaxed text-text-muted">{item.body}</span>
                 </li>
               ))}
@@ -118,7 +113,7 @@ export default function ContentPostGeneratorPage() {
 
           {/* Templates grid */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">10 social post card templates</h2>
+            <h2 className={landingH2}>10 social post card templates</h2>
             <p className="text-sm leading-relaxed text-text-muted">
               Each template is pre-sized and styled for social feeds. Pick the one that fits
               your content, customize text and author, and export.
@@ -127,9 +122,9 @@ export default function ContentPostGeneratorPage() {
               {TEMPLATES.map((template) => (
                 <li
                   key={template.name}
-                  className="flex flex-col gap-1 rounded-xl border border-border p-4"
+                  className={landingCard}
                 >
-                  <span className="text-sm font-semibold text-white">{template.name}</span>
+                  <span className={`${landingH3} text-sm`}>{template.name}</span>
                   <span className="text-sm leading-relaxed text-text-muted">
                     {template.description}
                   </span>
@@ -143,11 +138,11 @@ export default function ContentPostGeneratorPage() {
 
           {/* How it works */}
           <section className="flex flex-col gap-5">
-            <h2 className="text-lg font-semibold">How to create a social post card</h2>
+            <h2 className={landingH2}>How to create a social post card</h2>
             <ol className="flex flex-col gap-6">
               {HOW_TO_STEPS.map((step, index) => (
                 <li key={step.title} className="flex flex-col gap-2">
-                  <h3 className="text-sm font-semibold text-white">
+                  <h3 className={`${landingH3} text-sm`}>
                     Step {index + 1}: {step.title}
                   </h3>
                   <p className="text-sm leading-relaxed text-text-muted">{step.body}</p>
@@ -158,11 +153,11 @@ export default function ContentPostGeneratorPage() {
 
           {/* Use cases */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Built for developer and founder content</h2>
+            <h2 className={landingH2}>Built for developer and founder content</h2>
             <ul className="flex flex-col gap-5">
               {USE_CASES.map((uc) => (
                 <li key={uc.title} className="flex flex-col gap-1">
-                  <h3 className="text-sm font-semibold text-white">{uc.title}</h3>
+                  <h3 className={`${landingH3} text-sm`}>{uc.title}</h3>
                   <p className="text-sm leading-relaxed text-text-muted">{uc.body}</p>
                 </li>
               ))}
@@ -171,11 +166,11 @@ export default function ContentPostGeneratorPage() {
 
           {/* FAQ */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Frequently asked questions</h2>
+            <h2 className={landingH2}>Frequently asked questions</h2>
             <dl className="flex flex-col gap-4">
               {FAQS.map((item) => (
                 <div key={item.q}>
-                  <dt className="text-sm font-semibold text-white">{item.q}</dt>
+                  <dt className={`${landingH3} text-sm`}>{item.q}</dt>
                   <dd className="mt-1 text-sm leading-relaxed text-text-muted">
                     {item.a}
                     {item.href && item.linkLabel && (
@@ -185,7 +180,7 @@ export default function ContentPostGeneratorPage() {
                           href={item.href}
                           label={item.linkLabel}
                           location="content_landing_faq_link"
-                          className="text-neon-purple transition-colors hover:text-white"
+                          className={landingProseLink}
                         >
                           {item.linkLabel} →
                         </TrackedLink>
@@ -199,7 +194,7 @@ export default function ContentPostGeneratorPage() {
 
           {/* Related tools */}
           <section className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Explore KromaStudio tools</h2>
+            <h2 className={landingH2}>Explore KromaStudio tools</h2>
             <ul className="flex flex-col gap-3">
               {RELATED_TOOLS.map((tool) => (
                 <li key={tool.href}>
@@ -209,7 +204,7 @@ export default function ContentPostGeneratorPage() {
                     location="content_landing_related"
                     className="group flex flex-col gap-0.5"
                   >
-                    <span className="text-sm font-semibold text-neon-purple transition-colors group-hover:text-white">
+                    <span className={`${landingProseLink} font-semibold`}>
                       {tool.label} →
                     </span>
                     <span className="text-sm text-text-muted">{tool.description}</span>
