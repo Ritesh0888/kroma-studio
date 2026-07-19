@@ -13,7 +13,6 @@ type EventProperties = Record<string, string | number | boolean>;
  * Send a custom event to both GA4 and Vercel Analytics.
  */
 export function track(eventName: string, properties?: EventProperties) {
-  return
   // Vercel Analytics
   vercelTrack(eventName, properties);
 
