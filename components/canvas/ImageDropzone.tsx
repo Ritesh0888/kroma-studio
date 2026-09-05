@@ -3,7 +3,7 @@
 import { useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { useStudioStore } from "@/store/useStudioStore";
-import { track } from "@/lib/analytics";
+import { track, trackFirstEdit } from "@/lib/analytics";
 
 export function ImageDropzone() {
   const uploadedImage = useStudioStore((s) => s.uploadedImage);
@@ -18,6 +18,7 @@ export function ImageDropzone() {
     (file: File, method: "drop_or_click" | "paste") => {
       if (!file.type.startsWith("image/")) return;
       track("image_upload", { method, file_type: file.type });
+      trackFirstEdit("image_upload", { method, file_type: file.type });
       const reader = new FileReader();
       reader.onload = (e) => {
         if (e.target?.result) {

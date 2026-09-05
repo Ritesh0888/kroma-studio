@@ -9,6 +9,16 @@ declare global {
 
 type EventProperties = Record<string, string | number | boolean>;
 
+const EDITOR_OPEN_KEY = "ks_analytics_editor_open";
+const FIRST_EDIT_KEY = "ks_analytics_first_edit";
+
+export type FirstEditTrigger =
+  | "template_apply"
+  | "image_upload"
+  | "code_language_change"
+  | "content_text_edit"
+  | "background_change";
+
 /**
  * Send a custom event to both GA4 and Vercel Analytics.
  */
@@ -33,14 +43,40 @@ export function trackPageView(pathname: string) {
     route_type: route.type,
   };
 
-  track("page_view", properties);
+  track("page_view", {
+    ...properties,
+    page_title: typeof document !== "undefined" ? document.title : "",
+  });
+}
 
-  if (typeof window !== "undefined" && typeof window.gtag === "function") {
-    window.gtag("event", "page_view", {
-      page_path: pathname,
-      page_title: document.title,
-    });
+/**
+ * Fire once per browser session when the studio editor is opened.
+ */
+export function trackEditorOpen() {
+  if (typeof window === "undefined") return;
+  if (sessionStorage.getItem(EDITOR_OPEN_KEY)) return;
+  sessionStorage.setItem(EDITOR_OPEN_KEY, "1");
+  track("editor_open");
+}
+
+/**
+ * Fire once per browser session on the first meaningful product interaction.
+ */
+export function trackFirstEdit(trigger: FirstEditTrigger, properties?: EventProperties) {
+  if (typeof window === "undefined") return;
+  if (sessionStorage.getItem(FIRST_EDIT_KEY)) return;
+  sessionStorage.setItem(FIRST_EDIT_KEY, trigger);
+  track("first_edit", { trigger, ...properties });
+}
+
+/**
+ * Unique ID linking export_png_click → export_start → success/error.
+ */
+export function createExportAttemptId(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
   }
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 }
 
 /**

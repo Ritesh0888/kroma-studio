@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { toPng } from "html-to-image";
 import { useStudioStore } from "@/store/useStudioStore";
-import { track } from "@/lib/analytics";
+import { createExportAttemptId, track } from "@/lib/analytics";
 
 function isMobileDevice(): boolean {
   if (typeof navigator === "undefined") return false;
@@ -28,6 +28,17 @@ export function useExport() {
     const node = document.getElementById("studio-canvas");
     if (!node) return;
 
+    const exportAttemptId = createExportAttemptId();
+    const attemptProps = {
+      source,
+      mode,
+      export_attempt_id: exportAttemptId,
+      ...(mode === "content" ? { content_template: contentTemplate } : {}),
+    };
+
+    track("export_png_click", attemptProps);
+    track("export_start", attemptProps);
+
     setIsExporting(true);
     try {
       const mobile = isMobileDevice();
@@ -43,10 +54,8 @@ export function useExport() {
       if (ios) {
         setExportedImageUrl(dataUrl);
         track("export_png_success", {
-          source,
-          mode,
+          ...attemptProps,
           delivery: "ios_modal",
-          ...(mode === "content" ? { content_template: contentTemplate } : {}),
         });
         track("export_modal_open", { source: "ios" });
         return;
@@ -57,19 +66,15 @@ export function useExport() {
       link.href = dataUrl;
       link.click();
       track("export_png_success", {
-        source,
-        mode,
+        ...attemptProps,
         delivery: "download",
-        ...(mode === "content" ? { content_template: contentTemplate } : {}),
       });
     } catch (err) {
       const message = err instanceof Error ? err.message : "Unknown error";
       console.error("Export failed:", err);
       track("export_png_error", {
-        source,
-        mode,
+        ...attemptProps,
         error: message,
-        ...(mode === "content" ? { content_template: contentTemplate } : {}),
       });
     } finally {
       setIsExporting(false);

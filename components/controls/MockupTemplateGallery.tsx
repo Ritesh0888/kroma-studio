@@ -2,13 +2,14 @@
 
 import { useStudioStore } from "@/store/useStudioStore";
 import { MOCKUP_TEMPLATES } from "@/lib/mockup-templates";
-import { track } from "@/lib/analytics";
+import { track, trackFirstEdit } from "@/lib/analytics";
 
 export function MockupTemplateGallery() {
   const store = useStudioStore();
 
   function applyTemplate(tpl: (typeof MOCKUP_TEMPLATES)[0]) {
     track("template_apply", { template: tpl.id });
+    trackFirstEdit("template_apply", { template: tpl.id });
     store.setBackgroundId(tpl.backgroundId);
     store.setBackgroundImage(null);
     store.setChromeStyle(tpl.chromeStyle);

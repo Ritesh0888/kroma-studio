@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { CONTENT_TEMPLATES, useStudioStore } from "@/store/useStudioStore";
-import { track } from "@/lib/analytics";
+import { track, trackFirstEdit } from "@/lib/analytics";
 
 type ControlSource = "desktop" | "mobile";
 
@@ -46,12 +46,14 @@ export function ContentControls({ source = "desktop" }: { source?: ControlSource
     }
 
     debounceRef.current = setTimeout(() => {
-      track("content_text_edit", {
-        mode: "content",
+      const props = {
+        mode: "content" as const,
         template: contentTemplate,
         source,
         length: contentText.length,
-      });
+      };
+      track("content_text_edit", props);
+      trackFirstEdit("content_text_edit", props);
     }, 500);
 
     return () => {

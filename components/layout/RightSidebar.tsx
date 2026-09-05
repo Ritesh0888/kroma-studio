@@ -73,10 +73,7 @@ export function RightSidebar() {
 
         {/* Primary Export Button */}
         <button
-          onClick={() => {
-            track("export_png_click", { source: "desktop", mode });
-            exportPng("desktop");
-          }}
+          onClick={() => exportPng("desktop")}
           disabled={isExporting}
           className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all relative overflow-hidden group ${
             isExporting
