@@ -18,7 +18,7 @@ import { DeviceFrameControl } from "@/components/controls/DeviceFrameControl";
 import { MockupTemplateGallery } from "@/components/controls/MockupTemplateGallery";
 import { CustomColorPicker } from "@/components/ui/CustomColorPicker";
 import { useVideoRecorder } from "@/hooks/useVideoRecorder";
-import { track } from "@/lib/analytics";
+import { track, trackFirstEdit } from "@/lib/analytics";
 
 type Tab = "bg" | "templates" | "frame" | "size" | "mode" | "animate";
 
@@ -54,7 +54,9 @@ function BgTab() {
             <button
               key={preset.id}
               onClick={() => {
-                track("background_change", { preset: preset.id, label: preset.label, source: "mobile" });
+                const props = { preset: preset.id, label: preset.label, source: "mobile" };
+                track("background_change", props);
+                trackFirstEdit("background_change", props);
                 setBackgroundId(preset.id);
                 setShowPicker(false);
               }}

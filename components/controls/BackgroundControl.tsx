@@ -5,7 +5,7 @@ import { useStudioStore } from "@/store/useStudioStore";
 import { BACKGROUND_PRESETS } from "@/lib/backgrounds";
 import { CustomColorPicker } from "@/components/ui/CustomColorPicker";
 import { SliderControl } from "@/components/controls/SliderControl";
-import { track } from "@/lib/analytics";
+import { track, trackFirstEdit } from "@/lib/analytics";
 
 export function BackgroundControl() {
   const backgroundId = useStudioStore((s) => s.backgroundId);
@@ -48,7 +48,9 @@ export function BackgroundControl() {
             <button
               key={preset.id}
               onClick={() => {
-                track("background_change", { preset: preset.id, label: preset.label });
+                const props = { preset: preset.id, label: preset.label };
+                track("background_change", props);
+                trackFirstEdit("background_change", props);
                 setBackgroundId(preset.id);
                 setBackgroundImage(null);
                 setShowPicker(false);

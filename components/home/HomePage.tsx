@@ -10,10 +10,12 @@ import { SeoHero } from "@/components/layout/SeoHero";
 import { STUDIO_HERO_H1 } from "@/lib/site";
 import { WatermarkModal } from "@/components/modals/WatermarkModal";
 import { ExtensionHandoff } from "@/components/studio/ExtensionHandoff";
+import { StudioSessionAnalytics } from "@/components/analytics/StudioSessionAnalytics";
 
 export function HomePage() {
   return (
     <div className="fixed inset-0 flex flex-col overflow-hidden bg-black">
+      <StudioSessionAnalytics />
       <ExtensionHandoff />
       <SeoHero />
       <main className="flex min-h-0 flex-1 basis-0 overflow-hidden flex-col md:flex-row">

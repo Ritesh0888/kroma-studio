@@ -1,7 +1,7 @@
 "use client";
 
 import { useStudioStore, CODE_LANGUAGES, CODE_THEMES } from "@/store/useStudioStore";
-import { track } from "@/lib/analytics";
+import { track, trackFirstEdit } from "@/lib/analytics";
 
 const FONT_SIZES = [12, 14, 16] as const;
 
@@ -84,6 +84,7 @@ export function CodeControls() {
         value={codeLanguage}
         onChange={(v) => {
           track("code_language_change", { language: v });
+          trackFirstEdit("code_language_change", { language: v });
           setCodeLanguage(v);
         }}
         options={CODE_LANGUAGES}
