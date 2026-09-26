@@ -107,7 +107,7 @@ export const CONTENT_TEMPLATES = [
   { id: "metrics", label: "Metrics" },
 ] as const;
 
-const DEFAULT_CODE = `// Paste your code here
+export const DEFAULT_CODE = `// Paste your code here
 function greet(name: string) {
   return \`Hello, \${name}!\`;
 }
@@ -248,6 +248,11 @@ interface StudioState {
   setScrollSpeed: (s: ScrollSpeed) => void;
   setIsRecording: (v: boolean) => void;
   setRecordingProgress: (p: number) => void;
+
+  exportToast: string | null;
+  showExportHint: boolean;
+  setExportToast: (message: string | null) => void;
+  setShowExportHint: (show: boolean) => void;
 }
 
 export const useStudioStore = create<StudioState>((set) => ({
@@ -331,6 +336,11 @@ export const useStudioStore = create<StudioState>((set) => ({
   scrollSpeed: "normal",
   isRecording: false,
   recordingProgress: 0,
+
+  exportToast: null,
+  showExportHint: false,
+  setExportToast: (message) => set({ exportToast: message }),
+  setShowExportHint: (show) => set({ showExportHint: show }),
 
   // Canvas setters
   setPadding: (v) => set({ padding: v }),

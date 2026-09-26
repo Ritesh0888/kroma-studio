@@ -102,11 +102,19 @@ export default function RaySoAlternativePage() {
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <StudioCTAButton
                 mode="code"
-                label="Try KromaStudio Free"
-                location="ray_so_hero_cta"
+                label="Open Code Screenshots"
+                location="ray_so_hero_cta_code"
                 className={landingCtaPrimary}
               >
-                Try KromaStudio Free
+                Open Code Screenshots
+              </StudioCTAButton>
+              <StudioCTAButton
+                mode="mockup"
+                label="Open Browser Mockups"
+                location="ray_so_hero_cta_mockup"
+                className={landingCtaSecondary}
+              >
+                Open Browser Mockups
               </StudioCTAButton>
               <TrackedExternalLink
                 href={VSCODE_MARKETPLACE_URL}
@@ -292,14 +300,24 @@ export default function RaySoAlternativePage() {
               ))}
             </div>
 
-            <StudioCTAButton
-              mode="code"
-              label="Try KromaStudio Free"
-              location="ray_so_comparison_cta"
-              className={`${landingCtaPrimary} w-fit`}
-            >
-              Try KromaStudio Free
-            </StudioCTAButton>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <StudioCTAButton
+                mode="code"
+                label="Open Code Screenshots"
+                location="ray_so_comparison_cta_code"
+                className={`${landingCtaPrimary} w-fit`}
+              >
+                Open Code Screenshots
+              </StudioCTAButton>
+              <StudioCTAButton
+                mode="mockup"
+                label="Open Browser Mockups"
+                location="ray_so_comparison_cta_mockup"
+                className={`${landingCtaSecondary} w-fit`}
+              >
+                Open Browser Mockups
+              </StudioCTAButton>
+            </div>
           </section>
 
           {/* Existing — Features + screenshot slots */}
@@ -470,14 +488,22 @@ export default function RaySoAlternativePage() {
                 </LandingInlineLink>
                 , and motion exports included.
               </p>
-              <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <StudioCTAButton
-                  mode="code"
-                  label="Start Creating Free"
-                  location="ray_so_pre_faq_cta"
+                  mode="mockup"
+                  label="Open Browser Mockups"
+                  location="ray_so_pre_faq_cta_mockup"
                   className={landingCtaPrimary}
                 >
-                  Start Creating Free
+                  Open Browser Mockups
+                </StudioCTAButton>
+                <StudioCTAButton
+                  mode="code"
+                  label="Open Code Screenshots"
+                  location="ray_so_pre_faq_cta_code"
+                  className={landingCtaSecondary}
+                >
+                  Open Code Screenshots
                 </StudioCTAButton>
                 <StudioCTAButton
                   mode="content"
@@ -547,14 +573,22 @@ export default function RaySoAlternativePage() {
               , or animated .webm code clips — without switching to a separate mockup
               or design tool.
             </p>
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <StudioCTAButton
-                mode="code"
-                label="Try KromaStudio Free"
-                location="ray_so_verdict_cta"
+                mode="mockup"
+                label="Open Browser Mockups"
+                location="ray_so_verdict_cta_mockup"
                 className={landingCtaPrimary}
               >
-                Try KromaStudio Free
+                Open Browser Mockups
+              </StudioCTAButton>
+              <StudioCTAButton
+                mode="code"
+                label="Open Code Screenshots"
+                location="ray_so_verdict_cta_code"
+                className={landingCtaSecondary}
+              >
+                Open Code Screenshots
               </StudioCTAButton>
               <TrackedLink
                 href="/how-it-works"

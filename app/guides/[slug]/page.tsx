@@ -5,6 +5,24 @@ import { landingBodyLg, landingEyebrow, landingH1 } from "@/lib/landing-ui";
 import { getGuideBySlug, getSortedGuides } from "@/lib/guides";
 import { createLandingMetadata } from "@/lib/landing-metadata";
 import { getArticleJsonLd } from "@/lib/json-ld";
+import { GuideStudioCTA } from "@/components/guides/GuideStudioCTA";
+import type { StudioMode } from "@/store/useStudioStore";
+
+function guidePrimaryMode(slug: string): StudioMode {
+  if (
+    slug.includes("browser-mockup") ||
+    slug.includes("product-hunt")
+  ) {
+    return "mockup";
+  }
+  return "code";
+}
+
+function guidePrimaryLabel(mode: StudioMode): string {
+  return mode === "mockup"
+    ? "Open Browser Mockup Generator"
+    : "Open Code Screenshot Generator";
+}
 
 export async function generateStaticParams() {
   const guides = getSortedGuides();
@@ -43,6 +61,7 @@ export default async function GuidePage({
   }
 
   const jsonLd = getArticleJsonLd(guide.metadata);
+  const primaryMode = guidePrimaryMode(slug);
 
   return (
     <>
@@ -67,6 +86,12 @@ export default async function GuidePage({
           <div className="prose prose-slate max-w-none">
             <MDXRemote source={guide.content} />
           </div>
+
+          <GuideStudioCTA
+            primaryMode={primaryMode}
+            primaryLabel={guidePrimaryLabel(primaryMode)}
+            location={`guide_${slug}`}
+          />
         </article>
       </LandingShell>
     </>

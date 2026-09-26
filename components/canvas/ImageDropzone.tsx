@@ -19,6 +19,7 @@ export function ImageDropzone() {
       if (!file.type.startsWith("image/")) return;
       track("image_upload", { method, file_type: file.type });
       trackFirstEdit("image_upload", { method, file_type: file.type });
+      useStudioStore.getState().setShowExportHint(true);
       const reader = new FileReader();
       reader.onload = (e) => {
         if (e.target?.result) {

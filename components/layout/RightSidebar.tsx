@@ -8,6 +8,7 @@ import { useVideoRecorder } from "@/hooks/useVideoRecorder";
 import { track } from "@/lib/analytics";
 import { AdZone } from "@/components/ads/AdZone";
 import { useAutoRefreshAds } from "@/hooks/useAutoRefreshAds";
+import { canExportPng, exportBlockedReason } from "@/lib/export-readiness";
 
 const SIDEBAR_TOP_AD_ID = "ad-right-sidebar-top";
 const SIDEBAR_BOTTOM_AD_ID = "ad-right-sidebar-bottom";
@@ -20,7 +21,10 @@ export function RightSidebar() {
   const animationPreset = useStudioStore((s) => s.animationPreset);
   const recordDuration = useStudioStore((s) => s.recordDuration);
   const mode = useStudioStore((s) => s.mode);
+  const codeContent = useStudioStore((s) => s.codeContent);
   const exportScale = useStudioStore((s) => s.exportScale);
+  const exportReady = canExportPng({ mode, uploadedImage, codeContent });
+  const exportBlockedMessage = exportBlockedReason({ mode, uploadedImage, codeContent });
   const setExportScale = useStudioStore((s) => s.setExportScale);
   const watermarkVisible = useStudioStore((s) => s.watermarkVisible);
   const setWatermarkVisible = useStudioStore((s) => s.setWatermarkVisible);
@@ -74,9 +78,9 @@ export function RightSidebar() {
         {/* Primary Export Button */}
         <button
           onClick={() => exportPng("desktop")}
-          disabled={isExporting}
+          disabled={isExporting || !exportReady}
           className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all relative overflow-hidden group ${
-            isExporting
+            isExporting || !exportReady
               ? "bg-[#1a0033] border border-neon-purple/30 text-neon-purple/60 cursor-not-allowed"
               : "bg-linear-to-r from-neon-purple to-neon-pink text-white hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-neon-purple/20"
           }`}
@@ -124,9 +128,9 @@ export function RightSidebar() {
           )}
         </button>
 
-        {!uploadedImage && (
+        {exportBlockedMessage && (
           <p className="text-[10px] text-[#3a3a3a] text-center mt-2">
-            Drop an image to get started
+            {exportBlockedMessage}
           </p>
         )}
 
@@ -151,7 +155,7 @@ export function RightSidebar() {
               track("export_transparent_png_click", { source: "desktop", mode });
               exportTransparentPng("desktop");
             }}
-            disabled={isExporting}
+            disabled={isExporting || !exportReady}
             className="mt-2 w-full py-2.5 px-4 rounded-xl font-semibold text-sm transition-all border border-border text-text-muted hover:border-neon-purple hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Export Transparent PNG
