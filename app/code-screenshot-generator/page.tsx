@@ -79,6 +79,11 @@ export default function CodeScreenshotGeneratorPage() {
                 Browser Mockups
               </TrackedLink>
             </div>
+
+            <ScreenshotFigure
+              src="/screenshots/code-mode-dark.png"
+              alt="Syntax-highlighted code screenshot with Dracula theme and gradient background"
+            />
           </div>
 
           {/* How it works */}
@@ -207,6 +212,27 @@ export default function CodeScreenshotGeneratorPage() {
                 </li>
               ))}
             </ul>
+          </section>
+
+          <section className={`${landingCardLg} gap-5`}>
+            <ScreenshotFigure
+              src="/screenshots/code-mode-dark.png"
+              alt="Polished code card exported from KromaStudio"
+            />
+            <div className="flex flex-col gap-3">
+              <h2 className={landingH2}>Paste code. Export PNG. Post.</h2>
+              <p className="text-sm leading-relaxed text-text-muted">
+                Pick a theme, add a gradient, and export at up to 4× — 100% in your browser.
+              </p>
+              <StudioCTAButton
+                mode="code"
+                label="Open Code Screenshot Generator"
+                location="code_landing_closing_cta"
+                className={`${landingCtaPrimary} w-fit`}
+              >
+                Open Code Screenshot Generator
+              </StudioCTAButton>
+            </div>
           </section>
 
           {/* FAQ */}

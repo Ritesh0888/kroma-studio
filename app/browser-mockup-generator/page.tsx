@@ -1,5 +1,6 @@
 import { LandingShell } from "@/components/layout/LandingShell";
 import { landingBadge, landingCard, landingCardLg, landingCtaPrimary, landingCtaSecondary, landingEyebrow, landingH1, landingH2, landingH3, landingProseLink } from "@/lib/landing-ui";
+import { ScreenshotFigure } from "@/components/landing/ScreenshotFigure";
 import { StudioCTAButton } from "@/components/ui/StudioCTAButton";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { getBrowserMockupJsonLd } from "@/lib/json-ld";
@@ -67,6 +68,11 @@ export default function BrowserMockupGeneratorPage() {
                 Code Screenshots
               </TrackedLink>
             </div>
+
+            <ScreenshotFigure
+              src="/screenshots/mockup-mode-macos.png"
+              alt="Browser mockup with macOS chrome and gradient background exported from KromaStudio"
+            />
           </div>
 
           {/* Browser frame styles */}
@@ -202,6 +208,27 @@ export default function BrowserMockupGeneratorPage() {
                 </li>
               ))}
             </ul>
+          </section>
+
+          <section className={`${landingCardLg} gap-5`}>
+            <ScreenshotFigure
+              src="/screenshots/mockup-mode-macos.png"
+              alt="High-resolution browser mockup ready to export as PNG"
+            />
+            <div className="flex flex-col gap-3">
+              <h2 className={landingH2}>Ready to wrap your screenshot?</h2>
+              <p className="text-sm leading-relaxed text-text-muted">
+                Open the mockup studio, drop your image, pick a frame, and export HD PNG — free, no sign-up.
+              </p>
+              <StudioCTAButton
+                mode="mockup"
+                label="Open Browser Mockup Generator"
+                location="mockup_landing_closing_cta"
+                className={`${landingCtaPrimary} w-fit`}
+              >
+                Open Browser Mockup Generator
+              </StudioCTAButton>
+            </div>
           </section>
 
           {/* FAQ */}

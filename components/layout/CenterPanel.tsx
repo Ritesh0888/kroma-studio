@@ -5,6 +5,7 @@ import { useStudioStore, ASPECT_RATIO_DIMENSIONS } from "@/store/useStudioStore"
 import { StudioCanvas } from "@/components/canvas/StudioCanvas";
 import { CanvasErrorBoundary } from "@/components/ui/CanvasErrorBoundary";
 import { RenderingOverlay } from "@/components/canvas/RenderingOverlay";
+import { ExportHintBanner } from "@/components/studio/ExportHintBanner";
 
 const FLUID_PREVIEW_DIMS = { width: 600, height: 600 } as const;
 
@@ -92,7 +93,7 @@ export function CenterPanel() {
       {/* Canvas viewport — dot grid, canvas scales to fit */}
       <div
         ref={viewportRef}
-        className="flex-1 flex items-center justify-center overflow-hidden min-h-0 p-3 md:p-6"
+        className="relative flex-1 flex items-center justify-center overflow-hidden min-h-0 p-3 md:p-6"
         style={{
           backgroundImage: "radial-gradient(circle, #1e1e1e 1px, transparent 1px)",
           backgroundSize: "24px 24px",
@@ -144,6 +145,7 @@ export function CenterPanel() {
             </div>
           </div>
         )}
+        <ExportHintBanner />
       </div>
 
       {/*

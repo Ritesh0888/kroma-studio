@@ -11,6 +11,7 @@ import { STUDIO_HERO_H1 } from "@/lib/site";
 import { WatermarkModal } from "@/components/modals/WatermarkModal";
 import { ExtensionHandoff } from "@/components/studio/ExtensionHandoff";
 import { StudioSessionAnalytics } from "@/components/analytics/StudioSessionAnalytics";
+import { ExportToast } from "@/components/ui/ExportToast";
 
 export function HomePage() {
   return (
@@ -58,6 +59,7 @@ export function HomePage() {
         <MobileControlSheet />
         <MobileAdFooter />
         <WatermarkModal />
+        <ExportToast />
       </main>
     </div>
   );

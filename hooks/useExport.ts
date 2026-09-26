@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toPng } from "html-to-image";
 import { useStudioStore } from "@/store/useStudioStore";
 import { createExportAttemptId, track } from "@/lib/analytics";
+import { canExportPng } from "@/lib/export-readiness";
 
 function isMobileDevice(): boolean {
   if (typeof navigator === "undefined") return false;
@@ -22,11 +23,21 @@ export function useExport() {
   const mode = useStudioStore((s) => s.mode);
   const contentTemplate = useStudioStore((s) => s.contentTemplate);
   const exportScale = useStudioStore((s) => s.exportScale);
+  const uploadedImage = useStudioStore((s) => s.uploadedImage);
+  const codeContent = useStudioStore((s) => s.codeContent);
+  const setExportToast = useStudioStore((s) => s.setExportToast);
+  const setShowExportHint = useStudioStore((s) => s.setShowExportHint);
   const [exportedImageUrl, setExportedImageUrl] = useState<string | null>(null);
 
   async function exportPng(source: ExportSource) {
     const node = document.getElementById("studio-canvas");
     if (!node) return;
+
+    if (!canExportPng({ mode, uploadedImage, codeContent })) {
+      return;
+    }
+
+    setShowExportHint(false);
 
     const exportAttemptId = createExportAttemptId();
     const attemptProps = {
@@ -76,6 +87,7 @@ export function useExport() {
         ...attemptProps,
         error: message,
       });
+      setExportToast("Export failed. Try again or lower the export scale.");
     } finally {
       setIsExporting(false);
     }

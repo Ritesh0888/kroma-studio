@@ -4,10 +4,15 @@ import Image from "next/image";
 import { useExport } from "@/hooks/useExport";
 import { useStudioStore } from "@/store/useStudioStore";
 import { ImageExportModal } from "@/components/ui/ImageExportModal";
+import { canExportPng } from "@/lib/export-readiness";
 
 export function MobileHeader() {
   const { exportPng, exportedImageUrl, clearExportedImage } = useExport();
   const isExporting = useStudioStore((s) => s.isExporting);
+  const mode = useStudioStore((s) => s.mode);
+  const uploadedImage = useStudioStore((s) => s.uploadedImage);
+  const codeContent = useStudioStore((s) => s.codeContent);
+  const exportReady = canExportPng({ mode, uploadedImage, codeContent });
 
   return (
     <>
@@ -32,9 +37,9 @@ export function MobileHeader() {
         {/* Export button */}
         <button
           onClick={() => exportPng("mobile")}
-          disabled={isExporting}
+          disabled={isExporting || !exportReady}
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-            isExporting
+            isExporting || !exportReady
               ? "bg-[#1a0033] text-[#a855f7]/50 border border-[#a855f7]/20"
               : "bg-gradient-to-r from-[#a855f7] to-[#ec4899] text-white shadow-md shadow-[#a855f7]/20 active:scale-95"
           }`}
